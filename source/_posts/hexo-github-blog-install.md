@@ -52,7 +52,7 @@ Hexo搭建教简单，参考[官方教程](https://hexo.io/docs/setup.html) 10�
 github 支持Webhook可以自动触发自己主机上的发布脚本，但仍需要自己维护主机，利用travis-ci可以消除这一依赖。
 
 完整教程参考: [用 Travis CI 自动部署 hexo](http://blog.acwong.org/2016/03/20/auto-deploy-hexo-with-travis-CI/)
-注: ssh-keygen -t rsa -C "youremail@example.com" -t id_rsa 通过-t命令指定保存到当前目录这个文件中。
+注: ssh-keygen -t rsa -C "youremail@example.com" -t id_rsa 通过-t命令指定保存为当前目录的id_rsa文件。
 
 附我的：   
 * 源码系统项目：https://github.com/vanjor/VanjorComWebsite
@@ -67,10 +67,6 @@ github 支持Webhook可以自动触发自己主机上的发布脚本，但仍需
 
 
 # 其他
-
-参考Hexo主题Next的 [文档](http://theme-next.iissnan.com/third-party-services.html) 集成支持了评论系统，统计分析，搜索，MathJax；
-
-参考 [Hexo的NexT主题个性化：添加文章阅读量](http://www.jeyzhang.com/hexo-next-add-post-views.html) 增加了文章统计
 
 其他一些细节优化见：[动动手指，NexT主题与Hexo更搭哦（基础篇）](http://www.arao.me/2015/hexo-next-theme-optimize-base/)
 
