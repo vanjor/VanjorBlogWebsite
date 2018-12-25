@@ -27,25 +27,25 @@ published: true
 第三阶段，觉得独立博客的管理太麻烦，最好在保留控制权的前提下，让别人来管，自己只负责写文章。
 
 # Hexo 安装
-其他只简单尝试过Jeky,  Hexo相比更易用，并利用YMAL配置保留较好的配置能力，详细比较见：[FarBox、Jekyll、Octopress、ghost、marboo、Hexo、Medium、Logdown、prose.io，这些博客程序有什么特点？](https://www.zhihu.com/question/21981094)
 
-Hexo搭建教简单，参考[官方教程] (https://hexo.io/docs/setup.html) 10分钟能出hello world, 支持本地利用nodejs起服务查看。
+其他只简单尝试过Jeky,  Hexo相比更易用，并利用YMAL配置保留较好的配置能力，详细比较见：[开源博客横向评测](https://www.zhihu.com/question/21981094)
 
-大致总结Hexo特点:
+Hexo搭建教简单，参考[官方教程](https://hexo.io/docs/setup.html) 10分钟能出hello world。
+
+个人大致总结Hexo特点:
 
 * 极易上手，几部命令完成
 * 单一配置文件_config.yml 易懂扩展性强
 * Hexo支持较好的部署功能，支持多种部署方式与多目标部署
 * 模板与插件丰富，安装方便。 官方网站已经有多达百种供选择
 
-
 # Github&Coding.net双线加速
+
 国内访问gitlub不太稳定，通过Hexo方便的支持双线同时发布，并通过dnspod的智能路由解析功能实现，国内访问到是coding.net托管的，国外访问的是github托管的。
 
 详细教程参考: [hexo同时托管到coding.net与github](https://segmentfault.com/a/1190000004548638)
 
 附我的hexo的[_config.yml](https://github.com/vanjor/VanjorBlogWebsite/blob/source/_config.yml)
-```
 
 # travis-ci自动部署发布文章
 
