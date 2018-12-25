@@ -3,7 +3,7 @@ node_js:
 - '7'
 branches:
   only:
-  - master
+  - source
 before_install:
 - openssl aes-256-cbc -K $encrypted_18857f0d2e78_key -iv $encrypted_18857f0d2e78_iv
   -in .travis/id_rsa.enc -out ~/.ssh/id_rsa -d
