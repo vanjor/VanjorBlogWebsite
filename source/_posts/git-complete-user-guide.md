@@ -349,3 +349,6 @@ git本身是一种去中心化的设计，可以无需中心代码仓库而工�
 # Git commit message 编写规范
 
 * [Commit message 和 Change log 编写指南](http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html)
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbMTczNjgyMTY5MF19
+-->
