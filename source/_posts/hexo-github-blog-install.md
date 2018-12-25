@@ -1,6 +1,6 @@
 ---
 title: 基于Hexo在Gitlab上搭建技术博客
-date: {}
+date: 2016-05-04T15:15:00.000Z
 tags:
   - hexo
   - gitlab
