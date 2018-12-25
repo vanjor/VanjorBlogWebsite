@@ -78,6 +78,9 @@ theme: next
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: git
+- type: git
   repo: git@github.com:vanjor/VanjorBlogWebsite.git
+  branch: master
+- type: git
+  repo: git@git.dev.tencent.com:vanjor/VanjorBlogWebsite.git
   branch: master
