@@ -1,9 +1,10 @@
 ---
-title: 基于Hexo在Gitlab上搭建技术博客
+title: 基于Hexo在Github上搭建技术博客
 date: 2016-05-04T15:15:00.000Z
 tags:
   - hexo
-  - gitlab
+  - github
+  - markdown
 categories: 最佳实践
 published: true
 ---
