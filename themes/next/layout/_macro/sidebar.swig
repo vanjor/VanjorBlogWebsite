@@ -26,7 +26,7 @@
         </ul>
       {% endif %}
 
-      <div class="site-overview-wrap sidebar-panel{% if not display_toc or toc(page.content).length <= 1 %} sidebar-panel-active{% endif %}">
+      <section class="site-overview-wrap sidebar-panel{% if not display_toc or toc(page.content).length <= 1 %} sidebar-panel-active{% endif %}">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             {% if theme.avatar.url %}
@@ -150,11 +150,11 @@
           {% endif %}
           {% include custom_sidebar %}
         </div>
-      </div>
+      </section>
 
       {% if display_toc and toc(page.content).length > 1 %}
       <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
 
             {% if page.toc_number === undefined %}
@@ -170,7 +170,7 @@
             {% endif %}
 
           </div>
-        </div>
+        </section>
       <!--/noindex-->
       {% endif %}
 

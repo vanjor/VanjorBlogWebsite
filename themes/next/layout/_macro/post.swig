@@ -46,8 +46,7 @@
                 </span>
               {% endif %}
               {% set postTitleIcon = '<i class="fa fa-external-link"></i>' %}
-              {% set postText = post.title or post.link %}
-              {{ next_url(post.link, postText + postTitleIcon, {class: 'post-title-link post-title-link-external', itemprop: 'url' }) }}
+              {{ next_url(url_for(post.link), (post.title or post.link) + postTitleIcon, {class: 'post-title-link post-title-link-external', itemprop: 'url' }) }}
             {% else %}{#
             #}{% if is_index %}
                 {% if post.sticky > 0 %}
@@ -56,10 +55,13 @@
                   </span>
                 {% endif %}
                 {# Need to delete maybe? #}
-                {{ next_url(post.path, post.title | default(__('post.untitled')), {class: 'post-title-link', itemprop: 'url' }) }}
+                {{ next_url(url_for(post.path), post.title | default(__('post.untitled')), {class: 'post-title-link', itemprop: url }) }}
               {% else -%}
                 {{- post.title -}}
-                {% include '../_partials/post-edit.swig' %}
+                {% if theme.post_edit.enable -%}
+                  {% set editIcon = '<i class="fa fa-pencil"></i>' -%}
+                  {{ next_url(theme.post_edit.url + post.source.slice(7), editIcon, {class: 'post-edit-link', title: __('post.edit') }) }}
+                {%- endif %}
               {% endif %}
             {% endif %}
           </{% if theme.seo %}h2{% else %}h1{% endif %}>
@@ -344,7 +346,7 @@
     </div>
 
     {% if theme.related_posts.enable and (theme.related_posts.display_in_home or not is_index) %}
-      {% include '../_partials/post/post-related.swig' with { post: post } %}
+      {% include 'post-related.swig' with { post: post } %}
     {% endif %}
 
     {#####################}
@@ -353,24 +355,24 @@
 
     {% if theme.wechat_subscriber.enabled and not is_index %}
       <div>
-        {% include '../_partials/post/wechat-subscriber.swig' %}
+        {% include 'wechat-subscriber.swig' %}
       </div>
     {% endif %}
 
     {% if page.reward === undefined and theme.reward.enable %}
-      {% set reward_able = true %}
+      {% set reward_able = true %} 
     {% else %}
-      {% set reward_able = page.reward %}
+      {% set reward_able = page.reward %} 
     {% endif %}
     {% if reward_able and (theme.reward.alipay or theme.reward.wechatpay or theme.reward.bitcoin) and not is_index %}
       <div>
-        {% include '../_partials/post/reward.swig' %}
+        {% include 'reward.swig' %}
       </div>
     {% endif %}
 
     {% if theme.creative_commons.license and theme.creative_commons.post and not is_index %}
       <div>
-        {% include '../_partials/post/post-copyright.swig' with { post: post } %}
+        {% include '../_partials/post-copyright.swig' with { post: post } %}
       </div>
     {% endif %}
 

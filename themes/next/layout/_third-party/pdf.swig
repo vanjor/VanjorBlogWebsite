@@ -11,8 +11,8 @@
   {% endif %}
 
   {% if not theme.pdf.per_page or (is_index_has_pdf or page.pdf) %}
-    <script src="{{ theme.pdf.pdfobject.cdn }}"></script>
-    <script>
+    <script type="text/javascript" src="{{ theme.pdf.pdfobject.cdn }}"></script>
+    <script type="text/javascript">
     var options = {
       pdfOpenParams: {
         navpanes: 0,

@@ -5,10 +5,10 @@
   {% endif %}
 
   {% if page.comments %}
-    <script>
+    <script type="text/javascript">
       var disqus_config = function () {
-        this.page.url = {{ page.permalink | json }};
-        this.page.identifier = {{ page.path | json }};
+        this.page.url = '{{ page.permalink }}';
+        this.page.identifier = '{{ page.path }}';
         this.page.title = '{{ page.title| addslashes }}';
         {% if __('disqus') !== 'disqus' -%}
           this.language = '{{ __('disqus') }}';

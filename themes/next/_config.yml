@@ -95,7 +95,7 @@ footer:
 
   # -------------------------------------------------------------
   # Any custom text can be defined here.
-  #custom_text: Hosted by <a href="https://pages.coding.me" class="theme-link" rel="noopener" target="_blank">Coding Pages</a>
+  #custom_text: Hosted by <a target="_blank" rel="external nofollow" href="https://pages.coding.me"><b>Coding Pages</b></a>
 
 # Creative Commons 4.0 International License.
 # https://creativecommons.org/share-your-work/licensing-types-examples
@@ -326,7 +326,7 @@ reward:
   #comment: Donate comment here
   #wechatpay: /images/wechatpay.jpg
   #alipay: /images/alipay.jpg
-  #bitcoin: /images/bitcoin.jpg
+  #bitcoin: /images/bitcoin.png
 
 # Related popular posts
 # Dependencies: https://github.com/tea3/hexo-related-popular-posts
@@ -353,9 +353,6 @@ post_edit:
 # Misc Theme Settings
 # ---------------------------------------------------------------
 
-# Disable Baidu tranformation on mobile devices.
-disable_baidu_tranformation: false
-
 # Reduce padding / margin indents on devices with narrow width.
 mobile_layout_economy: false
 
@@ -363,7 +360,7 @@ mobile_layout_economy: false
 android_chrome_color: "#222"
 
 # Custom Logo.
-# Do not support Scheme Mist currently.
+# !!Only available for Default Scheme currently.
 # Options:
 #   enabled: [true/false] - Replace with specific image
 #   image: url-of-image   - Images's url
@@ -442,7 +439,7 @@ font:
 
 # Math Equations Render Support
 math:
-  enable: true
+  enable: false
 
   # Default(true) will load mathjax/katex script on demand
   # That is it only render those page who has 'mathjax: true' in Front Matter.
@@ -500,7 +497,7 @@ pangu: false
 #swiftype_key:
 
 # Baidu Analytics ID
-baidu_analytics: c499f44d51cdf8aa243a350496b59f23
+#baidu_analytics:
 
 # Growingio Analytics ID
 # Copyright 2015-2018 GrowingIO, Inc. More info available at http://www.growingio.com
@@ -509,7 +506,7 @@ baidu_analytics: c499f44d51cdf8aa243a350496b59f23
 # Disqus
 disqus:
   enable: false
-  shortname: vanjor
+  shortname:
   count: true
   lazyload: false
 
@@ -555,7 +552,7 @@ gitment:
   proxy_gateway: # Address of api proxy, See: https://github.com/aimingoo/intersect
   redirect_protocol: # Protocol of redirect_uri with force_redirect_protocol when mint enabled
 
-# Gitalk
+# Gitalk 
 # Demo: https://gitalk.github.io
 # Reference: https://asdfv1929.github.io/2018/01/20/gitalk/, https://liujunzhou.cn/2018/8/10/gitalk-error/#more
 gitalk:
@@ -672,8 +669,8 @@ rating:
 # You can visit https://leancloud.cn get AppID and AppKey.
 leancloud_visitors:
   enable: true
-  appid: P9UDHn4P9cSCIXOdL1UGwCNf-gzGzoHsz # your leancloud application appid
-  appkey: YbI4jqWtf92Mj3ttovhYd2Rs # your leancloud application appkey
+  app_id: P9UDHn4P9cSCIXOdL1UGwCNf-gzGzoHsz # your leancloud application appid
+  app_key: YbI4jqWtf92Mj3ttovhYd2Rs # your leancloud application appkey
   # Dependencies: https://github.com/theme-next/hexo-leancloud-counter-security
   # If you don't care about security in lc counter and just want to use it directly
   # (without hexo-leancloud-counter-security plugin), set the `security` to `false`.
@@ -703,10 +700,10 @@ busuanzi_count:
 
 
 # Tencent analytics ID
-#tencent_analytics:
+# tencent_analytics:
 
 # Tencent MTA ID
-#tencent_mta:
+# tencent_mta:
 
 
 # Enable baidu push so that the blog will push the url to baidu automatically which is very helpful for SEO
@@ -846,9 +843,19 @@ lazyload: false
 # Dependencies: https://github.com/theme-next/theme-next-pace
 pace: false
 # Themes list:
-# pace-theme-big-counter | pace-theme-bounce | pace-theme-barber-shop | pace-theme-center-atom
-# pace-theme-center-circle | pace-theme-center-radar | pace-theme-center-simple | pace-theme-corner-indicator
-# pace-theme-fill-left | pace-theme-flash | pace-theme-loading-bar | pace-theme-mac-osx | pace-theme-minimal
+#pace-theme-big-counter
+#pace-theme-bounce
+#pace-theme-barber-shop
+#pace-theme-center-atom
+#pace-theme-center-circle
+#pace-theme-center-radar
+#pace-theme-center-simple
+#pace-theme-corner-indicator
+#pace-theme-fill-left
+#pace-theme-flash
+#pace-theme-loading-bar
+#pace-theme-mac-osx
+#pace-theme-minimal
 # For example
 # pace_theme: pace-theme-center-simple
 pace_theme: pace-theme-minimal
@@ -996,7 +1003,7 @@ vendors:
 
   # Internal version: 3.3.0
   # See: https://github.com/ethantw/Han
-  han:
+  Han:
 
   # Internal version: 3.3.0
   # See: https://github.com/vinta/pangu.js
@@ -1034,15 +1041,15 @@ vendors:
 
   # Internal version: 1.4.0
   # See: https://github.com/gitalk/gitalk
-  # Example:
+  # Examples:
   # gitalk_js: https://cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.js
   # gitalk_css: https://cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.css
   gitalk_js:
   gitalk_css:
 
   # Internal version: 0.7.3
-  # See: https://github.com/emn178/js-md5
-  # Example:
+  # See: https://github.com/emn178/js-md5/
+  # Example: 
   # md5: https://cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js
   md5:
 

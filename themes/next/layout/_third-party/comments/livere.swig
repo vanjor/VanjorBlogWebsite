@@ -1,7 +1,7 @@
 {% if not (theme.disqus.enable and theme.disqus.shortname) %}
 
   {% if page.comments and theme.livere_uid %}
-    <script>
+    <script type="text/javascript">
       window.livereOptions = {
         refer: '{{ page.path }}'
       };

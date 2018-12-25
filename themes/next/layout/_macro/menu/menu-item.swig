@@ -1,10 +1,7 @@
 {% macro render(name, value) %}
 {% import 'menu-badge.swig' as menu_badge %}
 
-  {% set itemURL = value.split('||')[0] | trim %}
-  {% if itemURL.indexOf('http') != 0 %}
-    {% set itemURL = itemURL | replace('//', '/', 'g') %}
-  {% endif %}
+  {% set itemURL = value.split('||')[0] | replace('//', '/', 'g') | trim %}
   <li class="menu-item menu-item-{{ itemName | replace(' ', '-', 'g') }}{{ item_active(itemURL, 'menu-item-active') }}">
 
     {% set menuText = __('menu.' + name ) | replace('menu.', '') %}
