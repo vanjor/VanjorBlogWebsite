@@ -1,0 +1,11 @@
+_Store
+.dropbox
+Thumbs.db
+db.json
+.idea
+*.log
+node_modules/
+public/
+.deploy*/
+package-lock.json
+
