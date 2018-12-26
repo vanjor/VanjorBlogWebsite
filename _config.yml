@@ -84,3 +84,10 @@ deploy:
 - type: git
   repo: git@git.dev.tencent.com:vanjor/VanjorBlogWebsite.git
   branch: master
+
+# external extend https://github.com/theme-next/hexo-symbols-count-time
+symbols_count_time:
+  symbols: true
+  time: true
+  total_symbols: true
+  total_time: true
