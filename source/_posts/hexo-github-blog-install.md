@@ -33,6 +33,7 @@ published: true
 第三阶段，觉得独立博客的管理太麻烦，最好在保留控制权的前提下，让别人来管，自己只负责写文章。
 
 # Hexo 安装
+
 Hexo搭建教简单，参考[官方教程](https://hexo.io/docs/setup.html) 10分钟能出hello world。
 
 个人大致总结Hexo特点:

@@ -1,5 +1,5 @@
 ---
-title: Arifact打包版本管理
+title: 基于Maven的Java包版本管理
 date: 2016-10-20 10:00:00
 tags:
   - java
@@ -8,6 +8,7 @@ tags:
   - release
 categories: 知识积累
 ---
+![maven logo](https://ws3.sinaimg.cn/large/006tNbRwly1fyk9jm52b3j30zk085dfw.jpg)
 
 Java打包与依赖奠定了软件包发布与版本管理的依赖的一个业界规范。
 

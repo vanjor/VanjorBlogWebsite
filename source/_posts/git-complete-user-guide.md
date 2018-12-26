@@ -1,11 +1,12 @@
 ---
-title: Git入门完全指南
+title: Git学习指南
 date: 2016-05-06 17:15:00
 tags:
   - git
 categories: 最佳实践
 ---
-![article-logo](https://o6mq6uqzy.qnssl.com/blog/image/atlassian-getting-git-right.jpg)
+
+![article-logo](https://ws1.sinaimg.cn/large/006tNbRwly1fyk93b0u54j30xc0hi759.jpg)
 
 <!-- more -->
 
@@ -17,19 +18,21 @@ Git作为一种分布式代码仓库，便在设计上区别与SVN
 
 ### simplest
 
-![git workflow basic](https://o6mq6uqzy.qnssl.com/blog/image/git-basic-workflow.png)
+![git workflow basic](https://ws4.sinaimg.cn/large/006tNbRwly1fyk93ufs6oj30uy0k5757.jpg)
 
 ### detailer
 
-![git workflow complex](https://www.sonassi.com/media/catalog/2012/07/git_index_structure.png)
+![git workflow complex](https://ws2.sinaimg.cn/large/006tNbRwly1fyk94abf3wj30dm0b0dft.jpg)
 
 ### comprehension
 
-![git-data-transport-commands-flow](https://o6mq6uqzy.qnssl.com/blog/image/git-data-transport-commands-flow.png)
+![complex workflow](http://pkc3zeso7.bkt.clouddn.com/blog/images/2018-12-26-git-data-transport-commands-flow.png)
 
 ### multiple remote repos
 
-![git-supervisual-cheatsheet](https://o6mq6uqzy.qnssl.com/blog/image/git-supervisual-cheatsheet.png)
+![multiple remote repos](https://ws2.sinaimg.cn/large/006tNbRwly1fyk963sdybj30sg0r4tak.jpg)
+
+### 扩展参考
 
 * [git - 简明指南](http://rogerdudler.github.io/git-guide/index.zh.html)
 * [Our Magento Git Guide and Work Flow](https://www.sonassi.com/blog/knowledge-base/our-magento-git-guide-and-work-flow)
@@ -81,7 +84,7 @@ $ git add --all
 # 删除[递归]指定workspace文件或目录
 $ git rm [-r] [file1] [file2]
 
-# 停止追踪指定文件，git add的反向操作 
+# 停止追踪指定文件，git add的反向操作
 $ git rm --cached [file]
 ```
 
@@ -94,7 +97,7 @@ $ git commit -m [message]
 # 自动stage哪些已经被修改或删除的文件（新增文件无效）, 一并提交到本地仓库
 $ git commit -am [message]
 
-# 使用一次新的commit，替代上一次提交，并包含当前stage的变更 
+# 使用一次新的commit，替代上一次提交，并包含当前stage的变更
 $ git commit --amend -m [message]
 ```
 
@@ -183,7 +186,7 @@ $ git checkout [file]
 # 恢复暂存区的所有文件到工作区
 $ git checkout .
 
-# 重置暂存区的指定文件，与上一次commit保持一致，但工作区不变， git add 逆向操作, 
+# 重置暂存区的指定文件，与上一次commit保持一致，但工作区不变， git add 逆向操作
 $ git reset [file]
 
 # 重置暂存区与工作区，与上一次commit保持一致
@@ -316,7 +319,7 @@ $ git help
 
 ## Git cheat sheet
 
-![git cheat sheet](https://o6mq6uqzy.qnssl.com/blog/image/git-cheat-sheet.png)
+![git-cheatsheet](https://ws2.sinaimg.cn/large/006tNbRwly1fyk97sbhsxj30sg0kddij.jpg)
 
 # Git 深入学习
 
@@ -325,8 +328,8 @@ $ git help
 svn主要有revert，而git有三个，
 
  git reset用于撤销未被提交到远端的改动。除了可以移动当前分支的HEAD，你可以通过不同的标记选择修改 staged snapshot 或者 working directory
- 
-* --soft： staged snapshot 和 working directory 都未被改变 (建议在命令行执行后，再输入 git status 查看状态) 
+
+* --soft： staged snapshot 和 working directory 都未被改变 (建议在命令行执行后，再输入 git status 查看状态)
 * --mixed： staged snapshot 被更新， working directory 未被更改。【这是默认选项】（建议同上)
 * --hard： staged snapshot 和 working directory 都将回退。
 

@@ -176,11 +176,11 @@ site_state: true
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, globe icon will be loaded.
 social:
   GitHub: https://github.com/vanjor || github
-  E-Mail: mailto:vanjor2008@gmail.com || envelope
+  Mail: mailto:vanjor2008@gmail.com || envelope
   Weibo: https://weibo.com/vanjor || weibo
-  Twitter: https://twitter.com/vanjor || twitter
+  # Twitter: https://twitter.com/vanjor || twitter
   Facebook: https://www.facebook.com/vanjor || facebook
-  StackOverflow: https://stackoverflow.com/vanjor || stack-overflow
+  StackOverflow: https://stackoverflow.com/users/2273014/vanjor || stack-overflow
 
 social_icons:
   enable: true
