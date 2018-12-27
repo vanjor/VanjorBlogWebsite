@@ -23,7 +23,7 @@ published: true
 * 自动部署: [travis-ci](https://travis-ci.org) 持续集成自动部署
 * 写作编辑: [vscode](https://code.visualstudio.com) + [prose](https://prose.io) 离线&在线写作
 * 图片工具: [iPic](https://itunes.apple.com/cn/app/ipic-markdown-图床-文件上传工具/id1101244278) 图床管理
-* 评论&阅读数统计: [leancloud](https://leancloud.cn) 基于 next 的valine 插件实现
+* 评论&阅读数统计: [leancloud](https://leancloud.cn) 基于 next 的valine 插件实现
 
 <!--more-->
 
