@@ -26,7 +26,7 @@ Git作为一种分布式代码仓库，便在设计上区别与SVN
 
 ### comprehension
 
-![complex workflow](http://pkc3zeso7.bkt.clouddn.com/blog/images/2018-12-26-git-data-transport-commands-flow.png)
+![complex workflow](https://ws4.sinaimg.cn/large/006tNbRwly1fyl9gxi6mhj30sg0ift9c.jpg)
 
 ### multiple remote repos
 
