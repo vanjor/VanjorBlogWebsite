@@ -13,16 +13,16 @@ published: true
 
 # 序
 
-选型配置如下:
+选型配置如下:
 
-* 博客语言：[Markdown](http://wowubuntu.com/markdown/) 可移植跨平台
-* 博客程序：[Hexo](https://hexo.io)
-* 博客主题：[NexT](https://theme-next.org) 
-* 静态博客托管：[Github](https://github.com/)+[Coding.net](https://coding.net/) 双线托管
+* 博客语言: [Markdown](http://wowubuntu.com/markdown/) 可移植跨平台
+* 博客程序: [Hexo](https://hexo.io)
+* 博客主题: [NexT](https://theme-next.org)
+* 静态博客托管: [Github](https://github.com) + [Coding.net](https://coding.net) 双线托管
 * 域名DNS: [Aliyun](https://www.aliyun.cn/) 双线解析
-* 自动部署：[travis-ci](https://travis-ci.org) 持续集成自动部署
-* 写作编辑: [vscode](https://code.visualstudio.com) + [prose](https://prose.io)   离线&在线写作
-* 图片工具: [iPic](https://itunes.apple.com/cn/app/ipic-markdown-图床-文件上传工具/id1101244278) 图床管理
+* 自动部署: [travis-ci](https://travis-ci.org) 持续集成自动部署
+* 写作编辑: [vscode](https://code.visualstudio.com) + [prose](https://prose.io) 离线&在线写作
+* 图片工具: [iPic](https://itunes.apple.com/cn/app/ipic-markdown-图床-文件上传工具/id1101244278) 图床管理
 
 <!--more-->
 
@@ -62,10 +62,10 @@ Github支持Webhook可以自动触发自己主机上的发布脚本，但仍需�
 
 附本博客:
 
-* 源码系统项目：<https://github.com/vanjor/VanjorComWebsite>
+* 源码系统项目: <https://github.com/vanjor/VanjorComWebsite>
   * branch: source as default branch is the source code
   * branch: master retain the compiled website code serve as Github Page service
-* travis-ci自动编译部署历史：<https://travis-ci.org/vanjor/VanjorBlogWebsite>
+* travis-ci自动编译部署历史: <https://travis-ci.org/vanjor/VanjorBlogWebsite>
 
 # 其他
 
