@@ -372,7 +372,7 @@ git本身是一种去中心化的设计，可以无需中心代码仓库而工�
 
 # Git 开发流程与规范
 
-![enter link description here](http://nvie.com/img/git-model@2x.png)
+![A successful Git branching model](https://ws2.sinaimg.cn/large/006tNbRwly1fylpkjyx4uj30u013rwhl.jpg)
 
 * [A successful Git branching model](http://nvie.com/posts/a-successful-git-branching-model/)
 * [Git 分支管理策略](http://www.ruanyifeng.com/blog/2012/07/git.html)
