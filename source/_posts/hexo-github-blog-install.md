@@ -89,7 +89,7 @@ Github支持Webhook可以自动触发自己主机上的发布脚本，但仍需�
 * local_search 搜索
 * math公式支持
 * han + pangu 文章编排美化
-* 百度统计  [依赖三方网络服务]
+* 百度+谷歌统计分析  [依赖三方网络服务]
 * fancybox 图片相册支持
 * pace 加载进度条
 * post_edit 显示文章源码link
@@ -98,5 +98,4 @@ Github支持Webhook可以自动触发自己主机上的发布脚本，但仍需�
 * 增加 tags, categories, archieves, about 四个子页面
 * 开启social 社交网站链接
 * Hexo 特有的 Tags Settings (开启，但暂没使用需要进一步评估)
-* 增加百度谷歌访问分析
 * 增加了 robots 协议
