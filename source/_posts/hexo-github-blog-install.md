@@ -68,7 +68,7 @@ Github支持Webhook可以自动触发自己主机上的发布脚本，但仍需�
   * branch: master retain the compiled website code serve as Github Page service
 * travis-ci自动编译部署历史: <https://travis-ci.org/vanjor/VanjorBlogWebsite>
 
-# 博客的详细配置变更
+# 博客的详细配置变更
 
 对 hexo 定制化过的文件
 
@@ -84,7 +84,7 @@ Github支持Webhook可以自动触发自己主机上的发布脚本，但仍需�
 
 开启的的功能列表:
 
-* valine + leancloud_visitors基于 leancloud 的评论与阅读数统计 [依赖三方网络服务]
+* valine + leancloud_visitors基于 leancloud 的评论与阅读数统计 [依赖三方网络服务]
 * RSS
 * local_search 搜索
 * math公式支持
