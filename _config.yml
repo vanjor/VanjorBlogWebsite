@@ -6,7 +6,7 @@
 title: Vanjor's Blog
 subtitle: notes
 description: Vanjor personal tech blog
-keywords:
+keywords: Java, Big Data, ML, NLP, Web Service, Vanjor
 author: vanjor
 language: zh-CN
 timezone:
@@ -91,3 +91,10 @@ symbols_count_time:
   time: true
   total_symbols: true
   total_time: true
+
+# external extend local search https://theme-next.org/docs/third-party-services/search-services/
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000  

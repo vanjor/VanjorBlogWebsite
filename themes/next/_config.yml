@@ -66,26 +66,26 @@ footer:
   icon:
     # Icon name in fontawesome, see: https://fontawesome.com/v4.7.0/icons
     # `heart` is recommended with animation in red (#ff0000).
-    name: user
+    name: heart
     # If you want to animate the icon, set it to true.
-    animated: false
+    animated: true
     # Change the color of icon, using Hex Code.
-    color: "#808080"
+    color: "#ff0000"
 
   # If not defined, will be used `author` from Hexo main config.
   copyright:
   # -------------------------------------------------------------
   powered:
     # Hexo link (Powered by Hexo).
-    enable: true
+    enable: false
     # Version info of Hexo after Hexo link (vX.X.X).
-    version: true
+    version: false
 
   theme:
     # Theme & scheme info link (Theme - NexT.scheme).
-    enable: true
+    enable: false
     # Version info of NexT after scheme info (vX.X.X).
-    version: true
+    version: false
   # -------------------------------------------------------------
   # Beian icp information for Chinese users. In China, every legal website should have a beian icp in website footer.
   # http://www.miitbeian.gov.cn
@@ -140,7 +140,7 @@ menu:
   home: / || home
   about: /about/ || user
   tags: /tags/ || tags
-  #categories: /categories/ || th
+  categories: /categories/ || th
   archives: /archives/ || archive
   #schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
@@ -149,7 +149,7 @@ menu:
 # Enable/Disable menu icons / item badges.
 menu_settings:
   icons: true
-  badges: false
+  badges: true
 
 # ---------------------------------------------------------------
 # Scheme Settings
@@ -184,8 +184,8 @@ social:
 
 social_icons:
   enable: true
-  icons_only: false
-  transition: false
+  icons_only: true
+  transition: true
 
 # Follow me on GitHub banner in right-top corner.
 # Usage: `permalink || title`
@@ -249,10 +249,10 @@ sidebar:
   offset: 12
 
   # Back to top in sidebar (only for Pisces | Gemini).
-  b2t: false
+  b2t: true
 
   # Scroll percent label in b2t button.
-  scrollpercent: false
+  scrollpercent: true
 
   # Enable sidebar on narrow view (only for Muse | Mist).
   onmobile: false
@@ -263,7 +263,7 @@ sidebar:
 # ---------------------------------------------------------------
 
 # Automatically scroll page to section which is under <!-- more --> mark.
-scroll_to_more: true
+scroll_to_more: false
 
 # Automatically saving scroll position on each post/page in cookies.
 save_scroll: false
@@ -308,9 +308,9 @@ codeblock:
   border_radius:
   # Add copy button on codeblock
   copy_button:
-    enable: false
+    enable: true
     # Show text copy result
-    show_result: false
+    show_result: true
 
 # Wechat Subscriber
 #wechat_subscriber:
@@ -331,11 +331,11 @@ reward:
 # Related popular posts
 # Dependencies: https://github.com/tea3/hexo-related-popular-posts
 related_posts:
-  enable: false
+  enable: true
   title: # custom header, leave empty to use the default one
   display_in_home: false
   params:
-    maxCount: 5
+    maxCount: 2
     #PPMixingRate: 0.0
     #isDate: false
     #isImage: false
@@ -354,7 +354,7 @@ post_edit:
 # ---------------------------------------------------------------
 
 # Reduce padding / margin indents on devices with narrow width.
-mobile_layout_economy: false
+mobile_layout_economy: true
 
 # Android Chrome header panel color ($brand-bg / $headband-bg => $black-deep).
 android_chrome_color: "#222"
@@ -439,7 +439,7 @@ font:
 
 # Math Equations Render Support
 math:
-  enable: false
+  enable: true
 
   # Default(true) will load mathjax/katex script on demand
   # That is it only render those page who has 'mathjax: true' in Front Matter.
@@ -486,18 +486,18 @@ pdf:
 
 # Han Support
 # Dependencies: https://github.com/theme-next/theme-next-han
-han: false
+han: true
 
 # Pangu Support
 # Dependencies: https://github.com/theme-next/theme-next-pangu
 # For more information: https://github.com/vinta/pangu.js
-pangu: false
+pangu: true
 
 # Swiftype Search API Key
 #swiftype_key:
 
 # Baidu Analytics ID
-#baidu_analytics:
+baidu_analytics: c499f44d51cdf8aa243a350496b59f23
 
 # Growingio Analytics ID
 # Copyright 2015-2018 GrowingIO, Inc. More info available at http://www.growingio.com
@@ -525,8 +525,8 @@ valine:
   appid: P9UDHn4P9cSCIXOdL1UGwCNf-gzGzoHsz # your leancloud application appid
   appkey: YbI4jqWtf92Mj3ttovhYd2Rs # your leancloud application appkey
   notify: false # mail notifier , https://github.com/xCss/Valine/wiki
-  verify: false # Verification code
-  placeholder: Just go go # comment box placeholder
+  verify: true # Verification code
+  placeholder: Write for your comments here # comment box placeholder
   avatar: mm # gravatar style
   guest_info: nick,mail,link # custom comment header
   pageSize: 10 # pagination size
@@ -607,7 +607,7 @@ needmoreshare2:
 #google_site_verification:
 
 # Google Analytics
-#google_analytics:
+# google_analytics:
 
 # Bing Webmaster tools verification setting
 # See: https://www.bing.com/webmaster
@@ -743,15 +743,17 @@ algolia_search:
 
 # Local search
 # Dependencies: https://github.com/theme-next/hexo-generator-searchdb
+# current search is not work
 local_search:
   enable: false
+
   # if auto, trigger search by changing input
   # if manual, trigger search by pressing enter key or search button
   trigger: auto
   # show top n results per article, show all results by setting to -1
   top_n_per_article: 1
   # unescape html strings to the readable one
-  unescape: false
+  unescape: true
 
 # Bookmark Support
 # Dependencies: https://github.com/theme-next/theme-next-bookmark
@@ -775,8 +777,8 @@ note:
   #  - modern    bs-callout new (v2-v3) alert style.
   #  - flat      flat callout style with background, like on Mozilla or StackOverflow.
   #  - disabled  disable all CSS styles import of note tag.
-  style: simple
-  icons: false
+  style: modern
+  icons: true
   border_radius: 3
   # Offset lighter of background in % for modern and flat styles (modern: -12 | 12; flat: -18 | 6).
   # Offset also applied to label tag variables. This option can work with disabled note tag.
@@ -829,7 +831,7 @@ motion:
 # Please, choose only any one variant, do not need to install both.
 # For install 2.x: https://github.com/theme-next/theme-next-fancybox
 # For install 3.x: https://github.com/theme-next/theme-next-fancybox3
-fancybox: false
+fancybox: true
 
 # Added switch option for separated repo in 6.0.0.
 # Dependencies: https://github.com/theme-next/theme-next-fastclick
@@ -841,7 +843,7 @@ lazyload: false
 
 # Progress bar in the top during page loading.
 # Dependencies: https://github.com/theme-next/theme-next-pace
-pace: false
+pace: true
 # Themes list:
 #pace-theme-big-counter
 #pace-theme-bounce
@@ -858,7 +860,7 @@ pace: false
 #pace-theme-minimal
 # For example
 # pace_theme: pace-theme-center-simple
-pace_theme: pace-theme-minimal
+pace_theme: pace-theme-flash
 
 # Canvas-nest
 # Dependencies: https://github.com/theme-next/theme-next-canvas-nest
