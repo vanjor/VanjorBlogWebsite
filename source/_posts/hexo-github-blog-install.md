@@ -23,6 +23,7 @@ published: true
 * 自动部署: [travis-ci](https://travis-ci.org) 持续集成自动部署
 * 写作编辑: [vscode](https://code.visualstudio.com) + [prose](https://prose.io) 离线&在线写作
 * 图片工具: [iPic](https://itunes.apple.com/cn/app/ipic-markdown-图床-文件上传工具/id1101244278) 图床管理
+* 评论&阅读数统计: [leancloud](https://leancloud.cn) 基于 next 的valine 插件实现
 
 <!--more-->
 
@@ -67,8 +68,33 @@ Github支持Webhook可以自动触发自己主机上的发布脚本，但仍需�
   * branch: master retain the compiled website code serve as Github Page service
 * travis-ci自动编译部署历史: <https://travis-ci.org/vanjor/VanjorBlogWebsite>
 
-# 其他
+# 博客的详细配置变更
 
-# 附
+对 hexo 定制化过的文件
 
-* Logo图片来源: <http://wsgzao.github.io/post/hexo-guide/>
+* source 文档及一些图片资源
+* _config.yml hexo 的配置
+* package.json hexo 依赖
+* themes/next/source/lib 扩展包安装
+* themes/next/_config.yml 主体配置
+* .travis.yml travis CI 配置
+* .travis travis 所需 ssh key token 配置
+* .gitignore git 所需
+* README.md 文档
+
+开启的的功能列表:
+
+* valine + leancloud_visitors基于 leancloud 的评论与阅读数统计 [依赖三方网络服务]
+* RSS
+* local_search 搜索
+* math公式支持
+* han + pangu 文章编排美化
+* 百度统计  [依赖三方网络服务]
+* fancybox 图片相册支持
+* pace 加载进度条
+* post_edit 显示文章源码link
+* symbols_count_time 字数鱼阅读时长显示
+* icon 更新页底copyright信息
+* 增加 tags, categories, archieves, about 四个子页面
+* 开启social 社交网站链接
+* Hexo 特有的 Tags Settings (开启，但暂没使用需要进一步评估)
