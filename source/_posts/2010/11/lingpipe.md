@@ -4,7 +4,8 @@ date: 2010-11-08 20:00:00
 updated: 2010-11-08 20:00:00
 categories: 知识积累
 tags:
-  - machine learning
+  - Machine Learning
+  - NLU
   - LingPipe
 ---
 

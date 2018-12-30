@@ -4,7 +4,8 @@ date: 2010-10-27 23:49:20
 updated: 2010-10-27 23:49:20
 categories: 知识积累
 tags:
-  - Webservice
+  - Machine Learning
+  - Cross Validation
 ---
 
 > **交叉验证(Cross-Validation):** 有时亦称循环估计， 是一种统计学上将数据样本切割成较小子集的实用方法。于是可以先在一个子集上做分析， 而其它子集则用来做后续对此分析的确认及验证。 一开始的子集被称为训练集。而其它的子集则被称为验证集或测试集。[WIKI](http://zh.wikipedia.org/zh-sg/%E4%BA%A4%E5%8F%89%E9%A9%97%E8%AD%89)
