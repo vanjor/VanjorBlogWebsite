@@ -102,3 +102,4 @@ Github支持Webhook可以自动触发自己主机上的发布脚本，但仍需�
 * 增加 sitemap 提交百度+谷歌+微软站长管理平台
 * 强制 tags 链接全小写 filename_case=1
 * Add license and copy right by using creative_commons config
+* Enable full English URL by enable category_map

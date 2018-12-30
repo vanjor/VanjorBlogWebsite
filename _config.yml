@@ -56,6 +56,11 @@ index_generator:
 # Category & Tag
 default_category: uncategorized
 category_map:
+  指尖舞蹈: life 
+  最佳实践: best-practice 
+  电影观感: movie
+  知识积累: learning
+  读书笔记: reading
 tag_map:
 
 # Date / Time format
