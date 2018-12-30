@@ -1,9 +1,10 @@
 ---
 title: Git学习指南
 date: 2016-05-06 17:15:00
+updated: 2016-05-06 17:15:00
+categories: 最佳实践
 tags:
   - git
-categories: 最佳实践
 ---
 
 ![article-logo](https://ws1.sinaimg.cn/large/006tNbRwly1fyk93b0u54j30xc0hi759.jpg)

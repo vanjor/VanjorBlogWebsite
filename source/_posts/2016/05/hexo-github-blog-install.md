@@ -1,12 +1,12 @@
 ---
 title: 基于Hexo在Github上搭建技术博客
 date: 2016-05-04 15:15:00
-tags:
-  - hexo
-  - github
-  - markdown
+updated: 2018-12-28 00:00:00
 categories: 最佳实践
-published: true
+tags:
+  - Hexo
+  - Github
+  - Markdown
 ---
 
 ![Github托管Hexo博客](https://ws4.sinaimg.cn/large/006tNbRwly1fyjdb5974cj30hs07sdgp.jpg)
@@ -63,7 +63,7 @@ Github支持Webhook可以自动触发自己主机上的发布脚本，但仍需�
 
 附本博客:
 
-* 源码系统项目: <https://github.com/vanjor/VanjorComWebsite>
+* 源码系统项目: <https://github.com/vanjor/VanjorBlogWebsite>
   * branch: source as default branch is the source code
   * branch: master retain the compiled website code serve as Github Page service
 * travis-ci自动编译部署历史: <https://travis-ci.org/vanjor/VanjorBlogWebsite>

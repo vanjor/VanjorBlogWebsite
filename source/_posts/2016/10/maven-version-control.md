@@ -1,13 +1,13 @@
 ---
 title: 基于Maven的Java包版本管理
 date: 2016-10-20 10:00:00
-tags:
-  - java
-  - maven
-  - snapshot
-  - release
+updated: 2016-10-20 10:00:00
 categories: 知识积累
+tags:
+  - Java
+  - Maven
 ---
+
 ![maven logo](https://ws3.sinaimg.cn/large/006tNbRwly1fyk9jm52b3j30zk085dfw.jpg)
 
 Java打包与依赖奠定了软件包发布与版本管理的依赖的一个业界规范。
@@ -17,7 +17,9 @@ Java打包与依赖奠定了软件包发布与版本管理的依赖的一个业�
 # 版本号
 
 Maven中版本号类似1.0,1.1,1.1.1,主题规则如下
+
 > <主版本>.<次版本>.<增量版本>
+
 其中:
 
 * 主版本: 重大架构变更，类似maven1和maven2，兼容性业不一定保证的，Gitlab项目以年为粒度迭代
@@ -33,12 +35,9 @@ release是稳定版，但在开发中为了解决间依赖的项目间并行开�
 
 假设当前CodeOne，已发布1.0.0 release版本，现在开发新的功能。
 
-1. 更新pom版本从1.0.0 到 1.1.0-SNAPSHOT
-2. 不断开发功能，持续发布1.1.0-SNAPSHOT版本
-
-开发完毕后需要正式发布
-3. 更新pom版本从1.1.0-SNAPSHOT 到 1.1.0，并项目打上tag 1.1.0
-完成1.1.0 release正式版发布.ss
+* 更新pom版本从1.0.0 到 1.1.0-SNAPSHOT
+* 不断开发功能，持续发布1.1.0-SNAPSHOT版本, 开发完毕后需要正式发布
+* 更新pom版本从1.1.0-SNAPSHOT 到 1.1.0，并项目打上tag 1.1.0,完成1.1.0 release正式版发布.
 
 注意: 一般发布是不分源代码项目分支的，如果多个分支需要各自迭代，可实现安排号发布版本号区别，比如 1.1.0-SNAPSHOT与1.2.0-SNAPSHOT
 
