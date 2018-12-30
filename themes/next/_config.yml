@@ -91,7 +91,7 @@ footer:
   # http://www.miitbeian.gov.cn
   beian:
     enable: false
-    icp:
+    icp: 
 
   # -------------------------------------------------------------
   # Any custom text can be defined here.
@@ -103,7 +103,7 @@ footer:
 creative_commons:
   license: by-nc-sa
   sidebar: false
-  post: false
+  post: true
 
 
 # ---------------------------------------------------------------

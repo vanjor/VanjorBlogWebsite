@@ -100,3 +100,5 @@ Github支持Webhook可以自动触发自己主机上的发布脚本，但仍需�
 * Hexo 特有的 Tags Settings (开启，但暂没使用需要进一步评估)
 * 增加了 robots 协议
 * 增加 sitemap 提交百度+谷歌+微软站长管理平台
+* 强制 tags 链接全小写 filename_case=1
+* Add license and copy right by using creative_commons config

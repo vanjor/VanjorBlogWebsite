@@ -227,7 +227,11 @@ Gaussian Distribution_）作为先验方面权重, 也就是如下公式(3)
 
 ![lara](https://ws2.sinaimg.cn/large/006tNbRwly1fynznsxhn3j30dg028wed.jpg)
 
-其中做出代换：∑i=1k αdi = 1   ;  0<=αdi <=1 ， i=1,2,....,k
+其中做出代换：
+
+```math
+∑i=1k αdi = 1;  0<=αdi <=1 , i=1,2,....,k
+```
 
 为了以下约束非线性优优化问题，我们应用conjugate-gradient-interior-point 方法，采用如下公式，对 αd 求倒数。
 
