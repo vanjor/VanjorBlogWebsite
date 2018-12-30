@@ -1,16 +1,11 @@
 ---
-date: 2015-04-01 15:54:47
-type: "about"
+title: about me
+type: about
 comments: false
 ---
 
-
 <blockquote class="blockquote-center">
 
-about me
+TODO
 
 </blockquote>
-
-
-
---------
