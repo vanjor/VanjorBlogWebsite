@@ -5,10 +5,4 @@ Allow: /tags/
 Allow: /categories/
 Allow: /about/
 
-Disallow: /js/
-Disallow: /css/
-Disallow: /fonts/
-Disallow: /vendors/
-Disallow: /fancybox/
-
 Sitemap: https://blog.vanjor.com/sitemap.xml
