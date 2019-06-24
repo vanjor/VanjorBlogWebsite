@@ -14,7 +14,7 @@ tags:
 
 > “有一种东西，它会在某个夏天的夜晚象风一样突然袭来，让你措不及防，无法安宁，与你形硬相随，挥之不去，我不知道那是什么，只能称它为爱情。” ----余红日记
 
-![余红-剧照](https://ws4.sinaimg.cn/large/006tNbRwly1fynmpexkj4j30dw097aab.jpg)
+![余红-剧照](https://asset.vanjor.com/images/006tNbRwly1fynmpexkj4j30dw097aab.jpg)
 
 > 为了欲望和浪漫的天性，我的确付出了代价，但是生活再艰难，我也不会失去活下去的勇气。
 

@@ -8,7 +8,7 @@ tags:
   - Windows Builder
   - GUI
 ---
-![windows-builder](https://ws2.sinaimg.cn/large/006tNbRwly1fynz8c4114g306s041746.gif)
+![windows-builder](https://asset.vanjor.com/images/006tNbRwly1fynz8c4114g306s041746.gif)
 
 在项目要进行最终界面展示开发时，又得回到熟悉而久违的的SWT/JFACE，继而追寻那Eclipse的优秀的[WYSIWYG](http://baike.baidu.com/view/6326.htm)插件[WindowBuilder](http://code.google.com/javadevtools/wbpro/index.html)（没用WB之前都是手工敲代码，并界面排版），却惊喜的发现，不用再漫天搜查注册码，如今WindowBuilder的Java/Ajax工具开发商[Instantiations](http://www.instantiations.com/)已经于2010年8月被Google给收购了，WindowBuilder也作为免费工具开放，强大的Google！
 
@@ -62,4 +62,4 @@ WindowBuilder的主要用户界面构建为：
 
 使用window-builder快速开发的实验展示demo，熟练的话，差不多半个小时就可以完成。
 
-![window-builder demo](https://ws2.sinaimg.cn/large/006tNbRwly1fynzc4xns3j30ec08n74z.jpg)
+![window-builder demo](https://asset.vanjor.com/images/006tNbRwly1fynzc4xns3j30ec08n74z.jpg)

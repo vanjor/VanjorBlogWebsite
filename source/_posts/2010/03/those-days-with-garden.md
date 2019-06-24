@@ -17,11 +17,11 @@ tags:
 
 第一幅为昨天访问URL排行，第一个为之前一篇日志中上传的一首王菲唱的传奇，换算下来用了17.05G的流量，这首歌曲3.4M大小，时常4分钟，访问39546次，平均每个访问耐心听了31秒。
 
-![top10](https://ws3.sinaimg.cn/large/006tNbRwly1fynik7dw1uj30hb0403yf.jpg)
+![top10](https://asset.vanjor.com/images/006tNbRwly1fynik7dw1uj30hb0403yf.jpg)
 
 第二幅为引用来源：看到排第一第二的合计起来三万七千多的应用如第一幅的三万九千多的引用基本吻合，直接访问估计是被百度MP3给发现了，然后成为大家下载的一个默默的种子，第二个URL就是百度目前还在测试的[百度掌门人音乐盒](http://box.zhangmen.baidu.com/ "百度掌门人音乐盒")，音乐来源都是从自家百度MP3中获得的音乐源，真是盗之于民，用之于民啊。
 
-![top30](https://ws4.sinaimg.cn/large/006tNbRwly1fyniklozu0j30kz06fmx6.jpg)
+![top30](https://asset.vanjor.com/images/006tNbRwly1fyniklozu0j30kz06fmx6.jpg)
 
 托百度的福，将两MP3给撤了。
 

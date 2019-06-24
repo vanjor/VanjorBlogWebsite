@@ -34,7 +34,7 @@ tags:
 
 **作为**1)**的演进，将原始数据分成K组(一般是均分),将每个子集数据分别做一次验证集,其余的K-1组子集数据作为训练集,这样会得到K个模型,用这K个模型最终的验证集的分类准确率的平均数作为此K-CV下分类器的性能指标.K一般大于等于2,实际操作时一般从3开始取,只有在原始数据集合数据量小的时候才会尝试取2. 而K-CV 的实验共需要建立 k 个models，并计算 k 次 test sets 的平均辨识率。在实作上，k 要够大才能使各回合中的 训练样本数够多，一般而言 k=10 (作为一个经验参数)算是相当足够了。
 
-![K-fold Cross Validation - A 5-fold cross validation method](https://ws4.sinaimg.cn/large/006tNbRwly1fynsizoaylg30bp07xdfv.gif)
+![K-fold Cross Validation - A 5-fold cross validation method](https://asset.vanjor.com/images/006tNbRwly1fynsizoaylg30bp07xdfv.gif)
 
 ### 优缺点
 

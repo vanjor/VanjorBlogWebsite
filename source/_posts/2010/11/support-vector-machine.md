@@ -11,7 +11,7 @@ tags:
 
 支持向量机 Support Vector Machine, 简称**SVM**（或SV机），是一种监督是学习的方法，广泛应用于统计分类及回归分析中。
 
-![SVM](https://ws2.sinaimg.cn/large/006tNbRwly1fynxkke2xtj306s04hjrg.jpg)
+![SVM](https://asset.vanjor.com/images/006tNbRwly1fynxkke2xtj306s04hjrg.jpg)
 
 其中, **机**（machine,机器）实际上是一个算法。在[机器学习](http://zh.wikipedia.org/zh/机器学习)(ML)领域里，常把一些算法看做是一个机器。
 
@@ -29,7 +29,7 @@ tags:
 
 有很多分类器都符合这个要求，但是我们还希望找到分类最佳的平面，即使得属于两个不同类的数据点间隔最大的那个面，该面亦称为**最大间隔超平面**。如果我们能够找到这个面，那么这个分类器，就称为最大间隔分类器。**支持向量机目的也就是一种最大间隔分类器。**
 
-![Svm_separating_hyperplanes](https://ws4.sinaimg.cn/large/006tNbRwly1fynxll809ej307i05kmx0.jpg)
+![Svm_separating_hyperplanes](https://asset.vanjor.com/images/006tNbRwly1fynxll809ej307i05kmx0.jpg)
 
 （有很多个分类器(超平面)可以把数据分开，但是只有一个能够达到最大分割。H3不能准确分割，H1能分割但不能做到最大分割，H2则是最大分割）
 
@@ -37,7 +37,7 @@ tags:
 
 我们考虑以下形式的样本点**D**（n个数量的如下形式点集）：
 
-![svm](https://ws1.sinaimg.cn/large/006tNbRwly1fynxnrltecj309u0163ya.jpg)
+![svm](https://asset.vanjor.com/images/006tNbRwly1fynxnrltecj309u0163ya.jpg)
 
 其中:
 
@@ -46,60 +46,60 @@ tags:
 
 我们可以把这些数据称为“训练数据"，希望我们的支持向量机能够通过一个超平面正确的把他们分开。超平面的数学形式可以写作:
 
-![svm](https://ws4.sinaimg.cn/large/006tNbRwly1fynxoerb4gj303s012gld.jpg)
+![svm](https://asset.vanjor.com/images/006tNbRwly1fynxoerb4gj303s012gld.jpg)
 
 根据几何知识，我们知道**w**向量垂直于分类超平面。**w**与**x**为**内积**，加入位移**b**的目的是增加间隔。如果没有**b**的话，那超平面将不得不通过原点，限制了这个方法的灵活性
 
 **由于我们要求最大间隔**，因此我们需要知道支持向量以及（与最佳超平面）平行的并且离支持向量最近的超平面。我们可以看到这些平行超平面可以由方程族：
 
-![svm](https://ws4.sinaimg.cn/large/006tNbRwly1fynxp8wykcj303n00zdfl.jpg) and ![svm](https://ws3.sinaimg.cn/large/006tNbRwly1fynxpfvqh9j304600zdfl.jpg)
+![svm](https://asset.vanjor.com/images/006tNbRwly1fynxp8wykcj303n00zdfl.jpg) and ![svm](https://asset.vanjor.com/images/006tNbRwly1fynxpfvqh9j304600zdfl.jpg)
 
 如果这些训练数据是线性可分的，那就可以找到这样两个超平面，在它们之间没有任何样本点并且这两个超平面之间的距离也最大。通过几何不难得到这两个超平面之间的距离是2/|_**w**_|，因此我们需要最小化 |_**w**_|。同时为了使得样本数据点都在超平面的间隔区以外，我们需要保证对于所有的_**i**_ 满足其中的一个条件：
 
-![svm](https://ws1.sinaimg.cn/large/006tNbRwly1fynxq27ufqj303j00h741.jpg)对于第一类 **xi**
+![svm](https://asset.vanjor.com/images/006tNbRwly1fynxq27ufqj303j00h741.jpg)对于第一类 **xi**
 
-![svm](https://ws4.sinaimg.cn/large/006tNbRwly1fynxqoac9pj303x00h741.jpg) 对于第二类 **xi**
+![svm](https://asset.vanjor.com/images/006tNbRwly1fynxqoac9pj303x00h741.jpg) 对于第二类 **xi**
 
 通过类别二元量 **Ci** 可以合并为：
 
-![svm](https://ws4.sinaimg.cn/large/006tNbRwly1fynxr5ih9wj309k00pwe9.jpg)
+![svm](https://asset.vanjor.com/images/006tNbRwly1fynxr5ih9wj309k00pwe9.jpg)
 
 现在寻找最佳超平面这个问题就变成了在上式这个约束条件下最小化|_**w**_|. 这是一个[二次规划](http://zh.wikipedia.org/wiki/%E4%BA%8C%E6%AC%A1%E8%A7%84%E5%88%92)(QP：Quadratic Programming)最优化中的问题。
 
-![Svm_max_sep_hyperplane_with_margin(最大间隔超平面，两类分割数据集)](https://ws4.sinaimg.cn/large/006tNbRwly1fynxrj1i0uj308w08mt8n.jpg)
+![Svm_max_sep_hyperplane_with_margin(最大间隔超平面，两类分割数据集)](https://asset.vanjor.com/images/006tNbRwly1fynxrj1i0uj308w08mt8n.jpg)
 
 更清楚的表示
 
-求最小化![svm](https://ws3.sinaimg.cn/large/006tNbRwly1fynxs8u77yj3013010741.jpg)，并且满足限定条件![svm](https://ws3.sinaimg.cn/large/006tNbRwly1fynxsi4kdbj309g00lq2p.jpg)
+求最小化![svm](https://asset.vanjor.com/images/006tNbRwly1fynxs8u77yj3013010741.jpg)，并且满足限定条件![svm](https://asset.vanjor.com/images/006tNbRwly1fynxsi4kdbj309g00lq2p.jpg)
 _(1/2这个因子是为了数学上表达的方便加上的)_
 
 **解如上问题通常的想法可能是使用非负**[**拉格朗日乘数**](http://zh.wikipedia.org/wiki/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%95%B0) **α_i_ 于下式**
 
-![svm](https://ws2.sinaimg.cn/large/006tNbRwly1fynxt27qdaj30a3023gle.jpg)
+![svm](https://asset.vanjor.com/images/006tNbRwly1fynxt27qdaj30a3023gle.jpg)
 
-不过这样可能出错. 原因是：假如我们能找到一族超平面将这些点分割开来；那么所有的 ![svm](https://ws4.sinaimg.cn/large/006tNbRwly1fynxzw4kqgj305000lgld.jpg). 因此我们可能通过将所有α_i_趋向正无穷大得到最小值, 此最小值对这一族内所有成员都有效，而不是解决原问题的最优解。
+不过这样可能出错. 原因是：假如我们能找到一族超平面将这些点分割开来；那么所有的 ![svm](https://asset.vanjor.com/images/006tNbRwly1fynxzw4kqgj305000lgld.jpg). 因此我们可能通过将所有α_i_趋向正无穷大得到最小值, 此最小值对这一族内所有成员都有效，而不是解决原问题的最优解。
 
 **但是可以将约束问题表示为：**（注：这一部分没弄得十分明白..）
 
-![svm](https://ws2.sinaimg.cn/large/006tNbRwly1fyny2cdc72j30ai01jmwz.jpg)
+![svm](https://asset.vanjor.com/images/006tNbRwly1fyny2cdc72j30ai01jmwz.jpg)
 
 **从而化解问题为寻找一个鞍点（saddle point）**.
 
-这样所有可以被![svm](https://ws3.sinaimg.cn/large/006tNbRwly1fyny3a4sq3j304z00ldfl.jpg)分离的点就无关紧要了，因为我们必须设置相应的 αi 为零。
+这样所有可以被![svm](https://asset.vanjor.com/images/006tNbRwly1fyny3a4sq3j304z00ldfl.jpg)分离的点就无关紧要了，因为我们必须设置相应的 αi 为零。
 
 **这个问题现在可以用标准二次规划技术标准和程序解决**。结论可以表示为如下**训练向量的线性组合**
 
-![svm](https://ws2.sinaimg.cn/large/006tNbRwly1fyny0q17c3j303f01jjr5.jpg)
+![svm](https://asset.vanjor.com/images/006tNbRwly1fyny0q17c3j303f01jjr5.jpg)
 
-只有很少的 **αi** 会大于0. 相应的 **xi** 就是**支持向量**, 这些支持向量在边缘上并且满足 ![svm](https://ws4.sinaimg.cn/large/006tNbRwly1fyny5134vfj304z00ldfl.jpg). 由此可以推导出支持向量也满足: ![svm](https://ws1.sinaimg.cn/large/006tNbRwly1fyny5so8bpj30a000l3ya.jpg)因此允许定义偏移量_b_. 实际上此支持向量比一般_N__S__V_的支持向量鲁棒性更强:
+只有很少的 **αi** 会大于0. 相应的 **xi** 就是**支持向量**, 这些支持向量在边缘上并且满足 ![svm](https://asset.vanjor.com/images/006tNbRwly1fyny5134vfj304z00ldfl.jpg). 由此可以推导出支持向量也满足: ![svm](https://asset.vanjor.com/images/006tNbRwly1fyny5so8bpj30a000l3ya.jpg)因此允许定义偏移量_b_. 实际上此支持向量比一般_N__S__V_的支持向量鲁棒性更强:
 
-![svm](https://ws1.sinaimg.cn/large/006tNbRwly1fyny77l52ej305w01na9u.jpg)
+![svm](https://asset.vanjor.com/images/006tNbRwly1fyny77l52ej305w01na9u.jpg)
 
 ## SVM改进模型-软间隔（Soft margin）
 
 1995年, [Corinna Cortes](http://zh.wikipedia.org/w/index.php?title=Corinna_Cortes&action=edit&redlink=1)与Vapnik提出了一种改进的最大间隔区方法，这种方法可以处理标记错误的样本。如果可区分正负例的超平面不存在，则“软边界”将选择一个超平面尽可能清晰地区分样本，同时使其与分界最清晰的样本的距离最大化。这一成果使术语“支持向量机”（或“SVM”）得到推广。这种方法引入了松驰参数 **ξ**_**i**_ 以衡量对数据 **x** **_i_** 的误分类度。
 
-![svm](https://ws4.sinaimg.cn/large/006tNbRwly1fyny815832j308k00pt8h.jpg)
+![svm](https://asset.vanjor.com/images/006tNbRwly1fyny815832j308k00pt8h.jpg)
 
 # SVM特性
 

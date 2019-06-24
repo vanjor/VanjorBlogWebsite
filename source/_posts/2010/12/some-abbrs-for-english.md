@@ -58,7 +58,7 @@ tags:
 
 因而，中英文在事物描述思路图差异如下：
 
-![chinese english mind different](https://ws1.sinaimg.cn/large/006tNbRwly1fyo0qi5uooj309u07rglr.jpg)
+![chinese english mind different](https://asset.vanjor.com/images/006tNbRwly1fyo0qi5uooj309u07rglr.jpg)
 
 其他的还有一些留心可以发现的差异：
 

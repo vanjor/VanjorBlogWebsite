@@ -9,7 +9,7 @@ tags:
 
 序：谨以此文悼念已逝的班友
 
-![life grows, though tough](https://ws4.sinaimg.cn/large/006tNbRwly1fynj0jrmkhj30d108amxj.jpg)
+![life grows, though tough](https://asset.vanjor.com/images/006tNbRwly1fynj0jrmkhj30d108amxj.jpg)
 
 > 生命诚可贵，人生中还有什么比活着更幸福的呢？然而，与我擦身而过的那位研究生就在我踏进电梯的那一刹那决绝的从我们13楼迈向窗外。是的，他到达楼下的时间是比我短，但人世间的一切也许永远与他无关了。
 [选自博客](http://mapeiftian.blog.163.com/blog/static/13313026920103250315392/)

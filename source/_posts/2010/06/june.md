@@ -11,7 +11,7 @@ tags:
 
 <!-- more -->
 
-![童趣生活 - 源](https://ws4.sinaimg.cn/large/006tNbRwly1fynll6b7irj30go0c1jsl.jpg)
+![童趣生活 - 源](https://asset.vanjor.com/images/006tNbRwly1fynll6b7irj30go0c1jsl.jpg)
 
 回望五月，领悟到看起来遥远的事情，其实做起来就不会那么远了。每天繁杂中都几乎会花将近1+小时的时间阅读Reader上订阅的海量文章，五谷杂粮，久之而陈。在左岸[《从拖延者到行动派的10个秘诀》](http://www.zreading.cn/archives/1616.html)中恍然更加明白终日忙忙碌碌其实需要自我反省，是否在被2/8法则所窒息，是否在懈怠自己，拿无限的理由借口和琐事在填充挤压有限的时间，是否总是在放过自己，将当前事务的时间快不断的后拖。让自己在看似自我掌控中却无法揣息和丧失自由。
 

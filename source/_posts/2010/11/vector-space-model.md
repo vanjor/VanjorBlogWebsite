@@ -24,15 +24,15 @@ q = (w1,q,w2,q,...,wt,q)
 
 搜寻时，输入的检索词q会被转换成类似于文件的向量，这个模型假设，文件和搜寻词的相关程度，可以经由比较每个文件(向量)和检索词(向量)的夹角偏差程度而得知。 由此两个文档向量空间的夹角余弦为:
 
-![向量空间模型（VSM）](https://ws2.sinaimg.cn/large/006tNbRwly1fynz2hn4byj304s01pmwx.jpg)
+![向量空间模型（VSM）](https://asset.vanjor.com/images/006tNbRwly1fynz2hn4byj304s01pmwx.jpg)
 
 而对应检索词q与文档集中文档d2的向量空间夹角余弦为 :
 
-![vector](https://ws1.sinaimg.cn/large/006tNbRwly1fynz2tu1ddj304k01umwx.jpg)
+![vector](https://asset.vanjor.com/images/006tNbRwly1fynz2tu1ddj304k01umwx.jpg)
 
 在坐标系中如图:
 
-![向量空间模型-Vector Space Model](https://ws4.sinaimg.cn/large/006tNbRwly1fynz35rqdlj306805emx1.jpg)
+![向量空间模型-Vector Space Model](https://asset.vanjor.com/images/006tNbRwly1fynz35rqdlj306805emx1.jpg)
 
 (余弦为零表示检索词向量垂直于文件向量，即没有符合，也就是说该文件不含此检索词)
 

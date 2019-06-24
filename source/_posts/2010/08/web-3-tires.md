@@ -13,7 +13,7 @@ tags:
 
 # Web三层体系结构概念
 
-![3-tiers application](https://ws4.sinaimg.cn/large/006tNbRwly1fynnqf4wa3j307t0a3wei.jpg)
+![3-tiers application](https://asset.vanjor.com/images/006tNbRwly1fynnqf4wa3j307t0a3wei.jpg)
 
 上图中为通用Web 3-tiers application architecture，从上到下主要职责：
 
@@ -47,7 +47,7 @@ tags:
 
 作为一个对三层体系的细化考量，一种细致的规划架构方案如下：
 
-![3-tier application extension by vanjor](https://ws1.sinaimg.cn/large/006tNbRwly1fynnsexyksj30j60hv0tk.jpg)
+![3-tier application extension by vanjor](https://asset.vanjor.com/images/006tNbRwly1fynnsexyksj30j60hv0tk.jpg)
 
 这种是一种在实际应用中细化的架构模型
 
@@ -58,7 +58,7 @@ tags:
 * Presentation Layer : 同样依据模块划分，建立在不用的BLL上
 * 系统的依赖关系已经变成了一个树形链结构，层见依赖关系明确，便于切割开发与发布部署，比如，如果只想对用户发布View A模块，或者是单独测试View A模块，web服务打包ear，war等，可以有如下打包方式：
 
-![make a individual release](https://ws1.sinaimg.cn/large/006tNbRwly1fynnszvvwxj30ja0i1ab0.jpg)
+![make a individual release](https://asset.vanjor.com/images/006tNbRwly1fynnszvvwxj30ja0i1ab0.jpg)
 
 通过依赖关系链，打包发布内容只包含所需要的模块，这样最大化达到灵活快捷，降低并检验系统内部的耦合度。
 

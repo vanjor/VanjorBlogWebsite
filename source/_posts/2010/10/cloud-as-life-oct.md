@@ -12,7 +12,7 @@ tags:
 
 > 生活到底有多重？假设你背着一个背包，感受勒在你肩上的背带，感受到了么？
 
-![up in the air ,see the sunshines](https://ws1.sinaimg.cn/large/006tNbRwly1fynsek5jt5j30m80dwdi3.jpg)
+![up in the air ,see the sunshines](https://asset.vanjor.com/images/006tNbRwly1fynsek5jt5j30m80dwdi3.jpg)
 
 <!-- more -->
 

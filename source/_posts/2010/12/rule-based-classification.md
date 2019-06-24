@@ -8,7 +8,7 @@ tags:
   - Machine Learning
   - Sentiment Analysis
 ---
-![sentiment analysis](https://ws3.sinaimg.cn/large/006tNbRwly1fyo064xl7ij308g03ca9y.jpg)
+![sentiment analysis](https://asset.vanjor.com/images/006tNbRwly1fyo064xl7ij308g03ca9y.jpg)
 
 情感计算中，很重要的一个问题就是为目标情感数据进行分类，先行的很多文本分类技术与文本聚类技术SVM，K-means等，背后都是利用一些先决的条件，比如SVM的先决条件是建立文本向量空间VSM上。而这些文本分类技术都很少涉及到语义语法分析，或者建立十分微弱的语义语法分析基础上，比如上篇文章《[评论潜在方面观点计算](/2010/12/latent-aspect-rating-analysis/)》。
 
@@ -87,7 +87,7 @@ The Montylingua (Liu 2004) chunker用来解析文档集中句子，给定这些�
 5. 为每个情感支撑词与先行词收集命中数
 6. 使用四种测量度来测量每个先行词分别于120个积极词（S+）以及消极词（S-）间的紧密度。
 
-![sentiment analysis](https://ws4.sinaimg.cn/large/006tNbRwly1fyo07n4lp7j3072030wec.jpg)
+![sentiment analysis](https://asset.vanjor.com/images/006tNbRwly1fyo07n4lp7j3072030wec.jpg)
 
 如果先行词共现率S+ \> S- ,那么，以为这先行词为积极的，反之S+ < S-则判定先行词为消极的，而S+ = S-则判定为中性，
 
@@ -99,13 +99,13 @@ The Montylingua (Liu 2004) chunker用来解析文档集中句子，给定这些�
 
 一个包含N个文档的文档集集的共现矩阵
 
-![rbc](https://ws3.sinaimg.cn/large/006tNbRwly1fyo0bovdxlj30cm03c3yf.jpg)
+![rbc](https://asset.vanjor.com/images/006tNbRwly1fyo0bovdxlj30cm03c3yf.jpg)
 
 ## 互信息（Mutual Information (MI)）
 
 一个先行词与对应情感支撑词的互信息MI表示如下：
 
-![mi](https://ws2.sinaimg.cn/large/006tNbRwly1fyo0c4h6lsj30cm01mjra.jpg)
+![mi](https://asset.vanjor.com/images/006tNbRwly1fyo0c4h6lsj30cm01mjra.jpg)
 
 更大的MI值，代表先行词与word见更高强度的关联，并且MI(antecedent,word)必须大于
 
@@ -115,7 +115,7 @@ The Montylingua (Liu 2004) chunker用来解析文档集中句子，给定这些�
 
 给定2*2列联表，一个表包含观察到的频率，另一包含预期的频率，那么词语对应先行词的卡方值计算如下：
 
-![chi](https://ws3.sinaimg.cn/large/006tNbRwly1fyo0cb9po8j304a01m742.jpg)
+![chi](https://asset.vanjor.com/images/006tNbRwly1fyo0cb9po8j304a01m742.jpg)
 
 其中 i = {a . . . d} 表示2*2列联表中的每个方格值。[耶茨连续性校正](http://www.nciku.cn/search/zh/detail/%E8%80%B6%E8%8C%A8%E8%BF%9E%E7%BB%AD%E6%80%A7%E6%A0%A1%E6%AD%A3/645089)（The Yates continuity correction）被应用到每个开放计算中，并且自由度为1。更大的卡方值，意味着更有利证明来剔除虚假设，并排除之，意味着词语和先行词之间互相独立，对于卡方测试，为了可信接受或拒绝H0，预期的值应该大于5，否则，趋向于低于小概率可能性，将不正确的结果纳入H1(Cochran 1954).
 
@@ -123,17 +123,17 @@ The Montylingua (Liu 2004) chunker用来解析文档集中句子，给定这些�
 
 对数似然比计算如下：
 
-![log](https://ws2.sinaimg.cn/large/006tNbRwly1fyo0cnfay4j309u03jt8l.jpg)
+![log](https://asset.vanjor.com/images/006tNbRwly1fyo0cnfay4j309u03jt8l.jpg)
 
 其中i = {a, b, c, d}并且 j = {c1, c2, r1, r2}. 对数似然比(Dunning 1993)与卡方假设类似，也就是，更大的对数似然比，意味着更有利证明来剔除虚假设。不同于卡方，对数似然比是比卡方更为精确的处理稀有事件。
 
 举例说明，对于如下具体的数据：
 
-![rbc](https://ws4.sinaimg.cn/large/006tNbRwly1fyo0ctbv2ej308g02pjr9.jpg)
+![rbc](https://asset.vanjor.com/images/006tNbRwly1fyo0ctbv2ej308g02pjr9.jpg)
 
-* DF=40，也就是文档中同时出现先行词与词语的文档数。![rbc](https://ws1.sinaimg.cn/large/006tNbRwly1fyo0d31i1oj309h011dfn.jpg)
-* 为了计算卡方，预期的频率，E计算出如下: ![rbc](https://ws4.sinaimg.cn/large/006tNbRwly1fyo0dbphmhj308g02rmx0.jpg) ![rbc](https://ws2.sinaimg.cn/large/006tNbRwly1fyo0duzipej305k01a3ya.jpg)
-* 极大似然比为 ![rbc](https://ws3.sinaimg.cn/large/006tNbRwly1fyo0ehviukj30bb018743.jpg)
+* DF=40，也就是文档中同时出现先行词与词语的文档数。![rbc](https://asset.vanjor.com/images/006tNbRwly1fyo0d31i1oj309h011dfn.jpg)
+* 为了计算卡方，预期的频率，E计算出如下: ![rbc](https://asset.vanjor.com/images/006tNbRwly1fyo0dbphmhj308g02rmx0.jpg) ![rbc](https://asset.vanjor.com/images/006tNbRwly1fyo0duzipej305k01a3ya.jpg)
+* 极大似然比为 ![rbc](https://asset.vanjor.com/images/006tNbRwly1fyo0ehviukj30bb018743.jpg)
 
 # 基于规则归纳分类器（Induction Rule Based Classifier (IRBC)）
 
@@ -142,4 +142,4 @@ The Montylingua (Liu 2004) chunker用来解析文档集中句子，给定这些�
 这两个归纳规则集可以表明归纳算法对于无控制的先行词集的效果，也就是这些先行词所表示的属性没有预定义，但是可以简单的从预先分类文档中归纳出。并且可以预期这种归纳规则集的效果将会拥有更好的准确率与召回率。
 
 最后，论文中提出结合SVM等方法的一种组合分类方法流程图如下：
-![rbc](https://ws2.sinaimg.cn/large/006tNbRwly1fyo0fpprsbj30ec08q3ys.jpg)
+![rbc](https://asset.vanjor.com/images/006tNbRwly1fyo0fpprsbj30ec08q3ys.jpg)

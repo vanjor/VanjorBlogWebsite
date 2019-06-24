@@ -8,7 +8,7 @@ tags:
   - Machine Learning
 ---
 
-![lara](https://ws1.sinaimg.cn/large/006tNbRwly1fyo032faiwj306s046t8u.jpg)
+![lara](https://asset.vanjor.com/images/006tNbRwly1fyo032faiwj306s046t8u.jpg)
 
 本文为国外09年的最新文本挖掘类别论文：
 
@@ -38,7 +38,7 @@ tags:
 
 随着 Web2.0 的发展，越来越多的人可以对各种各样的产品和服务自由的表达观点，这些评论信息对于其他用户做出决策以及产品服务的改进具有很大价值。然而，随着评论信息快速增长，海量的信息让用户难以快速查找到所需要的信息，很多工作就是来减轻这个评价文本信息抽取的问题[18,16,26],提炼总结用户的观点，根据意见的极性分类[20,6,7],并从评论中抽取相应的观点句。尽管如此，在现有的技术下，用户仍然难以方便的从海量的评论信息中挖掘与发现信息，来支撑实体主题方面的观点。
 
-![lara](https://ws3.sinaimg.cn/large/006tNbRwly1fynzf0co6cj30dg05kt94.jpg)
+![lara](https://asset.vanjor.com/images/006tNbRwly1fynzf0co6cj30dg05kt94.jpg)
 
 以一个典型的酒店评价信息为例，如上图（1） ，这个评论信息涉及到了酒店的多个方面特点，包括价格，房屋条件以及服务，但是评论者只给出了宾馆的总体评分，没有提供每个单独方面的评分，其他用户就难以方便的了解到这个评论者在方面上的评级（_latent rating_）。透过整体评价进一步挖掘每一方面的评价是十分重要的，因为不同的评论者对于同一家酒店会有相同的总体评价，但是因为不同的方面原因。比如：一个评论者可能喜欢酒店的位置，另一个喜欢房间条件。
 
@@ -139,7 +139,7 @@ LARA 问题的一个主要挑战在于，对于每个方面的评级，我们没
 
 **词语 w 与 方面 Ai 的独立性计算量 χ2 定义如下**:
 
-![LARA](https://ws3.sinaimg.cn/large/006tNbRwly1fynzk9ro9yj30dg01e0sl.jpg)
+![LARA](https://asset.vanjor.com/images/006tNbRwly1fynzk9ro9yj30dg01e0sl.jpg)
 
 其中:
 
@@ -176,17 +176,17 @@ LRR 模型是一个回归模型包含如下通用步骤：
 
 我们定义过，sd 和 αd 是一个 k 维方面对应的 权重向量  和方面评级向量。评价者对于文评价文本 d 会假定 先为每个方面 Ai 做出评级，基于线性组合 Wdi 和 βi ,比如下：公式(1)
 
-![lara](https://ws3.sinaimg.cn/large/006tNbRwly1fynzlehycsj304v01sdfm.jpg)
+![lara](https://asset.vanjor.com/images/006tNbRwly1fynzlehycsj304v01sdfm.jpg)
 
 其中 βi ∈ R 暗示词语在对应方面Ai 的情感极性。
 
 随后，这个评论者可以通过 sd 和 αd 的权重和来形成对实体的总体评价。
 
-也就是：![lara](https://ws3.sinaimg.cn/large/006tNbRwly1fynzlswpftj305900x3ya.jpg)
+也就是：![lara](https://asset.vanjor.com/images/006tNbRwly1fynzlswpftj305900x3ya.jpg)
 
 总体评级假定是一个采样服从高斯分布（_Gaussian distribution_），以αdTsd 和变量δ2 ,可以从这推断总体评级预测的不确定性。将这些汇合，我们得到如下公式(2)
 
-![lara](https://ws1.sinaimg.cn/large/006tNbRwly1fynzm52sfkj307j01sglf.jpg)
+![lara](https://asset.vanjor.com/images/006tNbRwly1fynzm52sfkj307j01sglf.jpg)
 
 直观的核心思想是通过潜在观点权重 αd  与情感词权重 β ，为可观察到的总体评级与具体的文本描述建立关联，使得我们可以建立基于具体方面评级与总体评级关联模型。
 
@@ -199,17 +199,17 @@ LRR 模型是一个回归模型包含如下通用步骤：
 接下来，为了计算不同方面的独立性，我们采用多变量的高斯分布（_Multivariate  
 Gaussian Distribution_）作为先验方面权重, 也就是如下公式(3)
 
-![lara](https://ws1.sinaimg.cn/large/006tNbRwly1fynzmknfu7j3043014we9.jpg)
+![lara](https://asset.vanjor.com/images/006tNbRwly1fynzmknfu7j3043014we9.jpg)
 
 其中 μ 与 ∑ 是平均值与方差参数。
 
 结合公式(2)(3)，我们的得到贝叶斯回归问题，在给定评论中应用LRR模型后，总体评级的可能性为：
 
-![lara](https://ws2.sinaimg.cn/large/006tNbRwly1fynzmpdh4qj30dg02ka9z.jpg)
+![lara](https://asset.vanjor.com/images/006tNbRwly1fynzmpdh4qj30dg02ka9z.jpg)
 
 其中 rd 与 Wd 为评论文本 d 中可观察到的数据，θ =(μ，∑，σ2，β) 是一组基于语料库级别的模型参数。αd 是评论文本 d 潜在方面权重。注意到我们假定 σ2 与 β 不依赖于单个的评论者，同时它们也是语料库级别的模型参数。LRR 的一种图形化模型见下图(3)
 
-![lara](https://ws2.sinaimg.cn/large/006tNbRwly1fynzn7wm49j30b805qmx4.jpg)
+![lara](https://asset.vanjor.com/images/006tNbRwly1fynzn7wm49j30b805qmx4.jpg)
 
 图3：LRR图形化表示，外盒代表评论集，内盒代表单个评论文本的潜在观点评级和词语描述的组成。
 
@@ -221,11 +221,11 @@ Gaussian Distribution_）作为先验方面权重, 也就是如下公式(3)
 
 评论文本d 的目标估计MAP函数定义为：公式(5)
 
-![lara](https://ws4.sinaimg.cn/large/006tNbRwly1fynznjpnmej30bw01s745.jpg)
+![lara](https://asset.vanjor.com/images/006tNbRwly1fynznjpnmej30bw01s745.jpg)
 
 我们希望扩展这个公式，并为每个评论文本（记作_L_( ad )）关联这个所有方面的特征词 (terms) 到 αd 中,如下公式（6）
 
-![lara](https://ws2.sinaimg.cn/large/006tNbRwly1fynznsxhn3j30dg028wed.jpg)
+![lara](https://asset.vanjor.com/images/006tNbRwly1fynznsxhn3j30dg028wed.jpg)
 
 其中做出代换：
 
@@ -235,7 +235,7 @@ Gaussian Distribution_）作为先验方面权重, 也就是如下公式(3)
 
 为了以下约束非线性优优化问题，我们应用conjugate-gradient-interior-point 方法，采用如下公式，对 αd 求倒数。
 
-![lara](https://ws3.sinaimg.cn/large/006tNbRwly1fynzo3235zj30cl01q3yd.jpg)
+![lara](https://asset.vanjor.com/images/006tNbRwly1fynzo3235zj30cl01q3yd.jpg)
 
 #### 4.2.3 讨论
 
@@ -254,11 +254,11 @@ Likelihood_）估计量估计这些模型参数，也就是，如何找到最优
 
 在整个评论集中的对数似然（log-likelihood）函数是如下公式(7)
 
-![lara](https://ws1.sinaimg.cn/large/006tNbRwly1fynzohwcp2j30ax01s745.jpg)
+![lara](https://asset.vanjor.com/images/006tNbRwly1fynzohwcp2j30ax01s745.jpg)
 
 这样，ML估计参量：
 
-![lara](https://ws3.sinaimg.cn/large/006tNbRwly1fynzop0ebyj30d101s3ye.jpg)
+![lara](https://asset.vanjor.com/images/006tNbRwly1fynzop0ebyj30d101s3ye.jpg)
 
 为了计算ML估计参量，我们首先随机初始化所有参数值来获取一个初始θ(0) ,然后用如下EM-style算法来迭代的更新于改进这些参量，通过在每轮迭代中二选一的执行 E-Step 和M-Step：
 
@@ -267,27 +267,27 @@ Likelihood_）估计量估计这些模型参数，也就是，如何找到最优
 
 首先，我们看方面权重 αd 的高斯先验分布（Gaussian prior distribution）参数更新。目的是在 M-Step 中最大化计算出的所有计算值 αd 的可能性 ：对于所有的评论，我们又如下基于高斯分布的ML估计更新公式。如下公式（8）
 
-![lara](https://ws4.sinaimg.cn/large/006tNbRwly1fynzp01riqj30cr036mx1.jpg)
+![lara](https://asset.vanjor.com/images/006tNbRwly1fynzp01riqj30cr036mx1.jpg)
 
 ∑ (t+1) 记为:
 
-![lara](https://ws4.sinaimg.cn/large/006tNbRwly1fynzp8hl34j30cr01na9w.jpg)
+![lara](https://asset.vanjor.com/images/006tNbRwly1fynzp8hl34j30cr01na9w.jpg)
 
 也就有公式（9）
 
-![lara](https://ws4.sinaimg.cn/large/006tNbRwly1fynzpjgfpvj30cr01na9w.jpg)
+![lara](https://asset.vanjor.com/images/006tNbRwly1fynzpjgfpvj30cr01na9w.jpg)
 
 然后，我们在看怎么来更新 σ2 和 β 。又这步已经假定 αd 是可知的，我们可以更新σ2 和 β 来 最大化 P( rd | ad ，σ2，β，Wd )（参见公式（2））。
 
 我们通过如下更新公式来解决这个求最优问题：公式（10）（11）
 
-![lara](https://ws2.sinaimg.cn/large/006tNbRwly1fynzpvb0avj30do03cwee.jpg)
+![lara](https://asset.vanjor.com/images/006tNbRwly1fynzpvb0avj30do03cwee.jpg)
 
-![lara](https://ws2.sinaimg.cn/large/006tNbRwly1fynzq3fbgij30do01xt8l.jpg)
+![lara](https://asset.vanjor.com/images/006tNbRwly1fynzq3fbgij30do01xt8l.jpg)
 
 这个对于 β 的逼近解决方法对 一个 |V| ×|V| 据矩阵进行转置，要直接计算的话代价开销很大。为了避免这个问题，我们采用基于梯度算法（gradient-based method）来寻找 β 的最优解，梯度偏导算子如下：
 
-![lara](https://ws4.sinaimg.cn/large/006tNbRwly1fynzqf8yw3j30ad01swec.jpg)
+![lara](https://asset.vanjor.com/images/006tNbRwly1fynzqf8yw3j30ad01swec.jpg)
 
 这样，E-Step 与M-Step交替进行，直到方程（7）的似然值收敛。
 
@@ -309,11 +309,11 @@ Likelihood_）估计量估计这些模型参数，也就是，如何找到最优
 
 既然我们已经有 7 个预定义方面的评级数据，我们也把这 7 个方面应用到我们的预测实验中。因此，我们人工为每个预定义的方面选定一组种子关键词，并把他们作为 4.1 章节中所描述的算法的输入，我们设定选择门槛值 p = 5 、迭代步数上限 I = 10 。我们所用到的这个初始化方面词集，如下表，表（1）
 
-![lara](https://ws4.sinaimg.cn/large/006tNbRwly1fynzrdodfkj30dg0520t1.jpg)
+![lara](https://asset.vanjor.com/images/006tNbRwly1fynzrdodfkj30dg0520t1.jpg)
 
 在基于方面分割评论集后，我们丢弃掉那些不与任何方面关联的句子。如果我们需要每条评论中都包含这 7 个方面的描述信息，那么数据集中只有 关于184个酒店 的 780个评论符合。为了避免评论中的数据过于贫乏，以及方面描述信息丢失，我们将关于每个对应的酒店的所有评论汇集起来合并成一个新的“评论”（称之为“h-review”），并按 总体评级/方面评级 的平均值作为可信评级。经过这些处理后，我们得到一个1850酒店的语料库，以及108891条评论，具体见下表：表（2）
 
-![lara](https://ws1.sinaimg.cn/large/006tNbRwly1fynzrjaqdoj30ao03i3yk.jpg)
+![lara](https://asset.vanjor.com/images/006tNbRwly1fynzrjaqdoj30ao03i3yk.jpg)
 
 ## 5.2 定性评估 (Qualitative evaluation)
 
@@ -323,7 +323,7 @@ Likelihood_）估计量估计这些模型参数，也就是，如何找到最优
 
 通过检查总体评级来判断给定酒店的质量是一个简单的方法。而这样粗糙的分析可能会丢失不同方面的质量的细节评估：没能指出具有相同方面评级的酒店的差异。为了检验 LRR 模型的这种甄别能力，我们随机选择 就有相同总体评级不同方面评级的的 3 个酒店，并运用 LRR 模型来预测他们的潜在方面评级。预测结果见表 3 ，其中预测值在括弧内(由于空间有限，我们只展示前四个方面数据结果)，见下表（3）
 
-![LARA](https://ws4.sinaimg.cn/large/006tNbRwly1fynzsstueaj30dg04e3yo.jpg)
+![LARA](https://asset.vanjor.com/images/006tNbRwly1fynzsstueaj30dg04e3yo.jpg)
 
 可以从中发现，3 个酒店具有相同的总体评级，不同的方面细节区别：Grand Mirage 与 Resort and Gold Coast Hotel 都有更高的 price 评级，而 Eurostars Grand Marina Hotel 拥有更高的 location 与 room 评级。这个信息对于那些有着不同方面需求的的人具有很好价值。
 
@@ -331,13 +331,13 @@ Likelihood_）估计量估计这些模型参数，也就是，如何找到最优
 
 即使对于同一个酒店，不同的评论者对于同一个方面会有不同的观点意见。 LRR模型可以更进一步的通过独立评论者层次的预测方面评级来支持这种细节的分析。为了证实这一点，我们选取总数据集中的一个子集 - 那些同时具有7个方面描述评论（覆盖184个酒店的780个评论），在表4 中，两个评论者同时对 Hotel Riu Palace Punta Cana 给出 4 星的总体评级，但是他们对于具体的方面评级不同：评论者1 对于酒店的 cleanliness  评级高于其他方面，而 评论者2 认为其 value 与  location 应该是最好的两个方面。为了证实这种不同，提供如下证据（方面评级）会让用户更好的基于拥有评论进行决策。表（4）
 
-![lara](https://ws1.sinaimg.cn/large/006tNbRwly1fynzt1t5ahj30dg03k3yn.jpg)
+![lara](https://asset.vanjor.com/images/006tNbRwly1fynzt1t5ahj30dg03k3yn.jpg)
 
 ### 语料特定词语情感倾向(Corpus Specifc Word Sentimental Orientation)
 
 为了对真个评论文本进行预测潜在观点评级，LRR 同样可以风分析词语的情感倾向。与传统的无监督情感分类算法不同，它们依赖预先定义的词典，LRR 可以直接从给定数据中挖掘这些情感化的信息。在 表5 中展示一些 LRR 有趣的结果，我们按每个方面 展示前5个具有积极权重的单词与前5个具有消极权重的单词。将它们与观点标注词典SentiWordNet [8]进行比较（由于空间有限，我们只展示前四个方面数据结果）。如下表，表（5）
 
-![lara](https://ws3.sinaimg.cn/large/006tNbRwly1fynztzp2h4j30dg05saah.jpg)
+![lara](https://asset.vanjor.com/images/006tNbRwly1fynztzp2h4j30dg05saah.jpg)
 
 我们可以发现一些有趣的结果，单词“ok”在 SentiWordNet 定义为积极的，但在我们的语料库中，评论者使用这个单词表示 仅仅可以接受的；单词 “linen",“walk"以及"beach" 在SentiWordNet中并没有标注具有观点，而他们也是名词，而 LRR 系统赋予它们积极的情感倾向，可能因为"lean"可能暗示"cleanliness"的状况是好的，"walk"与"beach"可能暗示酒店的位置是很便捷的。
 
@@ -360,17 +360,17 @@ Likelihood_）估计量估计这些模型参数，也就是，如何找到最优
 
 正式的，假定s di* 是真实的方面评级Ai 。**△aspect 2** 直接测量预测方面评级sdi 与真实方面评级s di* 的差异，定义如下：
 
-![LARA](https://ws3.sinaimg.cn/large/006tNbRwly1fynzv53yutj30ak01xmwz.jpg))
+![LARA](https://asset.vanjor.com/images/006tNbRwly1fynzv53yutj30ak01xmwz.jpg))
 
 ρaspect 目的在于测量方面评级预测的性能，用于保存对应评论的按照真实评级的相关方面排序。例如，在一个评论中，评论者可能偏好 location大于cleanliness，ρaspect 会评估这个预测的评级与对应真实的偏好排序是否一致，ρaspect 定义如下：
 
-![LARA](https://ws2.sinaimg.cn/large/006tNbRwly1fynzvbop3wj306701yjr6.jpg)
+![LARA](https://asset.vanjor.com/images/006tNbRwly1fynzvbop3wj306701yjr6.jpg)
 
 其中 ρsd,sd 是两个向量 sd 与 sd 的皮尔森相关系数（Pearson correlation）。
 
 类似的 ρreview 定义了如下皮尔森相关系数：
 
-![LARA](https://ws3.sinaimg.cn/large/006tNbRwly1fynzvm2h7vj306j01wmwy.jpg)
+![LARA](https://asset.vanjor.com/images/006tNbRwly1fynzvm2h7vj306j01wmwy.jpg)
 
 其中 si 与 si* 两向量为整个评论集中的关于方面 Ai 的预测值与真实值。它可以指出在整个评论集中，有关方面Ai 的方面预测值与真实值是否是一致的，这种排序可以回答如下问题："那个酒店拥有最好的service？"
 
@@ -378,7 +378,7 @@ Likelihood_）估计量估计这些模型参数，也就是，如何找到最优
 
 结果分析：
 
-![LARA](https://ws3.sinaimg.cn/large/006tNbRwly1fynzwom1gqj30cw042weo.jpg)
+![LARA](https://asset.vanjor.com/images/006tNbRwly1fynzwom1gqj30cw042weo.jpg)
 
 如上表，表（6）展示了所有5个算法在四个度量上的测量结果。因为SVR-A是完全监督算法，而其它均不是，我们把它单独列在最下一行。同时出SVR-A外的四个模型，粗体着重标注在四个度量上各自最高性能值。
 
@@ -404,13 +404,13 @@ Likelihood_）估计量估计这些模型参数，也就是，如何找到最优
 
 我们在 表7 中展示了一个基于方面的概括。我们可以看到评价者当考虑到酒店在西雅图这么好的位置时对于价格的容忍值就很高。尽管如此，还是有很多地方可以改进，不好的供暖系统，以及互联网接入需收费。这些细节信息将会对用户从海量评价信息中挖掘基本观点十分有用。如下表（7）
 
-![LARA](https://ws1.sinaimg.cn/large/006tNbRwly1fynzza221uj30dg04i74p.jpg)
+![LARA](https://asset.vanjor.com/images/006tNbRwly1fynzza221uj30dg04i74p.jpg)
 
 ### 用户评价行为表现分析
 
 通过为每个独立的评论推断潜在方面权重ad，我们可以知道对应的评论者在不同方面的强调程度，可以视作为用户评级行为表现的理解。一个潜在的应用是挖掘用户在作出最终评价时，那些因素对于用户的判断具有最大影响。为了深入研究，我们选择了两组不同价格区间的酒店数据：一组的价格超过$800（称之为昂贵的酒店），另一组为价格低于$100（称之为廉价的酒店），对于每一组，我们选取平均整体评级排名前十与末十的酒店，最终形成四个酒店子集。我们展示这四个酒店子集的平均方面权重ad，结果见表（8）
 
-![LARA](https://ws3.sinaimg.cn/large/006tNbRwly1fynzzgsjwwj30cw05g74k.jpg)
+![LARA](https://asset.vanjor.com/images/006tNbRwly1fynzzgsjwwj30cw05g74k.jpg)
 
 我们发现一个有趣的现象是，评价者们为昂贵的酒店给出高评价主要是因为他们良好的service与locations，而对应给出低评价这是因为糟糕的房屋环境与过高价格。
 
@@ -418,7 +418,7 @@ Likelihood_）估计量估计这些模型参数，也就是，如何找到最优
 
 另外，这些量化的评级可能包含不同评价间的平均反应：低收入客户为便宜的酒店给出“value”方面的 5 星评价，而一些其他追求更好服务的客户可能给予昂贵的酒店在“value”方面的 5 星评价。仅仅为每个方面预测评级仍然不够以挖掘到用户间的微妙差异，但是这种方面权重的推断更好的便于我们理解为什么低收入客户相比“service”更倾向于“value”。为了深入了解这些，我们从四个城市：Amsterdam、Barcelona、Florence 以及 San Francisco中（这些地方的酒店在我们的语料库中大有所在），挑选出在“value”方面评级都具有5星评价的酒店，我们按照他们的方面权重比率 value/location、value/room、value/service 进行排序，相对应的，对于每个比率，计算出平均前十和末十的酒店。数据展现在表（9）
 
-![LARA](https://ws4.sinaimg.cn/large/006tNbRwly1fynzzpcmp9j30dg05s0t0.jpg)
+![LARA](https://asset.vanjor.com/images/006tNbRwly1fynzzpcmp9j30dg05s0t0.jpg)
 
 我们发现那些相对具有“value”上更高权重的酒店具有更低的价格，同时对“location”、“room”与“service”这些方面具有较高权重的酒店倾向于就有更高的价格，表明了即时这些酒店在“value”方面具有同样方面评价，偏好于“value”方面的客户可能更倾向于价格低廉的酒店，而那些对偏好于“location”或“service”（除了"price"）方面的则可能会接受更高的价格。这样推断出的方面权重αd 对于挖掘用户评级行为十分有用。
 
@@ -433,7 +433,7 @@ Likelihood_）估计量估计这些模型参数，也就是，如何找到最优
 
 通过两种方法，我们基于查询中定义的方面权重对酒店进行排序，得到的前 5 的结果如下表：表（10）
 
-![lara](https://ws1.sinaimg.cn/large/006tNbRwly1fyo02siw85j30dg06jaai.jpg)
+![lara](https://asset.vanjor.com/images/006tNbRwly1fyo02siw85j30dg06jaai.jpg)
 
 十分有趣的现象是尽管方法 1 中前5的结果都具有5星评价（并且大致也可推测道他们在“value”方面上也具有很高评级，因为排名主要是基于查询中的权重的），它们的价格倾向比方法2 中得到的前五酒店要高；的确，方法 1 中的前 5 酒店平均价格是$412.6 而方法2 中前5 酒店平均价格仅为$289.4，相对要低很多。（整个数据集中所有酒店的平均价格为$334.3）。直觉可以看到对于样列查询，方法 2 对于用户更有帮助。这也就意味着像方法2 这样，只从挑选类似偏好权重行为的用户的评论集进行排序，个性化排序对“value”方面偏好权重更大，确保排名前几的酒店真的具有相对较低的价格。
 

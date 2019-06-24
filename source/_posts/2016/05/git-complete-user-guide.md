@@ -7,7 +7,7 @@ tags:
   - Git
 ---
 
-![article-logo](https://ws1.sinaimg.cn/large/006tNbRwly1fyk93b0u54j30xc0hi759.jpg)
+![article-logo](https://asset.vanjor.com/images/006tNbRwly1fyk93b0u54j30xc0hi759.jpg)
 
 <!-- more -->
 
@@ -19,19 +19,19 @@ Git作为一种分布式代码仓库，便在设计上区别与SVN
 
 ### simplest
 
-![git workflow basic](https://ws4.sinaimg.cn/large/006tNbRwly1fyk93ufs6oj30uy0k5757.jpg)
+![git workflow basic](https://asset.vanjor.com/images/006tNbRwly1fyk93ufs6oj30uy0k5757.jpg)
 
 ### detailer
 
-![git workflow complex](https://ws2.sinaimg.cn/large/006tNbRwly1fyk94abf3wj30dm0b0dft.jpg)
+![git workflow complex](https://asset.vanjor.com/images/006tNbRwly1fyk94abf3wj30dm0b0dft.jpg)
 
 ### comprehension
 
-![complex workflow](https://ws4.sinaimg.cn/large/006tNbRwly1fyl9gxi6mhj30sg0ift9c.jpg)
+![complex workflow](https://asset.vanjor.com/images/006tNbRwly1fyl9gxi6mhj30sg0ift9c.jpg)
 
 ### multiple remote repos
 
-![multiple remote repos](https://ws2.sinaimg.cn/large/006tNbRwly1fyk963sdybj30sg0r4tak.jpg)
+![multiple remote repos](https://asset.vanjor.com/images/006tNbRwly1fyk963sdybj30sg0r4tak.jpg)
 
 ### 扩展参考
 
@@ -320,7 +320,7 @@ $ git help
 
 ## Git cheat sheet
 
-![git-cheatsheet](https://ws2.sinaimg.cn/large/006tNbRwly1fyk97sbhsxj30sg0kddij.jpg)
+![git-cheatsheet](https://asset.vanjor.com/images/006tNbRwly1fyk97sbhsxj30sg0kddij.jpg)
 
 # Git 深入学习
 
@@ -373,7 +373,7 @@ git本身是一种去中心化的设计，可以无需中心代码仓库而工�
 
 # Git 开发流程与规范
 
-![A successful Git branching model](https://ws2.sinaimg.cn/large/006tNbRwly1fylpkjyx4uj30u013rwhl.jpg)
+![A successful Git branching model](https://asset.vanjor.com/images/006tNbRwly1fylpkjyx4uj30u013rwhl.jpg)
 
 * [A successful Git branching model](http://nvie.com/posts/a-successful-git-branching-model/)
 * [Git 分支管理策略](http://www.ruanyifeng.com/blog/2012/07/git.html)

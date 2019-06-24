@@ -11,7 +11,7 @@ tags:
 
 <!-- more -->
 
-![来自Bing的一张追忆图：胡同里奔跑的风筝与女孩](https://ws2.sinaimg.cn/large/006tNbRwly1fynirpypqoj30qm0e875s.jpg)
+![来自Bing的一张追忆图：胡同里奔跑的风筝与女孩](https://asset.vanjor.com/images/006tNbRwly1fynirpypqoj30qm0e875s.jpg)
 
 晚上几乎又是赶上末班车，随同上车也才3，4人，车内熄着灯，显得格外安宁，习惯直奔最后一排，当售票员带着老北京的吆喝问我们到哪，十分的爽快喊道：终点。随着班车不停站的狂奔，心也因此而飞扬。
 

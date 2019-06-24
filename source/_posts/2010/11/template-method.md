@@ -106,7 +106,7 @@ class Chess extends Game {
 
 **JDK中样列**:
 
-![template method](https://ws3.sinaimg.cn/large/006tNbRwly1fynygm0dzuj30dz053aa1.jpg)
+![template method](https://asset.vanjor.com/images/006tNbRwly1fynygm0dzuj30dz053aa1.jpg)
 
 JDK类：Arrays和Collections提供的sort(）方法
 

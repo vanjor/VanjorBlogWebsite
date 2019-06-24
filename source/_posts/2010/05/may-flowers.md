@@ -9,7 +9,7 @@ tags:
 
 继上月初的[四月新番](/2010/04/april-beginning/)，早已在心里埋下伏笔，待五月之初写一篇五月月首寄语，名为五月鲜花。一来是纪念着北京晚来的春天，二来承接着那份希望与景愿。
 
-![五月鲜花](https://ws1.sinaimg.cn/large/006tNbRwly1fynkbtk8vlj30go0b5q3h.jpg)
+![五月鲜花](https://asset.vanjor.com/images/006tNbRwly1fynkbtk8vlj30go0b5q3h.jpg)
 
 <!-- more -->
 

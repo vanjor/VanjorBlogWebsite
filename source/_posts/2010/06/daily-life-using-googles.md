@@ -16,15 +16,15 @@ tags:
 
 早上起来，睁开朦胧双眼，新的一天开始了，打开电脑，第一件事情当然是check邮箱了，随着开机自动启动的Gtalk会检查是否有新邮件
 
-![Gtalk check mail in time for Gmail](https://ws2.sinaimg.cn/large/006tNbRwly1fynl7pp72qj308e03wglw.jpg)
+![Gtalk check mail in time for Gmail](https://asset.vanjor.com/images/006tNbRwly1fynl7pp72qj308e03wglw.jpg)
 
 配套Google日历，每天定时收到当天的行程安排与提醒，如同贴身秘书
 
-![每天在Google日历上的安排提醒会在早上发到](https://ws3.sinaimg.cn/large/006tNbRwly1fynl65sp34j30hl0famxi.jpg)
+![每天在Google日历上的安排提醒会在早上发到](https://asset.vanjor.com/images/006tNbRwly1fynl65sp34j30hl0famxi.jpg)
 
 内置Buzz，让查看邮件时，也能动态及时的看到朋友动态和分享，并可基于评论相互交换意见
 
-![Buzz in Gmail connect with Friends](https://ws4.sinaimg.cn/large/006tNbRwly1fynl8jnwvvj30pd0ehgp9.jpg)
+![Buzz in Gmail connect with Friends](https://asset.vanjor.com/images/006tNbRwly1fynl8jnwvvj30pd0ehgp9.jpg)
 
 Tips:
 
@@ -38,11 +38,11 @@ Tips:
 
 当看到什么文章值得写下自己的思考或问题时，随时标记下来吧。
 
-![Google reader内置的笔记本](https://ws3.sinaimg.cn/large/006tNbRwly1fynld3hy9fj30j908ftah.jpg)
+![Google reader内置的笔记本](https://asset.vanjor.com/images/006tNbRwly1fynld3hy9fj30j908ftah.jpg)
 
 查看朋友的分享和动态
 
-![Connect to Friends](https://ws3.sinaimg.cn/large/006tNbRwly1fynldjd3qcj30j908qgon.jpg)
+![Connect to Friends](https://asset.vanjor.com/images/006tNbRwly1fynldjd3qcj30j908qgon.jpg)
 
 Tips about Google Reader的信息类别
 
@@ -55,11 +55,11 @@ Tips about Google Reader的信息类别
 
 接下来可以开始淡定的工作了，打开IDE，浏览器查资料时，还有个重点就是与fellow沟通了
 
-![Gtalk主界面简约明朗](https://ws4.sinaimg.cn/large/006tNbRwly1fynleogvdnj304v09hjsj.jpg)
+![Gtalk主界面简约明朗](https://asset.vanjor.com/images/006tNbRwly1fynleogvdnj304v09hjsj.jpg)
 
 Gtalk界面处处简洁明了，信息突出，没有多余视觉干扰。多聊天窗口自动停靠，随意分拆，随意悬浮
 
-![Gtalk聊天界面](https://ws3.sinaimg.cn/large/006tNbRwly1fynlf115pwj308m080wfg.jpg)
+![Gtalk聊天界面](https://asset.vanjor.com/images/006tNbRwly1fynlf115pwj308m080wfg.jpg)
 
 Tips
 
@@ -70,7 +70,7 @@ Tips
 
 相当实用的Calender可以作为计划安排，任务提醒，日期查询等等种种功能。与他人分享日历计划。
 
-![随时记录计划，安排，查看提醒](https://ws3.sinaimg.cn/large/006tNbRwly1fynlg5w26tj30he0bc449.jpg)
+![随时记录计划，安排，查看提醒](https://asset.vanjor.com/images/006tNbRwly1fynlg5w26tj30he0bc449.jpg)
 
 Tips
 

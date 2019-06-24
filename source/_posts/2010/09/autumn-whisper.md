@@ -13,7 +13,7 @@ tags:
 
 <!-- more -->
 
-![fisher](https://ws1.sinaimg.cn/large/006tNbRwly1fynsbawgehj30sg0lcmyx.jpg)
+![fisher](https://asset.vanjor.com/images/006tNbRwly1fynsbawgehj30sg0lcmyx.jpg)
 
 归来的当天中午，和同组的女生一起吃饭，问她一个曾经重复了几次的问题，周末过的怎么样，从她的一丝茫然的眼光，依然在家休息的回答中。
 

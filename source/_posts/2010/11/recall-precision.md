@@ -23,13 +23,13 @@ tags:
 > 准确率 = 系统检索到的相关文件 / 系统所有检索到的文件总数
 
 运用图示表示如下
-![召回率，准确率，F-measure](https://ws1.sinaimg.cn/large/006tNbRwly1fynu9mb0drj30d70800sq.jpg)
+![召回率，准确率，F-measure](https://asset.vanjor.com/images/006tNbRwly1fynu9mb0drj30d70800sq.jpg)
 
 # 召回率，准确率关系
 
 由于信息检索系统返回的是一个排序的文档集合，因此召回率与准确率是互补的。设定不同的相关性得分门限就能够得到相应的准确率与 召回率。如果我们在以准确率为Y轴，召回率为X轴的图上画出不同门限下的准确率与召回率，一般它会程下面的形状：
 
-![召回率 准确率关系](https://ws4.sinaimg.cn/large/006tNbRwly1fynxal1hldj309u07jjrb.jpg)
+![召回率 准确率关系](https://asset.vanjor.com/images/006tNbRwly1fynxal1hldj309u07jjrb.jpg)
 
 那么，对于系统的评价指标就存在一个问题，如果一个系统偏重与给用户最准确的结果，那么高的准确率是必要的，反之，如果系统 希望包括尽可能多的相关结果，又会偏好召回率。系统如果简单的用召回率或准确率对系统性能作评价，无法评估系统的理想性能的。
 
@@ -43,7 +43,7 @@ tags:
 
 mAP是为解决P，R，F-measure的单点值局限性的。为了得到 一个能够反映全局性能的指标，可以看考察下图，其中两条曲线(方块点与圆点)分布对应了两个检索系统的准确率-召回率曲线。
 
-![Mean-avg-prec](https://ws1.sinaimg.cn/large/006tNbRwly1fyo0z9bzkmj309u07it8p.jpg)
+![Mean-avg-prec](https://asset.vanjor.com/images/006tNbRwly1fyo0z9bzkmj309u07it8p.jpg)
 
 可以看出，虽然两个系统的性能曲线有所交叠但是以圆点标示的系统的性能在绝大多数情况下要远好于用方块标示的系统。
 
@@ -53,7 +53,7 @@ mAP是为解决P，R，F-measure的单点值局限性的。为了得到 一个�
 
 其规范的定义如下:(其中P，R分别为准确率与召回率)
 
-![mAP](https://ws3.sinaimg.cn/large/006tNbRwly1fynxgyan35j304w019t8h.jpg)
+![mAP](https://asset.vanjor.com/images/006tNbRwly1fynxgyan35j304w019t8h.jpg)
 
 一般在做评价时取得的准确率与召回率都是离散值，因此一般在计算时都采用求和而非积分.
 

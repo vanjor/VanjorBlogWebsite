@@ -12,13 +12,13 @@ tags:
 
 <!-- more -->
 
-![基于纷纭的团购网站而生的团购聚合网](https://ws1.sinaimg.cn/large/006tNbRwly1fynnwlff7jj30lb0fgdi5.jpg)
+![基于纷纭的团购网站而生的团购聚合网](https://asset.vanjor.com/images/006tNbRwly1fynnwlff7jj30lb0fgdi5.jpg)
 
 另外的一种场景，城市的交通部门拥有路况监控设备与路况事实信息数据，每天会有各种显示街区道路的路况数据报表，但是由于人眼视觉原因，不可能很好的快速去理解消化这些条条框框里的数据，如果作为Web平台服务提供给大众的话，这些一大堆表格与查询控件所带来无疑是一种比较糟糕的用户体验度。
 
 一种可能的方式是结合Web-GIS相关服务数据平台，将路况信息与Map-GIS系统进行糅合-Mashup，那么这个结合后的信息呈现方式更直观更快捷的为人们所理解和便于做出快速决策。下图为
 
-![搜狗北京城区实时交通流量](https://ws3.sinaimg.cn/large/006tNbRwly1fynnwyh62kj30sg0f4jud.jpg)
+![搜狗北京城区实时交通流量](https://asset.vanjor.com/images/006tNbRwly1fynnwyh62kj30sg0f4jud.jpg)
 
 # Mashup概念
 
@@ -50,7 +50,7 @@ Mashup作为一种概念来说，支撑它的技术牵扯到各个领域，作�
 
 Google也充分在地图上整合的商家信息，大众评论，Picasa等用户上传的地理地貌图片信息这里Map已经成为其他相关信息的一种载体，甚至Google也充分发挥自己能动性，拍摄各国城市街景图像数据，通过A+B=C式的Mashup诞生各种各样新式的服务。
 
-![Google map与图片，文字，评论等信息的Mashup](https://ws4.sinaimg.cn/large/006tNbRwly1fynrzwcnphj30sg0h5q4q.jpg)
+![Google map与图片，文字，评论等信息的Mashup](https://asset.vanjor.com/images/006tNbRwly1fynrzwcnphj30sg0h5q4q.jpg)
 
 ## 基于社交网络SNS等产生内容元数据抽取关联的Mashup
 
@@ -64,7 +64,7 @@ Google也充分在地图上整合的商家信息，大众评论，Picasa等用�
 
 而如今，淘宝已经为其平台不断的开放第三封那个数据访问API接口平台与服务，这也会成为未来的一种发展趋势，百度的框计划，在搜索结果中直接聚合了图片信息，常用天气，计算结果，网站登录入口等服务也是广义上一种Mashup的思路。
 
-![Google - shopping ，meta data mashup](https://ws1.sinaimg.cn/large/006tNbRwly1fyns2eha79j30s30fmmz2.jpg)
+![Google - shopping ，meta data mashup](https://asset.vanjor.com/images/006tNbRwly1fyns2eha79j30s30fmmz2.jpg)
 
 ## 基于新闻源分享的文本图像信息聚类Mashup
 

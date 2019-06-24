@@ -15,7 +15,7 @@ tags:
 
 就如同时光的消逝，动荡中求得安逸，却从来没有忘记过忧患的存在，就如同总是感觉到它静悄悄的沉寂在你身边的一个角度，待得你足够遗忘它时，悄然现身之时，即是被其吞噬时。
 
-![november-for-peace](https://ws4.sinaimg.cn/large/006tNbRwly1fynu48jkgbj30ec090glz.jpg)
+![november-for-peace](https://asset.vanjor.com/images/006tNbRwly1fynu48jkgbj30ec090glz.jpg)
 
 看过[11度青春系列电影](http://www.youku.com/show_page/id_zac398d46a47011df97c0.html)之《[老男孩](http://v.youku.com/v_show/id_XMjE4MDU1MDE2.html)》的视频，在命运变幻的河流里，青春如同奔流的江河，一去不回来不及道别。生活像一把无情刻刀，改变了我们模样，未曾绽放就要枯萎吗 ，我有过梦想，青春如同奔流的江河，一去不回来不及道别，只剩下麻木的我没有了当年的热血，看那漫天飘零的花朵，在最美丽的时刻凋谢，有谁会记得这世界她曾经来过。深刻感受到时间的那把无情刻刀，也感觉一种未来得及把握时度未作为的深深的遗憾与危机感。
 

@@ -22,24 +22,24 @@ TF-IDF是一种用于[资讯检索](http://zh.wikipedia.org/zh-cn/%E8%B3%87%E8%A
 
 **词频**（Term Frequency，TF）指的是某一个给定的词语在该文件中出现的次数。这个数字通常会被正规化，以防止它偏向长的文件。（同一个词语在长文件里可能会比短文件有更高的词频，而不管该词语重要与否。）对于在某一特定文件里的词语 _t__i_ 来说，它的词频(重要性)可表示为：
 
-![tfidf](https://ws4.sinaimg.cn/large/006tNbRwly1fynys23fwdj303v01qmwx.jpg)
+![tfidf](https://asset.vanjor.com/images/006tNbRwly1fynys23fwdj303v01qmwx.jpg)
 
 (以上式子中 ni,j 是该词在文件dj中的出现次数，而分母则是在文件dj中所有字词的出现次数之和)
 
 **逆向文件频率**（Inverse Document Frequency，IDF）是一个词语普遍重要性的度量。某一特定词语的IDF，可以由总文件数目除以包含该词语之文件的数目，再将得到的商取对数得到：
 
-![tfidf](https://ws2.sinaimg.cn/large/006tNbRwly1fynysdlg06j305t01vwe9.jpg)
+![tfidf](https://asset.vanjor.com/images/006tNbRwly1fynysdlg06j305t01vwe9.jpg)
 
 (其中:
 
 * | D |：语料库中的文件总数
-* ![tfidf](https://ws1.sinaimg.cn/large/006tNbRwly1fynyuhu0g4j302t00k3y9.jpg)包含词语_t__i_的文件数目（即 **ni,j != 0**的文件数目）,如果关键词不在语料库中，这会导致除零错误，这种情况通常用1+![tfidf](https://ws4.sinaimg.cn/large/006tNbRwly1fynyvjgwckj302t00k3y9.jpg)来代替。
+* ![tfidf](https://asset.vanjor.com/images/006tNbRwly1fynyuhu0g4j302t00k3y9.jpg)包含词语_t__i_的文件数目（即 **ni,j != 0**的文件数目）,如果关键词不在语料库中，这会导致除零错误，这种情况通常用1+![tfidf](https://asset.vanjor.com/images/006tNbRwly1fynyvjgwckj302t00k3y9.jpg)来代替。
 
 # TF-IDF权重：
 
 由此，TF，IDF权重为TF，IDF的乘积
 
-![tfidf](https://ws1.sinaimg.cn/large/006tNbRwly1fynyzr2vxuj30g402gt8l.jpg)
+![tfidf](https://asset.vanjor.com/images/006tNbRwly1fynyzr2vxuj30g402gt8l.jpg)
 
 为在整个文档集中，关键词Term i（最小单元）在文档j中的权重。某一特定文件内的高词语频率，以及该词语在整个文件集合中的低文件频率，可以产生出高权重的TF-IDF。因此，TF-IDF倾向于过滤掉常见的词语，保留重要的词语。
 
@@ -47,7 +47,7 @@ TF-IDF是一种用于[资讯检索](http://zh.wikipedia.org/zh-cn/%E8%B3%87%E8%A
 
 查询q与文档dj的余弦相似度可以表示为:
 
-![tf-idf-cosine](https://ws2.sinaimg.cn/large/006tNbRwly1fynyphga3bj30ci02g0sj.jpg)
+![tf-idf-cosine](https://asset.vanjor.com/images/006tNbRwly1fynyphga3bj30ci02g0sj.jpg)
 
 其中，i为q与文档dj 把q视作一个文档向量，i为dj 与q中的每一个元关键词标量。
 

@@ -9,7 +9,7 @@ tags:
 
 北京的五月依然春意未尽，上周的雨欲下而止，今天终于表现出了应该有的样子。而回忆家乡，相对算是南方，则印象中是那么的豪爽，早在二月份的时候，正午狂风大作，乌云蔽日，白天如黑夜，酣畅淋漓的瓢泼而泄，一切洗刷而尽，洗礼万物，在傍晚复现的晚霞中焕然一新，全然不曾知觉到刚经历过的狂风暴雨。
 
-![the cat - alice in wonderland](https://ws1.sinaimg.cn/large/006tNbRwly1fynkus6j1pj30g5089jre.jpg)
+![the cat - alice in wonderland](https://asset.vanjor.com/images/006tNbRwly1fynkus6j1pj30g5089jre.jpg)
 
 <!-- more -->
 
@@ -21,7 +21,7 @@ tags:
 
 那个会消失的猫依然跃入眼前，尤其是幻化做天边的月亮笑脸，这个与宫崎骏《龙猫》有些类似的角色实际上又是童年的一份精神寄托。
 
-![宫崎骏-龙猫-孩时的寄托](https://ws1.sinaimg.cn/large/006tNbRwly1fynkvh8iu8j30m80g3jsy.jpg)
+![宫崎骏-龙猫-孩时的寄托](https://asset.vanjor.com/images/006tNbRwly1fynkvh8iu8j30m80g3jsy.jpg)
 
 这两周有许些插曲，本科导师 [Prof. Liu](http://www.dian.org.cn)来校访问，欣然全程陪同，并无意中当了一回会议秘书。当然收获也很多，通过Prof. Liu了解了两位仰慕前辈们的事情，惊讶于[realdodo](http://www.realdodo.com/)与[aw](http://www.awflasher.com)最终走到一起，赞aw的创业精神和敏锐的眼光，也同赞realdodo的执着技术追求与对知识渴求，技术上已近是万人之上的他每晚不看一小时书坚决不睡觉。同时也了解作为团队中的leader需要的协作能力，积极的交流，让队员们每天能够有一个明确的可以达到的目标，一点一点的积累，成就感也将无形的转化为动力。
 

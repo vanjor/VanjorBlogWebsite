@@ -10,7 +10,7 @@ tags:
 
 基于鼠标操作的后果就是OS界面外观发生改变，就得多花学习成本。更主要的是基于界面引导Path与命令行直达速度是难以比拟的。另外Geek很大一部分是键盘控，而非鼠标流的。
 
-![shell](https://ws4.sinaimg.cn/large/006tNbRwly1fyo0rzdrrgj3072041749.jpg)
+![shell](https://asset.vanjor.com/images/006tNbRwly1fyo0rzdrrgj3072041749.jpg)
 
 整理Windows的常用Shell命令，一方面帮助深入学习Mysql，另一方面准备尝试过渡到Linux家族来。
 

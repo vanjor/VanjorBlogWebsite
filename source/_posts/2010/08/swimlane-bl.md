@@ -17,7 +17,7 @@ tags:
 
 下图为一个实际案例中的状态图，其中圆形标识了在整个业务流程中的所处状态，而箭头及标识标明影响对应状态变迁的时间与说指向的下一状态。
 
-![State Logic Flow](https://ws3.sinaimg.cn/large/006tNbRwly1fynnguyfdlj30iz0770sy.jpg)
+![State Logic Flow](https://asset.vanjor.com/images/006tNbRwly1fynnguyfdlj30iz0770sy.jpg)
 
 这种图展现在一种程式状态机，尽量从纷繁错杂的业务逻辑中抽取归纳出明确的状态，和变迁的时间，事实上这也是将现实中逻辑事务转交给机器解决的一重大关键之处，机器实际上是不能自动理解人的思维，机器为什么能够“智能”的解决一些问题，是因为已经把所有可变因素与程式给加载与程序内部。也就是说，理清业务逻辑也就是要明晰那些是变的，那些事不变的，消灭掉模菱两可的状态间一对多或多对多的关系，让我们集中注意力处理那些可变因素，做量化条理化，在业务开发中提供一个可达路径。
 
@@ -29,7 +29,7 @@ tags:
 >
 > 泳道流程图（Swimlane Flowcharts）是一种反映商业流程中人与人之间关系的特殊图表。
 
-![Swimlane Workflow-SUM ](https://ws3.sinaimg.cn/large/006tNbRwly1fynnh80dgtj30t50bm756.jpg)
+![Swimlane Workflow-SUM ](https://asset.vanjor.com/images/006tNbRwly1fynnh80dgtj30t50bm756.jpg)
 
 上图是对一个部门的所有业务逻辑的一个聚合的全集分析，在纵坐标界定了用户角色与职责，横坐标界定了业务流程步骤，而内容取的各个状态会对应清晰的分布在Role与Step间，指尖的箭头与说明界定了触发事件与下一步状态，当然横纵坐标可以互换。
 
@@ -37,7 +37,7 @@ tags:
 
 但是在具体分析中，多个分支逻辑糅合在一起会有一定的干扰影响，通常，人如果能将目标集中放在一处，就做的更专一更优秀，同样看业务处理的结果不同，可以进行定性划分了几种枝干业务流程，也就是将Sum中的一团麻拆分为一个个更容易理解的Sub支线。如下图：
 
-![Swimlane Workflow-SUB for Approved (detail for download](https://ws4.sinaimg.cn/large/006tNbRwly1fynni23nnwj30t40bmwf6.jpg)
+![Swimlane Workflow-SUB for Approved (detail for download](https://asset.vanjor.com/images/006tNbRwly1fynni23nnwj30t40bmwf6.jpg)
 
 上图分支流程图，按照业务处理性质与结果，划分的一种大的子类- Approved，即被通过的案例，图中只画出了Approved说需要的各个状态与步骤。
 

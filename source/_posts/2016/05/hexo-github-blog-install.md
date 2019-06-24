@@ -9,7 +9,7 @@ tags:
   - Markdown
 ---
 
-![Github托管Hexo博客](https://ws4.sinaimg.cn/large/006tNbRwly1fyjdb5974cj30hs07sdgp.jpg)
+![Github托管Hexo博客](https://asset.vanjor.com/images/006tNbRwly1fyjdb5974cj30hs07sdgp.jpg)
 
 # 序
 

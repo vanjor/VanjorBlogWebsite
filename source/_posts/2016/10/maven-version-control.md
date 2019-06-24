@@ -8,7 +8,7 @@ tags:
   - Maven
 ---
 
-![maven logo](https://ws3.sinaimg.cn/large/006tNbRwly1fyk9jm52b3j30zk085dfw.jpg)
+![maven logo](https://asset.vanjor.com/images/006tNbRwly1fyk9jm52b3j30zk085dfw.jpg)
 
 Java打包与依赖奠定了软件包发布与版本管理的依赖的一个业界规范。
 

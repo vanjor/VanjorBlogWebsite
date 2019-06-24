@@ -10,7 +10,7 @@ tags:
   - NLU
 ---
 
-![nlu](https://ws3.sinaimg.cn/large/006tNbRwly1fyo0h8l8vij307203dt8q.jpg)
+![nlu](https://asset.vanjor.com/images/006tNbRwly1fyo0h8l8vij307203dt8q.jpg)
 
 文本情感分析(Sentiment Analysis)： 又称意见挖掘,简单而言,是对带有情感色彩的主观性文本进行分析、处理、归纳和推理的过程.最初的情感分析源自前人对带有情感色彩的词语的分析。(右图参考论文[2])
 
@@ -29,7 +29,7 @@ tags:
 
 以下主要从情感分析的几个需要考虑的问题做阐述：**情感信息的抽取**、**情感信息的分类**
 
-![sentiment](https://ws3.sinaimg.cn/large/006tNbRwly1fyo0iar441j30cu06hjrw.jpg)
+![sentiment](https://asset.vanjor.com/images/006tNbRwly1fyo0iar441j30cu06hjrw.jpg)
 
 # 情感信息的抽取
 
@@ -41,7 +41,7 @@ tags:
 
 总体三部分:
 
-![情感分析主客体结构](https://ws1.sinaimg.cn/large/006tNbRwly1fyo0imrjmcj30cs0233yf.jpg)
+![情感分析主客体结构](https://asset.vanjor.com/images/006tNbRwly1fyo0imrjmcj30cs0233yf.jpg)
 
 ## 评价词语的抽取和判别
 

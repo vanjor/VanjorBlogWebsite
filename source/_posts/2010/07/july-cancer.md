@@ -27,7 +27,7 @@ tags:
 
 <!-- more -->
 
-![july-cancer out of 12 asterism](https://ws4.sinaimg.cn/large/006tNbRwly1fynmxiw1t5j30rk0hcaaz.jpg)
+![july-cancer out of 12 asterism](https://asset.vanjor.com/images/006tNbRwly1fynmxiw1t5j30rk0hcaaz.jpg)
 
 最大的习惯就是习惯那些不变，一旦打破，将荡起内在的紊乱，一种激变，却又能更好的深度思考，那些曾今的习惯是些什么？
 
