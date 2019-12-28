@@ -17,6 +17,8 @@ categories: 知识积累
 * Fully cloud host, auto scale 
 * No connection pool, only concurrent concept to avoid break limit for Dynamodb API is based on web service.
 
+<!-- more -->
+
 ## Structure
 * Table: A table is a collection of data
 * Item: Similar to row in RDB, Each table contains zero or more items. An item is a group of attributes that is uniquely identifiable among all of the other items.
