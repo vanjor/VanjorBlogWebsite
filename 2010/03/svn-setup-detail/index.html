@@ -1,0 +1,1772 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-flash.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=7.1.2">
+
+
+  <link rel="mask-icon" href="/images/avatar.png?v=7.1.2" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="针对Subversion 的配置，在上一文中简要的说明最快捷的配置与使用，今天尝试进行权限配置时，发现了不少问题，现总结如下:">
+<meta name="keywords" content="Subversion">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SVN服务器相关深入配置">
+<meta property="og:url" content="https://blog.vanjor.com/2010/03/svn-setup-detail/index.html">
+<meta property="og:site_name" content="Vanjor&#39;s Blog">
+<meta property="og:description" content="针对Subversion 的配置，在上一文中简要的说明最快捷的配置与使用，今天尝试进行权限配置时，发现了不少问题，现总结如下:">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2010-03-17T16:47:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SVN服务器相关深入配置">
+<meta name="twitter:description" content="针对Subversion 的配置，在上一文中简要的说明最快捷的配置与使用，今天尝试进行权限配置时，发现了不少问题，现总结如下:">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Vanjor's Blog" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="https://blog.vanjor.com/2010/03/svn-setup-detail/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>SVN服务器相关深入配置 | Vanjor's Blog</title>
+  
+
+
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-43841261-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-43841261-1');
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Vanjor's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">notes</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">48</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">5</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">56</span></a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.vanjor.com/2010/03/svn-setup-detail/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Vanjor">
+      <meta itemprop="description" content="personal tech blog">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Vanjor's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SVN服务器相关深入配置<a href="https://github.com/vanjor/VanjorBlogWebsite/blob/source/source/_posts/2010/03/svn-setup-detail.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pencil"></i></a>
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2010-03-18 00:47:48" itemprop="dateCreated datePublished" datetime="2010-03-18T00:47:48+08:00">2010-03-18</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/learning/" itemprop="url" rel="index"><span itemprop="name">知识积累</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2010/03/svn-setup-detail/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2010/03/svn-setup-detail/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2010/03/svn-setup-detail/" class="leancloud_visitors" data-flag-title="SVN服务器相关深入配置">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">8.5k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">11 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>针对<strong>Subversion</strong> 的配置，在上一文中简要的说明最快捷的配置与使用，今天尝试进行权限配置时，发现了不少问题，现总结如下:</p>
+<a id="more"></a>
+<h1 id="版本库及服务创建之一"><a href="#版本库及服务创建之一" class="headerlink" title="版本库及服务创建之一"></a>版本库及服务创建之一</h1><p>通过subversion的svnserve启动apache服务：</p>
+<h2 id="Subversion-的版本库（repository"><a href="#Subversion-的版本库（repository" class="headerlink" title="Subversion 的版本库（repository)"></a>Subversion 的版本库（repository)</h2><p>位于服务器端，统一管理和储存数据的地方。介绍在服务器端配置和管理 Subversion 版本库的基本方法，Linux 与Windows中的配置差别不大。</p>
+<h2 id="版本库数据存储方式"><a href="#版本库数据存储方式" class="headerlink" title="版本库数据存储方式"></a>版本库数据存储方式</h2><p>在 Subversion 中，版本库的数据存储有两种方式，一种是在 Berkeley DB 数据库中存放数据；另一种是使用普通文件，采用自定义的格式来储存，称为 FSFS。（两种存放方式各有优缺点，参考 <a href="http://svnbook.org/" target="_blank" rel="noopener">svnbook</a> 上面的文档来了解两者详细的比较和区别）</p>
+<h2 id="版本库服务启动"><a href="#版本库服务启动" class="headerlink" title="版本库服务启动"></a>版本库服务启动</h2><p>Subversion 设计了一个抽象的网络层，版本库建立完毕之后，可以通过各种服务器向外公布。svnserve 是 Subversion 自带的一个小型的服务器，它使用独立的协议与客户端。我们可以通过 :</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">svnserve –i #作为 inetd 启动</span><br><span class="line">svnserve –d #作为守护进程启动一个服务。</span><br></pre></td></tr></table></figure>
+<p>同时可以指定一些选项，常用的如 -r，用来指定版本库的根路径，例如假设版本库位于 E:/svn</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svnserve –d -r E:/svn #即创建了以E:/svn为根目录的SVN版本库服务。</span><br></pre></td></tr></table></figure>
+<h2 id="设置为系统服务并自动启动"><a href="#设置为系统服务并自动启动" class="headerlink" title="设置为系统服务并自动启动"></a>设置为系统服务并自动启动</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svnserve --daemon --root E:\\svn\\repository</span><br></pre></td></tr></table></figure>
+<p>服务启动–daemon可简写为-d、–root可简写为-r可以建立个批处理文件并放在windows启动组中便于开机 就运行SVN服务或者在这个<a href="http://clanlib.org/~mbn/svnservice/" target="_blank" rel="noopener">地址</a>下载那个svnservice.exe文件拷贝到 命令行下执行:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">svnservice -install --daemon --root "D:\\svn\\Repository"</span><br><span class="line">sc config svnservice start= auto</span><br><span class="line">net start svnservice</span><br></pre></td></tr></table></figure>
+<h2 id="创建子版本库（或版本库）"><a href="#创建子版本库（或版本库）" class="headerlink" title="创建子版本库（或版本库）"></a>创建子版本库（或版本库）</h2><p>假设以以上”E:/svn”为根目录，并启动svn服务器，那么创建子版本库有两种方式：</p>
+<ul>
+<li>通过TortoiseSVN等svn客户端工具创建版本库：在E:/svn中新建子目录project1，并进入E：/svn/project1 中通过TortoiseSVN菜单创建版本库，则这个版本库可以通过svn://服务器IP/project1”访问,以此类推可建立project2等等，并且这样各个子项目库相关权限配置保持独立。</li>
+<li>通过subSVN服务器命令创建版本库, 创建版本库的命令，指定数据存储为 FSFS，如果要指定为 Berkeley DB，则将 fsfs 改为 bdb</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svnadmin create --fs-type fsfs /etc/svn/repos</span><br></pre></td></tr></table></figure>
+<h2 id="版本库下目录文件说明"><a href="#版本库下目录文件说明" class="headerlink" title="版本库下目录文件说明"></a>版本库下目录文件说明</h2><ul>
+<li>conf 目录：存放了版本库的配置文件，包括用户访问控制和权限控制等内容，文件本身的注释说明十分详细，读者可以根据注释自行配置；</li>
+<li>dav 目录：是提供给 Apache 相关模块的目录，目前为空；</li>
+<li>db 目录：存放着 Subversion 所要管理的所有受版本控制的数据，不同的存储方式（Berkeley DB 或者 FSFS）下有着不同的目录结构，不过我们一般不用直接修改和查看这个目录下的内容，Subversion 的命令可以安全的操作这个目录；</li>
+<li>hooks 目录：存放着钩子脚本及其模版（一种版本库事件触发程序）</li>
+<li>locks 目录：存放着 Subversion 版本库锁定数据，format 文件记录了版本库的布局版本号。</li>
+</ul>
+<h2 id="推荐项目程序目录结构如下"><a href="#推荐项目程序目录结构如下" class="headerlink" title="推荐项目程序目录结构如下"></a>推荐项目程序目录结构如下</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">|――project_A  </span><br><span class="line">| ――――branches</span><br><span class="line">| ――――tags</span><br><span class="line">| ――――trunk</span><br></pre></td></tr></table></figure>
+<p>可以通过客户端建立好相关目录，然后提交到版本库或子版本库中。</p>
+<h1 id="版本库及服务创建之二"><a href="#版本库及服务创建之二" class="headerlink" title="版本库及服务创建之二"></a>版本库及服务创建之二</h1><p>通过Apache Http Server服务启动svnserve服务：</p>
+<h2 id="特点说明"><a href="#特点说明" class="headerlink" title="特点说明"></a>特点说明</h2><p>区别于第一种：svnserve 只能对全局提供简单的访问控制，如果想要更加灵活的方式，可以使用 Apache Http Server 作为向外公布版本库的方式，同时可以通过HTTP访问。</p>
+<h2 id="配置步骤"><a href="#配置步骤" class="headerlink" title="配置步骤"></a>配置步骤</h2><ul>
+<li>安装 mod_dav_svn 插件：用途使 Subversion 与 dav 模块通信，需要安装 mod_dav_svn 插件，可以在 Subversion 的安装目录中找到。将其拷贝到 Apache 安装目录的 modules 文件夹下。（由于 Subversion 需要版本化的控制，因此标准的 Http 协议不能满足需求。要让 Apache 与 Subversion 协同工作，需要使用 WebDAV（Web 分布式创作和版本控制）。WebDAV 是 HTTP 1.1 的扩展，关于 WebDAV 的规范和工作原理，可以参考 IETF RFC 2518。）</li>
+<li><p>并配置 Apache 的 httpd.conf 文件，让 Apache 在启动的时候加载上述模块。需要添加的内容如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LoadModule dav\_module modules/mod\_dav.so</span><br><span class="line">LoadModule dav\_svn\_module modules/mod\_dav\_svn.so</span><br><span class="line"><span class="meta">#</span>首先需要启用 dav\_module，然后加载 dav\_svn_module</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="版本库建立"><a href="#版本库建立" class="headerlink" title="版本库建立"></a>版本库建立</h2><p>在Apache的httpd.conf文件中末尾加入如下配置信息：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DAV svn</span><br><span class="line">SVNPath /etc/svn/repos</span><br></pre></td></tr></table></figure>
+<p>Location 标签指出访问的 URL 以及在服务器上的实际位置。配置完毕后重新启动 Apache，打开浏览器，输入 <a href="http://服务器IP/repos" target="_blank" rel="noopener">http://服务器IP/repos</a></p>
+<h2 id="子版本库建立"><a href="#子版本库建立" class="headerlink" title="子版本库建立"></a>子版本库建立</h2><p>如果想要指定多个版本库，可以用多个 Location 标签，也可以使用 SVNParentPath 代替 SVNPath，例如在 /etc/svn 下有多个版本库 repos1，repos2 等等，用如下方式指定：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">  DAV svn</span><br><span class="line">  SVNParentPath /etc/svn</span><br></pre></td></tr></table></figure>
+<p>“SVNParentPath /etc/svn” 表示 /etc/svn 下的每个子目录都是一个版本库。可以通过 <a href="http://服务器IP/repos/repos1" target="_blank" rel="noopener">http://服务器IP/repos/repos1</a>，<a href="http://服务器IP/repos/repos2" target="_blank" rel="noopener">http://服务器IP/repos/repos2</a> 来访问。</p>
+<h2 id="版本库目录权限配置"><a href="#版本库目录权限配置" class="headerlink" title="版本库目录权限配置"></a>版本库目录权限配置</h2><h3 id="相关配置文件说明"><a href="#相关配置文件说明" class="headerlink" title="相关配置文件说明"></a>相关配置文件说明</h3><p>svn版本库下的子目录conf下初始会有三个文件：</p>
+<ul>
+<li>svnserve.conf</li>
+<li>passwd</li>
+<li>authz</li>
+</ul>
+<h3 id="svnserve-conf文件配置"><a href="#svnserve-conf文件配置" class="headerlink" title="svnserve.conf文件配置"></a>svnserve.conf文件配置</h3><p>被用来配置来进行一些简单的访问权限控制。文件的初始内容大致如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[general]</span><br><span class="line"># anon-access = read</span><br><span class="line"># auth-access = write</span><br><span class="line">password-db = passwd</span><br><span class="line"># authz-db = authz</span><br><span class="line"># realm = My First Repository</span><br></pre></td></tr></table></figure>
+<p>其中:</p>
+<ul>
+<li><code>anon-access</code> 表示匿名用户的权限</li>
+<li><code>auth-access</code> 表示认证用户的权限设置</li>
+<li><code>password-db</code> 指向保存用户帐号密码的文件的位置,可以使用相对路径。</li>
+</ul>
+<p>去掉#即可开启对应配置功能</p>
+<h3 id="passwd文件配置"><a href="#passwd文件配置" class="headerlink" title="passwd文件配置"></a>passwd文件配置</h3><p>需让svnsere.conf中开启password-db = passwd，可让以配置如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[user]</span><br><span class="line">user1 = password1</span><br><span class="line">user2 = password2</span><br><span class="line"># 格式为：“用户名 = 密码”注意前后不要有空格，中间要有空格</span><br></pre></td></tr></table></figure>
+<h3 id="authz文件配置"><a href="#authz文件配置" class="headerlink" title="authz文件配置"></a>authz文件配置</h3><p>需让svnsere.conf中开启authz-db = authz，可以配置如下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>两个分组：committers，developers</span><br><span class="line">[groups]</span><br><span class="line">committers = paulex,richard</span><br><span class="line">developers = jimmy,michel,spark,sean</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[/]</span><br><span class="line"><span class="meta">#</span>在根目录下指定所有的用户有读权限</span><br><span class="line">* = r</span><br><span class="line"><span class="meta">#</span>追加 committers 组用户有读写权限</span><br><span class="line">@committers = rw</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>在 branches/dev 目录下指定 developers 组的用户有读写权限</span><br><span class="line">[/branches/dev]</span><br><span class="line">@developers = rw</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>在 /tags 组下给予用户 tony 读写权限</span><br><span class="line">[/tags]</span><br><span class="line">tony = rw</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>禁止所有用户访问 /private 目录</span><br><span class="line">[/private]</span><br><span class="line">* =</span><br></pre></td></tr></table></figure>
+<p>以上对于1章节中的以svnserve启动svn服务直接有效。</p>
+<h2 id="Apache-Http-Server服务启动svnserve模块权限配置说明"><a href="#Apache-Http-Server服务启动svnserve模块权限配置说明" class="headerlink" title="Apache Http Server服务启动svnserve模块权限配置说明"></a>Apache Http Server服务启动svnserve模块权限配置说明</h2><h3 id="Apache-提供了基本的全局粒度权限设置"><a href="#Apache-提供了基本的全局粒度权限设置" class="headerlink" title="Apache 提供了基本的全局粒度权限设置"></a>Apache 提供了基本的全局粒度权限设置</h3><ul>
+<li>首先需要创建一个用户文件。Apache 提供了一个工具 htpasswd，用于生成用户文件，可以在 Apache 的安装目录下找到。具体使用方法如下： htpasswd etc/svn/passwordfile username 如果 passwordfile 不存在，可以加上 -c 选项让 htpasswd 新建一个。创建好的文件内容是用户名加上密码的 MD5 密文。</li>
+<li><p>接下来修改 httpd.conf，在 Location 标签中加入如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">AuthType Basic</span><br><span class="line">AuthName &quot;svn repos&quot;</span><br><span class="line">AuthUserFile /etc/svn/passwordfile</span><br><span class="line">Require valid-user</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>重新启动 Apache， 打开浏览器访问版本库。Apache 会提示你输入用户名和密码来认证登陆了。 现在只有 passwordfile 文件中设定的用户才可以访问版本库。也可以配置只有特定用户可以访问，替换上述 “Require valid-user” 为 “Require user tony robert” 将只有 tony 和 robert 可以访问该版本库。 有的时候也许不需要这样严格的访问控制，例如大多数开源项目允许匿名的读取操作，而只有认证用户才允许写操作。为了实现更为细致的权限认证，可以使用 Limit 和 LimitExcept 标签。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">require valid-user</span><br></pre></td></tr></table></figure>
+<p>如上配置将使匿名用户有读取权限，而限制只有 passwordfile 中配置的用户可以使用写操作。</p>
+<h3 id="目录粒度权限访问设置"><a href="#目录粒度权限访问设置" class="headerlink" title="目录粒度权限访问设置"></a>目录粒度权限访问设置</h3><p>使用 Apache 的 mod_authz_svn 模块对每个目录进行认证操作。</p>
+<p>首先需要让 Apache 将 mod_authz_svn 模块加载进来。在 Subversion 的安装目录中找到 mod_auth_svn 模块，将其拷贝到 Apache 安装目录的 modules 子目录下。修改 httpd.conf 文件，找到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LoadModule dav\_svn\_module modules/mod\_dav\_svn.so</span><br></pre></td></tr></table></figure>
+<p>在其后面加上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LoadModule authz\_svn\_module modules/mod\_authz\_svn.so</span><br></pre></td></tr></table></figure>
+<p>现在可以在 Location 标签中使用 authz 的功能了。一个基本的 authz 配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">  DAV svn</span><br><span class="line">  SVNPath /etc/svn/repos</span><br><span class="line">  AuthType Basic</span><br><span class="line">  AuthName &quot;svn repos&quot;</span><br><span class="line">  AuthUserFile /etc/svn/passwd</span><br><span class="line">  AuthzSVNAccessFile /etc/svn/accesspolicy</span><br><span class="line">  Satisfy Any</span><br><span class="line">  Require valid-user</span><br></pre></td></tr></table></figure>
+<p>其中AuthUserFile和AuthzSVNAccessFile两个文件就是指向3章节中的 passwd和authz策略文件 指向的是 authz 的策略文件</p>
+<p>使用 SVNParentPath 代替 SVNPath 来指定多个版本库的父目录时，其中所有的版本库都将按照这个策略文件配置。例如上例中 tony 将对所有版本库里的 /tags 目录具有读写权限。如果要对具体每个版本库配置，用如下的语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[groups]</span><br><span class="line">project1_committers = paulex richard</span><br><span class="line">project2_committers = jimmy michel spark sean \</span><br><span class="line">           steven tony robert</span><br><span class="line">[repos1:/]</span><br><span class="line">* = r</span><br><span class="line">@ project1_committer = rw</span><br><span class="line">[repos2:/]</span><br><span class="line">* = r</span><br><span class="line">@ project2_committer = rw</span><br></pre></td></tr></table></figure>
+<p>这样项目1的 committer 组只能对 repos1 版本库下的文件具有写权限而不能修改版本库 repos2，同样项目2的 commiter 也不能修改 repos1 版本库的文件。</p>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><h3 id="MySQL用户认证信息保护"><a href="#MySQL用户认证信息保护" class="headerlink" title="MySQL用户认证信息保护"></a>MySQL用户认证信息保护</h3><p>到目前为止我们的用户名密码文件还是以文本文件形式存放在文件系统中的，出于安全性的需要或者单点登陆等可扩展性的考虑，文本文件的管理方式都不能满足需求了。通过 Apache 的 module_auth_mysql 模块，我们可以用 MySQL 来保存用户信息。该模块的主页在 <a href="http://modauthmysql.sourceforge.net/" target="_blank" rel="noopener">Sourceforge</a>，你也可以在 <a href="http://modules.apache.org/" target="_blank" rel="noopener">Apache</a> 找到它的发行版本。安装方法同上述 Apache 的模块一样，拷贝至 modules 目录并在 httpd.conf 文件中添加如下语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LoadModule mysql\_auth\_module modules/mod\_auth\_mysql.so</span><br></pre></td></tr></table></figure>
+<p>相应的 Location 区域改写为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">  AuthName &quot;MySQL auth&quot;</span><br><span class="line">  AuthType Basic</span><br><span class="line">  AuthMySQLHost localhost</span><br><span class="line">  AuthMySQLCryptedPasswords Off</span><br><span class="line">  AuthMySQLUser root</span><br><span class="line">  AuthMySQLDB svn</span><br><span class="line">  AuthMySQLUserTable users</span><br><span class="line">  require valid-user</span><br></pre></td></tr></table></figure>
+<p>然后在 mysql 中添加名为 svn 的数据库，并建立 users 数据表：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> svn;</span><br><span class="line"><span class="keyword">use</span> svn;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">users</span> (</span><br><span class="line">user_name <span class="built_in">CHAR</span>(<span class="number">30</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">user_passwd <span class="built_in">CHAR</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">user_group <span class="built_in">CHAR</span>(<span class="number">10</span>),</span><br><span class="line">PRIMARY <span class="keyword">KEY</span> (user_name)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>在 users 表中插入用户信息</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">users</span> <span class="keyword">values</span>(<span class="string">'username'</span>,<span class="string">'password'</span>,<span class="string">'group'</span>);</span><br></pre></td></tr></table></figure>
+<p>重新启动 Apache，在访问版本库的时候 Apache 就会用 mysql 数据表中的用户信息来验证了。</p>
+<h3 id="SSL实现加密连接"><a href="#SSL实现加密连接" class="headerlink" title="SSL实现加密连接"></a>SSL实现加密连接</h3><p>通过 Apache 的网络链接，版本库中的代码和数据可以在互联网上传输，为了避免数据的明文传输，实现安全的版本控制，需要对数据的传输进行加密。Apache 提供了基于 SSL 的数据传输加密模块 mod_ssl，有了它，用户就可以用 https 协议访问版本库，从而实现数据的加密传输了。SSL 协议及其实现方式，是一个非常复杂的话题，本文只是介绍 Apache 提供的最基本的SSL配置方法，更加详细的介绍内容，请参考 <a href="http://httpd.apache.org/docs-2.0/ssl/" target="_blank" rel="noopener">Apache</a> 上的文档。</p>
+<p>开始配置前，我们需要一个实现 Apache 中 SSL 模块的动态程序库，通常名为 mod_ssl.so，及其配置文件，通常名为 ssl.conf。这个实现是跟 Apache 的版本相关的，不匹配的版本是不能用的；而且，并不是每一个 Apache 的版本都自带了相关实现文件，很多情况下，我们需要自己去搜寻相关文件。另外，我们还需要 OpenSSL 软件及其配置文件，来生成加密密钥和数字证书。这里，我们可以使用一些免费网站，如 <a href="http://hunter.campbus.com/" target="_blank" rel="noopener">campbus</a> 上提供的集成版本的 Apache。</p>
+<p>有了相关的工具和文件，我们就可以开始生成 SSL 的证书和密钥了。首先，我们需要找到 openssl 程序及其配置文件 openssl.cnf，运行如下命令来生成 128 位的 RSA 私有密钥文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">my-server.key：</span><br><span class="line">openssl genrsa -des3 -out my-server.key 1024</span><br><span class="line">Loading &apos;screen&apos; into random state - done</span><br><span class="line">Generating RSA private key, 1024 bit long modulus</span><br><span class="line">.....++++++</span><br><span class="line">........++++++</span><br><span class="line">e is 65537 (0x10001)</span><br><span class="line">Enter pass phrase for server.key:********</span><br><span class="line">Verifying - Enter pass phrase for server.key:********</span><br></pre></td></tr></table></figure>
+<p>命令运行期间需要用户输入并确认自己的密码。</p>
+<p>现在，我们需要 SSL 的认证证书，证书是由 CA（certificate authority） 发放并且认证的。为此，我们可以用如下命令生成一个 CSR(Certificate Signing Request) 文件发给 CA，从而得到 CA 的认证：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -key my-server.key -out my-s erver.csr -config openssl.cnf</span><br></pre></td></tr></table></figure>
+<p>当然，一般情况下，如果 Subversion 的用户不是太多，安全情况不是很复杂，我们也可以生成一个自签名的认证证书，从而省去了向 CA 申请认证的麻烦。如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -key my-server.key -x509 -out my-server.crt -config openssl.cnf</span><br></pre></td></tr></table></figure>
+<p>以上两个命令都需要用户输入那个 key 文件的密码，以及一些网络设置信息，如域名，邮箱等等，这里输入的服务器域名应该与 Apache 配置文件当中的一致。现在，我们可以在 Apache 的 conf 目录下新建一个 ssl 目录，将 my-server.key 和 my-server.crt 文件都移动到 ssl 目录里面。然后修改 ssl.conf 文件，将 SSLCertificateKeyFile 和 SSLCertificateFile 项指向这两个文件。</p>
+<p>如果 Apache 的 module 目录里面没有 mod_ssl.so 文件，可以将事先准备好的文件拷贝过去。然后，我们可以设置 Apache 的配置文件 httpd.conf，将 ssl 模块加入其中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LoadModule ssl\_module modules/mod\_ssl.so</span><br></pre></td></tr></table></figure>
+<p>然后，在配置文件的最后，加上如下 SSL 相关配置项：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SSLMutex default</span><br><span class="line">SSLRandomSeed startup builtin</span><br><span class="line">SSLSessionCache none</span><br><span class="line">ErrorLog logs/SSL.log</span><br><span class="line">LogLevel info</span><br><span class="line"></span><br><span class="line">SSLEngine On</span><br><span class="line">SSLCertificateFile conf/ssl/my-server.crt</span><br><span class="line">SSLCertificateKeyFile conf/ssl/my-server.key</span><br></pre></td></tr></table></figure>
+<p>这样，基本的设置工作就完成了。重新启动 Apache 服务器，现在可以用 https 协议代替 http 协议来访问版本库了。如果要限定版本库只能用 https 访问，我们可以在 Apache 配置文件当中 Subversion 部分加上 “SSLRequireSSL”。如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">DAV svn</span><br><span class="line">SVNPath /etc/svn/repos</span><br><span class="line">#other items</span><br><span class="line">SSLRequireSSL</span><br></pre></td></tr></table></figure>
+<h1 id="文章结"><a href="#文章结" class="headerlink" title="文章结"></a>文章结</h1><p>目前除了第5章和apache server启动服务没有亲自测试实现，其他均尝试成功，全文参考资料<a href="http://www.ibm.com/developerworks/cn/java/j-lo-apache-subversion/" title="用 Apache 和 Subversion 搭建安全的版本控制环境" target="_blank" rel="noopener">《用 Apache 和 Subversion 搭建安全的版本控制环境》</a>，以及其他资料，并根据个人实验理解，重新整理。</p>
+<p>版本控制相关概念详见 <a href="http://betterexplained.com/articles/a-visual-guide-to-version-control/" title="A Visual Guide to Version Control" target="_blank" rel="noopener">A Visual Guide to Version Control</a></p>
+
+      
+    </div>
+
+    
+      
+
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="/2010/03/svn-version-control/" rel="bookmark">SVN版本控制开发规范化</a></div>
+      
+    </li>
+  
+  </ul>
+
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Vanjor</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="https://blog.vanjor.com/2010/03/svn-setup-detail/" title="SVN服务器相关深入配置">https://blog.vanjor.com/2010/03/svn-setup-detail/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/subversion/" rel="tag"># Subversion</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2010/03/who-says-elepahants-cant-dance/" rel="next" title="读《谁说大象不能跳舞》">
+                <i class="fa fa-chevron-left"></i> 读《谁说大象不能跳舞》
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2010/03/those-days-with-garden/" rel="prev" title="“园丁”的这几天">
+                “园丁”的这几天 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Vanjor">
+            
+              <p class="site-author-name" itemprop="name">Vanjor</p>
+              <div class="site-description motion-element" itemprop="description">personal tech blog</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">56</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">43</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/vanjor" title="GitHub &rarr; https://github.com/vanjor" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="mailto:vanjor2008@gmail.com" title="Mail &rarr; mailto:vanjor2008@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/vanjor" title="Weibo &rarr; https://weibo.com/vanjor" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://twitter.com/vanjor2008" title="Twitter &rarr; https://twitter.com/vanjor2008" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://www.facebook.com/vanjor" title="Facebook &rarr; https://www.facebook.com/vanjor" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://stackoverflow.com/users/2273014/vanjor" title="StackOverflow &rarr; https://stackoverflow.com/users/2273014/vanjor" rel="noopener" target="_blank"><i class="fa fa-fw fa-stack-overflow"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#版本库及服务创建之一"><span class="nav-number">1.</span> <span class="nav-text">版本库及服务创建之一</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Subversion-的版本库（repository"><span class="nav-number">1.1.</span> <span class="nav-text">Subversion 的版本库（repository)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#版本库数据存储方式"><span class="nav-number">1.2.</span> <span class="nav-text">版本库数据存储方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#版本库服务启动"><span class="nav-number">1.3.</span> <span class="nav-text">版本库服务启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置为系统服务并自动启动"><span class="nav-number">1.4.</span> <span class="nav-text">设置为系统服务并自动启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建子版本库（或版本库）"><span class="nav-number">1.5.</span> <span class="nav-text">创建子版本库（或版本库）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#版本库下目录文件说明"><span class="nav-number">1.6.</span> <span class="nav-text">版本库下目录文件说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#推荐项目程序目录结构如下"><span class="nav-number">1.7.</span> <span class="nav-text">推荐项目程序目录结构如下</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#版本库及服务创建之二"><span class="nav-number">2.</span> <span class="nav-text">版本库及服务创建之二</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#特点说明"><span class="nav-number">2.1.</span> <span class="nav-text">特点说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置步骤"><span class="nav-number">2.2.</span> <span class="nav-text">配置步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#版本库建立"><span class="nav-number">2.3.</span> <span class="nav-text">版本库建立</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#子版本库建立"><span class="nav-number">2.4.</span> <span class="nav-text">子版本库建立</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#版本库目录权限配置"><span class="nav-number">2.5.</span> <span class="nav-text">版本库目录权限配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#相关配置文件说明"><span class="nav-number">2.5.1.</span> <span class="nav-text">相关配置文件说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#svnserve-conf文件配置"><span class="nav-number">2.5.2.</span> <span class="nav-text">svnserve.conf文件配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#passwd文件配置"><span class="nav-number">2.5.3.</span> <span class="nav-text">passwd文件配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#authz文件配置"><span class="nav-number">2.5.4.</span> <span class="nav-text">authz文件配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Apache-Http-Server服务启动svnserve模块权限配置说明"><span class="nav-number">2.6.</span> <span class="nav-text">Apache Http Server服务启动svnserve模块权限配置说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Apache-提供了基本的全局粒度权限设置"><span class="nav-number">2.6.1.</span> <span class="nav-text">Apache 提供了基本的全局粒度权限设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录粒度权限访问设置"><span class="nav-number">2.6.2.</span> <span class="nav-text">目录粒度权限访问设置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充"><span class="nav-number">2.7.</span> <span class="nav-text">补充</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL用户认证信息保护"><span class="nav-number">2.7.1.</span> <span class="nav-text">MySQL用户认证信息保护</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSL实现加密连接"><span class="nav-number">2.7.2.</span> <span class="nav-text">SSL实现加密连接</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文章结"><span class="nav-number">3.</span> <span class="nav-text">文章结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">  <a href="http://www.beian.miit.gov.cn" rel="noopener" target="_blank">京ICP备19002595号 </a>&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Vanjor</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">144k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">3:01</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.2"></script>
+
+  <script src="/js/motion.js?v=7.1.2"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.2"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.2"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.2"></script>
+<script src="/js/post-details.js?v=7.1.2"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.2"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: false,
+    appId: 'P9UDHn4P9cSCIXOdL1UGwCNf-gzGzoHsz',
+    appKey: 'YbI4jqWtf92Mj3ttovhYd2Rs',
+    placeholder: 'Write for your comments here',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+        // ref: https://github.com/ForbesLindesay/unescape-html
+        var unescapeHtml = function(html) {
+          return String(html)
+            .replace(/&quot;/g, '"')
+            .replace(/&#39;/g, '\'')
+            .replace(/&#x3A;/g, ':')
+            // replace all the other &#x; chars
+            .replace(/&#(\d+);/g, function (m, p) { return String.fromCharCode(p); })
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>')
+            .replace(/&amp;/g, '&');
+        };
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                content = unescapeHtml(content);
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1 }))
+                .done(function() {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function() {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + 'P9UDHn4P9cSCIXOdL1UGwCNf-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': 'P9UDHn4P9cSCIXOdL1UGwCNf-gzGzoHsz',
+                'X-LC-Key': 'YbI4jqWtf92Mj3ttovhYd2Rs',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            const localhost = /http:\/\/(localhost|127.0.0.1|0.0.0.0)/;
+            if (localhost.test(document.URL)) return;
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <script src="/lib/pangu/dist/pangu.min.js?v=3.3"></script>
+  <script>pangu.spacingPage();</script>
+
+
+  
+
+  
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      const selection = document.getSelection();
+      const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : false;
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+      if (selected) {
+        selection.removeAllRanges();
+        selection.addRange(selected);
+      }
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-flash.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=7.1.2">
+
+
+  <link rel="mask-icon" href="/images/avatar.png?v=7.1.2" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="当今信息社会里，信息数据作为一种比较核心价值所在，人们面对如此众多庞杂分散的信息数据时，信息组织与呈现方式并不能让人们满意，许多地方都需要进一步来细化挖掘与完善， 比如，如今纷繁的团购网雨后春笋似的诞生时，那些团购聚合网也就随之出现了，从而满足用户一站式浏览各个团购网的信息，这一方面是为用户提供一个便捷的信息整合检索服务。">
+<meta name="keywords" content="Webservice,Mashup">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web2.0之Mashup初探">
+<meta property="og:url" content="https://blog.vanjor.com/2010/08/web2-0-mashup/index.html">
+<meta property="og:site_name" content="Vanjor&#39;s Blog">
+<meta property="og:description" content="当今信息社会里，信息数据作为一种比较核心价值所在，人们面对如此众多庞杂分散的信息数据时，信息组织与呈现方式并不能让人们满意，许多地方都需要进一步来细化挖掘与完善， 比如，如今纷繁的团购网雨后春笋似的诞生时，那些团购聚合网也就随之出现了，从而满足用户一站式浏览各个团购网的信息，这一方面是为用户提供一个便捷的信息整合检索服务。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynnwlff7jj30lb0fgdi5.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynnwyh62kj30sg0f4jud.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynrzwcnphj30sg0h5q4q.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fyns2eha79j30s30fmmz2.jpg">
+<meta property="og:updated_time" content="2010-08-29T12:31:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Web2.0之Mashup初探">
+<meta name="twitter:description" content="当今信息社会里，信息数据作为一种比较核心价值所在，人们面对如此众多庞杂分散的信息数据时，信息组织与呈现方式并不能让人们满意，许多地方都需要进一步来细化挖掘与完善， 比如，如今纷繁的团购网雨后春笋似的诞生时，那些团购聚合网也就随之出现了，从而满足用户一站式浏览各个团购网的信息，这一方面是为用户提供一个便捷的信息整合检索服务。">
+<meta name="twitter:image" content="https://asset.vanjor.com/images/006tNbRwly1fynnwlff7jj30lb0fgdi5.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Vanjor's Blog" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="https://blog.vanjor.com/2010/08/web2-0-mashup/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Web2.0之Mashup初探 | Vanjor's Blog</title>
+  
+
+
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-43841261-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-43841261-1');
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Vanjor's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">notes</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">48</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">5</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">56</span></a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.vanjor.com/2010/08/web2-0-mashup/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Vanjor">
+      <meta itemprop="description" content="personal tech blog">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Vanjor's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Web2.0之Mashup初探<a href="https://github.com/vanjor/VanjorBlogWebsite/blob/source/source/_posts/2010/08/web2-0-mashup.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pencil"></i></a>
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2010-08-29 20:31:26" itemprop="dateCreated datePublished" datetime="2010-08-29T20:31:26+08:00">2010-08-29</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/learning/" itemprop="url" rel="index"><span itemprop="name">知识积累</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2010/08/web2-0-mashup/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2010/08/web2-0-mashup/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2010/08/web2-0-mashup/" class="leancloud_visitors" data-flag-title="Web2.0之Mashup初探">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">3.9k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">5 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>当今信息社会里，信息数据作为一种比较核心价值所在，人们面对如此众多庞杂分散的信息数据时，信息组织与呈现方式并不能让人们满意，许多地方都需要进一步来细化挖掘与完善， 比如，如今纷繁的团购网雨后春笋似的诞生时，那些团购聚合网也就随之出现了，从而满足用户一站式浏览各个团购网的信息，这一方面是为用户提供一个便捷的信息整合检索服务。</p>
+<a id="more"></a>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynnwlff7jj30lb0fgdi5.jpg" alt="基于纷纭的团购网站而生的团购聚合网"></p>
+<p>另外的一种场景，城市的交通部门拥有路况监控设备与路况事实信息数据，每天会有各种显示街区道路的路况数据报表，但是由于人眼视觉原因，不可能很好的快速去理解消化这些条条框框里的数据，如果作为Web平台服务提供给大众的话，这些一大堆表格与查询控件所带来无疑是一种比较糟糕的用户体验度。</p>
+<p>一种可能的方式是结合Web-GIS相关服务数据平台，将路况信息与Map-GIS系统进行糅合-Mashup，那么这个结合后的信息呈现方式更直观更快捷的为人们所理解和便于做出快速决策。下图为</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynnwyh62kj30sg0f4jud.jpg" alt="搜狗北京城区实时交通流量"></p>
+<h1 id="Mashup概念"><a href="#Mashup概念" class="headerlink" title="Mashup概念"></a>Mashup概念</h1><p>那么什么是Mashup，参考<a href="http://www.programmableweb.com/" target="_blank" rel="noopener">programmableweb</a>的定义：</p>
+<blockquote>
+<p>A web Mashup is a web page or application that combines data from two or more external online sources. The external sources are typically other web sites and their data may be obtained by the Mashup developer in various ways including, but not limited to: APIs, XML feeds, and screen-scraping.</p>
+</blockquote>
+<p>Mashup作为一种新型的基于 Web 的数据集成应用程序的统称，它们的流行萌芽于对交互式用户参与和集成第三方数据的类似于科学怪人方式的重视。使用萌芽一词是有一定原因的；Mashup Web 站点的特点就表现为它正在 Web 上扎根发芽，它们利用了从组织边界之外的数据源获取的内容和功能。</p>
+<p>Mashup单词的起源：它源于流行音乐，Mashup 是从两首不同的歌曲（通常属于不同的流派）中混合演唱和乐器的音轨而构成的一首新歌。与那些 “bastard pop” 歌曲类似，Mashup 也是内容的一种不常见的创新组合（通常都源自于无关的数据源），这都是人工进行合成的（而不是通过计算机来合成的）。</p>
+<p>个人认为Mashup实际上是属于概念范畴，是对各种数据，信息，系统，乃至服务的一种分析，关联，组合与重新展现的方案，而这个数据信息不在仅仅来自服务方，而已是WWW上所有能够获得到的数据与信息，包括众多的第三方服务。</p>
+<h1 id="Mashup相关技术"><a href="#Mashup相关技术" class="headerlink" title="Mashup相关技术"></a>Mashup相关技术</h1><p>Mashup与服务整合，内容信息聚合具有类似的范畴，而Mashup不仅仅是对同类信息的整合，比如将不同RSS源信息糅合，可以是Google Map的Google Map APIFrame结合大众点评网对商家的点评信息Atom等跨技术跨领域范畴里的数据信息整合与服务。</p>
+<p>Mashup作为一种概念来说，支撑它的技术牵扯到各个领域，作为Web2.0中的方方面面的技术都可以为之所用，不再只是Web服务编程REST/SOAP, XML/JSON,AJAX, RDF/URI organizeFlex, 数据缓存，语义分析等等。</p>
+<p>另外对于核心的数据源处理，异构数据之间的抽取，清洗，分析，规整，聚类，重整都是Mashup涉及到的问题与技术，在之后的篇章中，我将会介绍分享自身的一些经验与思路。</p>
+<h1 id="Mashup分类"><a href="#Mashup分类" class="headerlink" title="Mashup分类"></a>Mashup分类</h1><p>这里以目前应用范畴与Mashup信息分类来看，有以下一些：</p>
+<h2 id="地图GIS与多媒体内容信息Mashup"><a href="#地图GIS与多媒体内容信息Mashup" class="headerlink" title="地图GIS与多媒体内容信息Mashup"></a>地图GIS与多媒体内容信息Mashup</h2><p>毫无疑问，Google在这个阶段的信息技术中，人们搜集大量有关事物和行为的数据，二者都常常具有位置注释信息。所有这些包含位置数据的不同数据集均可利用地图通过令人惊奇的图形化方式呈现出来。Mashup 蓬勃发展的一种主要动力就是 Google 公开了自己的 <a href="http://code.google.com/apis/maps/index.html" target="_blank" rel="noopener">Google Maps API</a>，打开了一道大门，让 Web 开发人员（包括爱好者、修补程序开发人员和其他一些人）可以在地图中包含所有类型的数据。</p>
+<p>Google也充分在地图上整合的商家信息，大众评论，Picasa等用户上传的地理地貌图片信息这里Map已经成为其他相关信息的一种载体，甚至Google也充分发挥自己能动性，拍摄各国城市街景图像数据，通过A+B=C式的Mashup诞生各种各样新式的服务。</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynrzwcnphj30sg0h5q4q.jpg" alt="Google map与图片，文字，评论等信息的Mashup"></p>
+<h2 id="基于社交网络SNS等产生内容元数据抽取关联的Mashup"><a href="#基于社交网络SNS等产生内容元数据抽取关联的Mashup" class="headerlink" title="基于社交网络SNS等产生内容元数据抽取关联的Mashup"></a>基于社交网络SNS等产生内容元数据抽取关联的Mashup</h2><p>分析内容提供者所提交的图像文字音像资料，从中抽出大量相关的元数据（例如谁提供的，内容中关联主体，地点，时间，事件），SNS设计者充分利用这些抽取元数据重新组织管关联，显示一个个丰富社交网络图。如大家熟悉的人人网，在日志中提供关联他人的元数据的管理点，相册服务提供人像圈定关联他人。甚至是现在通用的新闻网站在新闻中通过照片匹配而将照片中的内容以文字的形式呈现出来，也是一种Mashup。</p>
+<p>这一点其实Google的Picasa相册服务已经做得前沿探索了也很成熟，它可以从用户提供的相册按照所属主人，相册，分享范围，时间，拍照地图地点关联地图，图片自动人像识别关联Google Mail中的联系人等等将大量的用户信息自动关联识别到一起，为用户提供了更加人性智能化的使用体验。</p>
+<h2 id="商业社会化服务Mashup"><a href="#商业社会化服务Mashup" class="headerlink" title="商业社会化服务Mashup"></a>商业社会化服务Mashup</h2><p>搜索和购物 整合在 Mashup 这个术语出现之前就已经存在很长时间了。在 Web API 出现之前，有相当多的购物站点与工具，就诞生了众多的针对购物的垂直搜索引擎，整合了各大购物网站的信息数据，而现在社会商业各个方面，只要能有目标用户的特定需求，像团购，求职，房屋，中介，二手，等等都会存在大量的Mashup，而之前的Mashup大多是不太完善的，是Mashup设计者通过第三方从信息源挖掘抽取数据，常见于运用信息抽取采集系统大量搜寻相关信系重新整理为规整元数据集并展现。</p>
+<p>而如今，淘宝已经为其平台不断的开放第三封那个数据访问API接口平台与服务，这也会成为未来的一种发展趋势，百度的框计划，在搜索结果中直接聚合了图片信息，常用天气，计算结果，网站登录入口等服务也是广义上一种Mashup的思路。</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fyns2eha79j30s30fmmz2.jpg" alt="Google - shopping ，meta data mashup"></p>
+<h2 id="基于新闻源分享的文本图像信息聚类Mashup"><a href="#基于新闻源分享的文本图像信息聚类Mashup" class="headerlink" title="基于新闻源分享的文本图像信息聚类Mashup"></a>基于新闻源分享的文本图像信息聚类Mashup</h2><p>例如纽约时报、BBC 或路透社 已从 2002 年起使用 RSS 和 Atom 之类的联合技术来发布各个主题的新闻提要。以联合技术为基础的 Mashup 可以聚集一名用户的提要，并将其通过 Web 呈现出来，创建个性化的报纸，从而满足读者独特的兴趣。Diggdot.us 正是这样的一个例子，它合并了 Digg.com、Slashdot.org 和 Del.icio.us 上与技术有关的内容，还有抓虾，Google阅读器等等。随着文本语义挖掘，图像音视频识别到等技术的成熟与实现，个性化信息内容服务也将越来越精准而人性化。</p>
+<h1 id="Mashup相关"><a href="#Mashup相关" class="headerlink" title="Mashup相关"></a>Mashup相关</h1><p>有的文章以社会挑战，技术挑战等方面来说明，个人主要从以几个角度来探讨：</p>
+<h2 id="健康性"><a href="#健康性" class="headerlink" title="健康性"></a>健康性</h2><p>既然Mashup是基于数据服务的一种三方的整合，任何人都可以发布自己的WebService服务接口等，在构建自己的Mashup服务中，如何确保开发人员需要面对类似源自于在异构数据集之间共享语义的挑战。如何确保这些异构数据源的完整性，正确性，避免过时的信息源，错误信息源，宕机暂不可用等等所带来负面影响。</p>
+<h2 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h2><p>对于所发布这些大量的服务接口API，如何界定合适访问权限，以防止非法目的的收集，比如前些时针对有黑客针对Facebook系统通过网页采集或许多大几百万个公开资料的人的个人页面资料，以及如何防止数据源被污染，如植入人为干扰，广告信息，等等。对与敏感数据也可能要求一定的机密性（即加密），我们必须要清楚何时将它们与其他资源集成在一起，而不会带来风险。身份对于审计和法规遵从性来说也非常重要。另外，由于数据集成是在服务器和客户端同时发生的，因此从用户到 mashup 服务进行的身份和证书委托也可能会成为一个需要去注意是实现的问题。</p>
+<h2 id="盈利模式"><a href="#盈利模式" class="headerlink" title="盈利模式"></a>盈利模式</h2><p>不能带来一种可持续盈利的模式的技术是难以长久的，在Mashup所赖以生成的三方数据服务接口提供者如何能通过自己所发布的服务获取盈利呢，目前的很多Mashup三方服务接口，平均每几秒就有一个诞生，大部分是基于免费的提供，这些服务质量和稳定上良莠不齐，难以转为收费模式而获取盈利，而Google通过其发布的Google Map Api吸引的不少的开发者，他的质量和稳定性收到大家的青睐，在一些第三方商业需求Google Map服务时，就需要想Google缴纳一定费用索取API key，这也是一个成功的模式，另外会有一些类似百度推广，植入广告等可以作为一种盈利模式。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li>IBM development works: <a href="http://www.ibm.com/developerworks/cn/xml/x-mashups.html" target="_blank" rel="noopener">http://www.ibm.com/developerworks/cn/xml/x-mashups.html</a></li>
+<li>查看最新的Mashup内容：<a href="http://www.programmableweb.com/mashups" target="_blank" rel="noopener">http://www.programmableweb.com/Mashups</a></li>
+<li>SOAP/REST: <a href="http://www.ibm.com/developerworks/cn/webservices/0907_rest_soap/" target="_blank" rel="noopener">http://www.ibm.com/developerworks/cn/webservices/0907_rest_soap/</a></li>
+</ul>
+
+      
+    </div>
+
+    
+      
+
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="/2010/05/tomcat-server-xml-config/" rel="bookmark">Tomcat核心server.xml配置</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="/2010/08/web-3-tires/" rel="bookmark">深入Web三层体系架构</a></div>
+      
+    </li>
+  
+  </ul>
+
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Vanjor</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="https://blog.vanjor.com/2010/08/web2-0-mashup/" title="Web2.0之Mashup初探">https://blog.vanjor.com/2010/08/web2-0-mashup/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/webservice/" rel="tag"># Webservice</a>
+          
+            <a href="/tags/mashup/" rel="tag"># Mashup</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2010/08/java-resources-locate/" rel="next" title="最佳实践-Java资源路径定位">
+                <i class="fa fa-chevron-left"></i> 最佳实践-Java资源路径定位
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2010/08/web-3-tires/" rel="prev" title="深入Web三层体系架构">
+                深入Web三层体系架构 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Vanjor">
+            
+              <p class="site-author-name" itemprop="name">Vanjor</p>
+              <div class="site-description motion-element" itemprop="description">personal tech blog</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">56</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">43</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/vanjor" title="GitHub &rarr; https://github.com/vanjor" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="mailto:vanjor2008@gmail.com" title="Mail &rarr; mailto:vanjor2008@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/vanjor" title="Weibo &rarr; https://weibo.com/vanjor" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://twitter.com/vanjor2008" title="Twitter &rarr; https://twitter.com/vanjor2008" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://www.facebook.com/vanjor" title="Facebook &rarr; https://www.facebook.com/vanjor" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://stackoverflow.com/users/2273014/vanjor" title="StackOverflow &rarr; https://stackoverflow.com/users/2273014/vanjor" rel="noopener" target="_blank"><i class="fa fa-fw fa-stack-overflow"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Mashup概念"><span class="nav-number">1.</span> <span class="nav-text">Mashup概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mashup相关技术"><span class="nav-number">2.</span> <span class="nav-text">Mashup相关技术</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mashup分类"><span class="nav-number">3.</span> <span class="nav-text">Mashup分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#地图GIS与多媒体内容信息Mashup"><span class="nav-number">3.1.</span> <span class="nav-text">地图GIS与多媒体内容信息Mashup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于社交网络SNS等产生内容元数据抽取关联的Mashup"><span class="nav-number">3.2.</span> <span class="nav-text">基于社交网络SNS等产生内容元数据抽取关联的Mashup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#商业社会化服务Mashup"><span class="nav-number">3.3.</span> <span class="nav-text">商业社会化服务Mashup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于新闻源分享的文本图像信息聚类Mashup"><span class="nav-number">3.4.</span> <span class="nav-text">基于新闻源分享的文本图像信息聚类Mashup</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mashup相关"><span class="nav-number">4.</span> <span class="nav-text">Mashup相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#健康性"><span class="nav-number">4.1.</span> <span class="nav-text">健康性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安全性"><span class="nav-number">4.2.</span> <span class="nav-text">安全性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#盈利模式"><span class="nav-number">4.3.</span> <span class="nav-text">盈利模式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">  <a href="http://www.beian.miit.gov.cn" rel="noopener" target="_blank">京ICP备19002595号 </a>&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Vanjor</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">144k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">3:01</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.2"></script>
+
+  <script src="/js/motion.js?v=7.1.2"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.2"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.2"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.2"></script>
+<script src="/js/post-details.js?v=7.1.2"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.2"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: false,
+    appId: 'P9UDHn4P9cSCIXOdL1UGwCNf-gzGzoHsz',
+    appKey: 'YbI4jqWtf92Mj3ttovhYd2Rs',
+    placeholder: 'Write for your comments here',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+        // ref: https://github.com/ForbesLindesay/unescape-html
+        var unescapeHtml = function(html) {
+          return String(html)
+            .replace(/&quot;/g, '"')
+            .replace(/&#39;/g, '\'')
+            .replace(/&#x3A;/g, ':')
+            // replace all the other &#x; chars
+            .replace(/&#(\d+);/g, function (m, p) { return String.fromCharCode(p); })
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>')
+            .replace(/&amp;/g, '&');
+        };
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                content = unescapeHtml(content);
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1 }))
+                .done(function() {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function() {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + 'P9UDHn4P9cSCIXOdL1UGwCNf-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': 'P9UDHn4P9cSCIXOdL1UGwCNf-gzGzoHsz',
+                'X-LC-Key': 'YbI4jqWtf92Mj3ttovhYd2Rs',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            const localhost = /http:\/\/(localhost|127.0.0.1|0.0.0.0)/;
+            if (localhost.test(document.URL)) return;
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <script src="/lib/pangu/dist/pangu.min.js?v=3.3"></script>
+  <script>pangu.spacingPage();</script>
+
+
+  
+
+  
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      const selection = document.getSelection();
+      const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : false;
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+      if (selected) {
+        selection.removeAllRanges();
+        selection.addRange(selected);
+      }
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>

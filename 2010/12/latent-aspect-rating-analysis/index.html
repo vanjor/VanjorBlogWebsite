@@ -1,0 +1,1986 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-flash.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=7.1.2">
+
+
+  <link rel="mask-icon" href="/images/avatar.png?v=7.1.2" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="本文为国外09年的最新文本挖掘类别论文： 原文：Latent Aspect Rating Analysis on Review Text Data: A Rating Regression Approach 链接：原文Paper，展示PPT 个人三天时间完整翻译而成，本文对于理解话题识别，用户潜在观点挖掘，情感计算方面都有很好的借鉴意义。 目前在用户观点情感挖掘方面属于一个十分前沿的话题，广泛应">
+<meta name="keywords" content="Machine Learning,NLU">
+<meta property="og:type" content="article">
+<meta property="og:title" content="评论潜在方面观点计算">
+<meta property="og:url" content="https://blog.vanjor.com/2010/12/latent-aspect-rating-analysis/index.html">
+<meta property="og:site_name" content="Vanjor&#39;s Blog">
+<meta property="og:description" content="本文为国外09年的最新文本挖掘类别论文： 原文：Latent Aspect Rating Analysis on Review Text Data: A Rating Regression Approach 链接：原文Paper，展示PPT 个人三天时间完整翻译而成，本文对于理解话题识别，用户潜在观点挖掘，情感计算方面都有很好的借鉴意义。 目前在用户观点情感挖掘方面属于一个十分前沿的话题，广泛应">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fyo032faiwj306s046t8u.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzf0co6cj30dg05kt94.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzk9ro9yj30dg01e0sl.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzlehycsj304v01sdfm.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzlswpftj305900x3ya.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzm52sfkj307j01sglf.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzmknfu7j3043014we9.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzmpdh4qj30dg02ka9z.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzn7wm49j30b805qmx4.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynznjpnmej30bw01s745.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynznsxhn3j30dg028wed.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzo3235zj30cl01q3yd.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzohwcp2j30ax01s745.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzop0ebyj30d101s3ye.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzp01riqj30cr036mx1.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzp8hl34j30cr01na9w.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzpjgfpvj30cr01na9w.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzpvb0avj30do03cwee.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzq3fbgij30do01xt8l.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzqf8yw3j30ad01swec.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzrdodfkj30dg0520t1.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzrjaqdoj30ao03i3yk.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzsstueaj30dg04e3yo.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzt1t5ahj30dg03k3yn.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynztzp2h4j30dg05saah.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzv53yutj30ak01xmwz.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzvbop3wj306701yjr6.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzvm2h7vj306j01wmwy.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzwom1gqj30cw042weo.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzza221uj30dg04i74p.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzzgsjwwj30cw05g74k.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynzzpcmp9j30dg05s0t0.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fyo02siw85j30dg06jaai.jpg">
+<meta property="og:updated_time" content="2010-12-03T19:46:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="评论潜在方面观点计算">
+<meta name="twitter:description" content="本文为国外09年的最新文本挖掘类别论文： 原文：Latent Aspect Rating Analysis on Review Text Data: A Rating Regression Approach 链接：原文Paper，展示PPT 个人三天时间完整翻译而成，本文对于理解话题识别，用户潜在观点挖掘，情感计算方面都有很好的借鉴意义。 目前在用户观点情感挖掘方面属于一个十分前沿的话题，广泛应">
+<meta name="twitter:image" content="https://asset.vanjor.com/images/006tNbRwly1fyo032faiwj306s046t8u.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Vanjor's Blog" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="https://blog.vanjor.com/2010/12/latent-aspect-rating-analysis/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>评论潜在方面观点计算 | Vanjor's Blog</title>
+  
+
+
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-43841261-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-43841261-1');
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Vanjor's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">notes</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">48</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">5</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">56</span></a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.vanjor.com/2010/12/latent-aspect-rating-analysis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Vanjor">
+      <meta itemprop="description" content="personal tech blog">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Vanjor's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">评论潜在方面观点计算<a href="https://github.com/vanjor/VanjorBlogWebsite/blob/source/source/_posts/2010/12/latent-aspect-rating-analysis.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pencil"></i></a>
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2010-12-04 03:46:23" itemprop="dateCreated datePublished" datetime="2010-12-04T03:46:23+08:00">2010-12-04</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/learning/" itemprop="url" rel="index"><span itemprop="name">知识积累</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2010/12/latent-aspect-rating-analysis/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2010/12/latent-aspect-rating-analysis/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2010/12/latent-aspect-rating-analysis/" class="leancloud_visitors" data-flag-title="评论潜在方面观点计算">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">21k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">27 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://asset.vanjor.com/images/006tNbRwly1fyo032faiwj306s046t8u.jpg" alt="lara"></p>
+<p>本文为国外09年的最新文本挖掘类别论文：</p>
+<p>原文：Latent Aspect Rating Analysis on Review Text Data: A Rating Regression Approach</p>
+<p>链接：<a href="http://scholar.google.com.hk/scholar?q=Latent+Aspect+Rating+Analysis+on+Review+Text+Data:+A+Rating+Regression+Approach&amp;hl=zh-CN&amp;btnG=%E6%90%9C%E7%B4%A2&amp;lr=" target="_blank" rel="noopener">原文Paper</a>，<a href="http://sifaka.cs.uiuc.edu/~wang296/paper/hongning-KDD10-v2.pptx" target="_blank" rel="noopener">展示PPT</a></p>
+<p>个人三天时间完整翻译而成，本文对于理解话题识别，用户潜在观点挖掘，情感计算方面都有很好的借鉴意义。</p>
+<p>目前在用户观点情感挖掘方面属于一个十分前沿的话题，广泛应用在产品研究，用户行为分析，推荐系统上。比现行的许多基于文本分类论文都是更为细致的研究，本文中大量运用统计概率学方面知识对话题识别，情感词的渐进识别，权重推断，以及结果估计验证，与应用探讨，值得深入学习。</p>
+<p>个人认为一个最重要的不足的是，论文中还是主要通过挖掘文本中词语间的关联，类似tf/idf词频统计，先验概率推断等进行文本挖掘分析，而对于语义的理解，句法的解读分析仍然没有考虑在内，这样必然导致结果仍然存在很多偏差与误判，而鉴于语义理解，句法分析尚属一个十分困难的前沿研究领域。文本尤为可佳。</p>
+<a id="more"></a>
+<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>在本文，定义观点评估分析（LARA： Latent Aspect Rating Analysis）问题并针对含有观点意见的文本进行分析。 旨在分析在线评论中的实体，基于话题方面（topical aspects）来挖掘每个评论者在实体的每一个方面(Aspect)的潜在观点，以及分析不同方面对于评价者形成关于实体的总体评价所占权重。我们提出一种新颖概率回归评估模型来尝试以通法来解决这类文本挖掘问题。</p>
+<p>基于酒店评论数据的经验分析实验表明这种提论可以有效的解决 LARA 问题，并且基于评论的具体挖掘与分析具有广泛的应用价值，包括类别观点概括，基于方面的实体评分，分析评论者评分表现行为。</p>
+<ul>
+<li><strong>分类：</strong>信息搜索与检索：文本挖掘（<em>Text Mining</em>）</li>
+<li><strong>主要形式：</strong>算法，实验</li>
+<li><strong>关键词：</strong>意见与情感分析（<em>Opinion and sentiment analysis</em>），评论挖掘（<em>Review mining</em>），潜在评估分析（<em>Latent rating analysis</em>）</li>
+</ul>
+<h1 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h1><p>随着 Web2.0 的发展，越来越多的人可以对各种各样的产品和服务自由的表达观点，这些评论信息对于其他用户做出决策以及产品服务的改进具有很大价值。然而，随着评论信息快速增长，海量的信息让用户难以快速查找到所需要的信息，很多工作就是来减轻这个评价文本信息抽取的问题[18,16,26],提炼总结用户的观点，根据意见的极性分类[20,6,7],并从评论中抽取相应的观点句。尽管如此，在现有的技术下，用户仍然难以方便的从海量的评论信息中挖掘与发现信息，来支撑实体主题方面的观点。</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynzf0co6cj30dg05kt94.jpg" alt="lara"></p>
+<p>以一个典型的酒店评价信息为例，如上图（1） ，这个评论信息涉及到了酒店的多个方面特点，包括价格，房屋条件以及服务，但是评论者只给出了宾馆的总体评分，没有提供每个单独方面的评分，其他用户就难以方便的了解到这个评论者在方面上的评级（<em>latent rating</em>）。透过整体评价进一步挖掘每一方面的评价是十分重要的，因为不同的评论者对于同一家酒店会有相同的总体评价，但是因为不同的方面原因。比如：一个评论者可能喜欢酒店的位置，另一个喜欢房间条件。</p>
+<p>为了帮助用户发现这些不同，十分有必要挖掘并分析评论者在酒店的几个大的方面上的评级。此外，即使我们可以挖掘发现方面上的评价信息诸如“价格”，但仍然不够充分，因为“便宜”对于不同评论者有着不同的价格标准。而且及时同一个评论者可能因为其他方面的条件因素的诉求高低不同，而对”便宜”产生的不同的标准。为了理解如此微妙的差别，十分有必要挖掘发现评价者每一方面的评价与总体评价之间的权重关系。</p>
+<p>为了进行对评论的更深入具体的的理解，我们尝试来研究这种新颖的文本挖掘问题 (LARA).</p>
+<blockquote>
+<p><strong>LARA任务目的： 给定一个含有总体评价信息的评论数据集，LARA旨在分析每个评论在不同话题方面的评论信息，来挖掘个体用户在每一个方面上的评级，以及不同的方面的评级对于形成总体评级的权重大小。</strong></p>
+</blockquote>
+<p>LARA的广泛应用价值表现在：潜在方面的评级（aspect rating）可以用来进行面向方面的意见概述；每个方面的权重（aspect weight）可以方便于分析用户的评分行为；潜在方面评价与方面评分权重可以作为实体的个性化面向方面级别评估 - 通过汇集在对应方面具有相同权重的偏好的评论的评价信息。</p>
+<p>现有的观点概括工作将 LARA 问题挖掘到一定程度，尚没有人在单个评论在方面层级上的潜在评价信息挖掘做过研究，也没有人考虑挖掘评论者在方面上的评级与总体评级间的权重关系。</p>
+<p>在尝试解决这个新型文本挖掘时，我们提出一种基于新颖潜在评价回归模型的两阶段处理模型（<em>a novel latent rating regression model</em>）。</p>
+<ol>
+<li><strong>第一阶段</strong>: 我们采用 自引导算法（<em>bootstrapping-based algorithm</em>）来确定主要的方面（通过一些方面的特征词语做指引学习），并将评论集分段切割处理。</li>
+<li><strong>第二阶段</strong>: 我们提出一个通用潜在评价回归模型（LRR：<em>Latent Rating Regression</em>），旨在通过分析每个评论的文本与对应评论的总体评级数据信息，来确定每个评论的方面的评级与权重。</li>
+</ol>
+<p>更具体的说：<strong>LRR 的基本思想 就是假定总体评价完全产生来自于每个方面的潜在评级的有权重的组合。</strong></p>
+<p>而且我们假定每个方面的潜在评级取决于对应评价中的讨论涉及到这一方面的文本片段。换句话说，我们将挖掘这些方面的潜在评级演化为一组特性词语的权重组合，这些词语权重对应为情感极性(Sentimental Polarities)。而因为我们无法直接观察到每一个方面的评级数据，所以这个回归模型的输出 - 响应结果是挖掘潜在的信息。</p>
+<p>我们基于从TripAdviser (<a href="http://www.tripadvisor.com" target="_blank" rel="noopener">www.tripadvisor.com</a>)爬取到的一组酒店评价数据集来评估 LRR 模型。实现结果表明 LRR 模型可以有效的从对应评价的总体评级中分析挖掘出方面上的评级，以及发现这些评论者者对于每个方面的评级相对于总体评级的权重。我们也将展示 LRR 模型中所分析到的结果说支持的不同应用，包括方面观点概括，个性化实体评级排序以及评论者的评级行为表现。</p>
+<h1 id="二、相关工作"><a href="#二、相关工作" class="headerlink" title="二、相关工作"></a>二、相关工作</h1><p>在我们目前的调研中，还没有人做出关于LARA问题的研究，不过有些相关的工作。</p>
+<p>分析评价文本的总体情感观点已经被广泛的研究。相关的研究基于文本的积极与消极的二元分类[6,7,20,5,14]。随后，这个定义被延伸到多元评级模型[10,9]。并且有提出的解决途径，包括监督，无监督，以及半监督的方法，但是他们都是尝试预测总体情感分类与评级，没有对潜在方面观点进行挖掘。</p>
+<p>由于在线评论经常包含多个方面的的评价意见，一些近来工作开始挖掘基于方面层次的评级，来代替简单的总体评级。比如，Snyder et al.[23] 对于多元方面的建模，使用好的可信算法（<em>good grief algorithm</em>）可以改善对方面评级的预测。在[24]中，Titov et al. 尝试同时进行评论方面抽取与对应的评级计算：他们使用话题来描述方面，并且通过一个基于事实评级（ground-truth ratings）的回归模型。尽管如此，他们假定方面上的评级是明确包含在说提供的训练数据中。于此不同的是，我们假定方面评级是潜在的，并且是更普遍并面向现实场景的。</p>
+<p>概括（<em>Summarization</em>）是一个十分广泛有用的应对信息过载的技术。一个最近的人类评估（<em>human evaluation</em>）[15] 指出情感与情绪概括具有很强的个体偏好性，相比于非情感方面，提出了情感建模以及方面观点概括的重要性。仍然，现有的基于方面的观点概括工作[10,21,18,26]只是目标停留在从评论集中聚合和展示话题上每个方面的主流观点。虽然聚合观点可以展现话题的概况信息，却导致个体评论的细节信息的丢失；此外，评论/评价者间的不同特性也没有在分析考虑范围内，这样情感的聚合是基于不同习性偏好的评论者间。Lu et al.[17]最近的一项工作是最接近于我们的，但是他们的目标仍然是从总体评级生成方面评级上的聚合概要。更为重要的是，没有已做工作考虑到评论者在不同方面上的强调程度的差异。</p>
+<h1 id="三、问题定义"><a href="#三、问题定义" class="headerlink" title="三、问题定义"></a>三、问题定义</h1><p>在本章节里，我们规范定义潜在观点评级挖掘（LARA：<em>Latent Aspect Rating Analysis</em>）问题。划归为一个可计算的问题：</p>
+<p><strong>LARA定义输入</strong>：一些有价值实体（如:酒店）的一组评价数据集，并且每一条评价数据都有对应的总体评级信息（这些数据在现在的web2.0中广泛存在，中国的如时光网中电影的评论，大众点评）</p>
+<p><strong>公式化定义</strong>：假定  D={d1 , d2  , …，d|D|}  作为一个实体（entity）或话题（topic）的一组评论文本集，并且每个评论文本 d∈D 都关联一个总体评级 <strong>rd</strong> 。我们也假定有一个含有 n 个互异的词汇集V={w1 ,w2 , …, wn } 。</p>
+<p><strong>定义：总体评级(<em>Overall Rating</em>)</strong></p>
+<blockquote>
+<p>一个评价文本 <strong>d</strong> 总体评级 <strong>rd</strong> 是按级别的量化数值，也就是 rd∈[rmin , rmax]，其中<strong>rmin</strong>和  <strong>rmax</strong> 是评级的最大值与最小值。</p>
+</blockquote>
+<p>最后我们假定我们已经知道给定 <strong>k</strong> 方面类别，并且每个方面评级都潜在影响给定话题的总体评级。例如：对于酒店的评级，可能的方面将包括“价格”和“位置”。每个方面都通过一组关键词界定关联，作为 LARA 问题的基础。</p>
+<p><strong>定义：方面 (<em>Aspect</em>)</strong></p>
+<blockquote>
+<p>一个方面 <strong>Ai</strong> ，并包含有评论中一组能对评级产生影响的描述词（通常数目不大）。</p>
+</blockquote>
+<p>比如：词“price”，“value”和“worth”可以作为酒店实体的价格这个方面的特征词。我们把一个方面记做 <strong>Ai = { w|w∈V, A(w)=i}</strong> ,其中 A( . ) 是一个从词（word）到（aspect）的映射函数。</p>
+<p><strong>定义：方面权重（<em>Acpect Weights</em>）</strong></p>
+<blockquote>
+<p>方面权重 <strong>αd</strong> 是一个 <strong>k</strong> 维向量，并且对于每一维 - 如第 <strong>i</strong> 维是一个数字量化刻度，指明对应评论文本 d 中的在方面 <strong>Ai</strong> 上的权重。</p>
+</blockquote>
+<p>我们定义αdi ∈[0,1] ，且∑i=1k αdi =1 使得权重更加容易理解并且在评论集中具有更好的可比性。一个高的权重意味对应方面的具有更加重要的强调与偏好。</p>
+<p><strong>定义：潜在观点评级分析（<em>Latent Aspect Rating Analysis</em> (LARA))</strong></p>
+<blockquote>
+<p>给定一个关于话题 <strong>T</strong> 的评论集 <strong>D</strong> ，每个 评论 <strong>d</strong> 关联对应的总体评级 <strong>rd</strong> ，并且话题 <strong>T</strong> 涵盖 <strong>k</strong> 个待分析方面 {A1 , A2  , …，Ak} ，LRAR 问题目标在发现每个独立的评论文本在  <strong>k</strong>维方面的每一方面的评级 <strong>s**</strong>di<strong> ，以及对应的方面上的权重 **</strong>α<strong>di</strong></p>
+</blockquote>
+<p>LARA 问题也包含发现那些可能存在的未知方面，并挖掘潜在方面评级/权重的工作。在本篇论文中，我们假定，对某个实体（<em>entity</em>）类型的每一个方面都有一些关键词描述特征。这个假设对于任何实体类型都具有很好现实可操作性，它的寄语人工标注主要方面特性是可行的；另外，这种初始化模式让用户能够灵活控制他所想要分析的方面。</p>
+<h1 id="四、方法"><a href="#四、方法" class="headerlink" title="四、方法"></a>四、方法</h1><p>LARA 问题的一个主要挑战在于，对于每个方面的评级，我们没有详细的监督学习方法，即使我们有对应方面的一组特征关键词。另一个挑战在于如何发现方面的权重。为了解决这些问题，我们提出LRR 模型，并且假定评论者对于实体的总体评级完全取决于他对于每个方面的潜在评级的权重聚合，以及每个方面的评级取决于他的评论中对应含有的一组具有权重的描述词。</p>
+<p>在对这些评论数据采用这个二折回归模型后，我们便可以获取潜在方面评级与权重，以此解决LARA 问题。</p>
+<p>因为 LRR 模型中界定了评论中初始词语集与方面的对应关系是已知的，我们按照给定的描述方面关键词对一个评论的基于方面进行分割，以此为每个方面提取对应的切割后的评论文本片段。这样，我们的总体方法包括两阶段，将在之后作详细介绍:</p>
+<h2 id="4-1-基于方面的文本分割"><a href="#4-1-基于方面的文本分割" class="headerlink" title="4.1 基于方面的文本分割"></a>4.1 基于方面的文本分割</h2><p>第一步的目标是将评论中的句子与对应的方面建立映射关系。由于我们假定只有少部分的方面描述关键词指定出，我们设计出 自启动算法来为每个方面获取更多关联词语。</p>
+<p>--------------------------------------------------------------------------------------</p>
+<p>算法 : 基于方面的文本分割算法（<em>Aspect Segmentation Algorithm</em>）</p>
+<p>--------------------------------------------------------------------------------------</p>
+<ul>
+<li><strong>输入：</strong>一个评论集合D={d1 , d2  , …，d|D|}  ，一组方面的关键词={T1 , T2  , …，Tk}，词汇表V，选定界限值 <strong>p</strong> 以及 迭代步骤上限 <strong>I</strong> .</li>
+<li><strong>输出：</strong>评论集按照方面分割的句子组。</li>
+<li><strong>步骤 0：</strong>把所有评论分割为句子，X={x1 , x2  , …，xM}；</li>
+<li><strong>步骤 1：</strong>在每个句子 X 中匹配出方面关键词，并为每个记录匹配命中 i 计数 Count( i )；</li>
+<li><strong>步骤 2：</strong>为句子与对应方面建立标记 αi =argmaxi Count( i ) 。如果得出有多个 i 值，则将对应句子关联到多个方面。【<strong>注：<a href="http://en.wikipedia.org/wiki/Arg_max" target="_blank" rel="noopener">argmax</a></strong>条件参数，αi 为使得Count( i )最大时的 i 值】</li>
+<li><strong>步骤 3：</strong>对词汇表集合 V 中的每个词语计算 χ2 ；</li>
+<li><strong>步骤 4：</strong>对与每个方面的词语按照计算出的 χ2 进行排序，并将前 p 个单词 加入到对应方面关键词集合 Ti 中；</li>
+<li><strong>步骤 5：</strong>如果方面关键词不再变化，或迭代步数超过 I ，则转到 步骤 6 ，否则回到 步骤 1；</li>
+<li><strong>步骤 6：</strong>输出带有方面标识的句子集合。</li>
+</ul>
+<p>--------------------------------------------------------------------------------------</p>
+<p>具体来说，基于方面的文本分割算法 基本工作流程如下：给定每个方面的一组种子关键词 以及 所有评论文本作为输入，我们假定每个句子与对应方面共享一个最大量的形式重叠；基于这个初始方面标注，我们通过卡方统计（<em>Chi-Square</em> (χ2)）计算每个方面与词语的独立性，并将具有高独立性的词语加入到对应方面关键词列表中。这些步骤被重复执行知道方面关键词列表集收敛不在变化或者超出最大迭代步数。</p>
+<p><strong>词语 w 与 方面 Ai 的独立性计算量 χ2 定义如下</strong>:</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynzk9ro9yj30dg01e0sl.jpg" alt="LARA"></p>
+<p>其中:</p>
+<ul>
+<li>C1 为归属方面 Ai 的句子集中出现 w 次数总和</li>
+<li>C2 为 <strong>不</strong> 归属方面 Ai 的句子集中 w 出现次数总和</li>
+<li>C3 为归属方面 Ai 而没有包含 w 的句子集的 句子数目</li>
+<li>C4 为 既 <strong>不</strong> 归属方面  Ai <strong>又</strong>没有包含 w 的句子集的 句子数目</li>
+<li>C 为 w 在所有句子集中出现的总数 （C?）</li>
+</ul>
+<p>【思想类似于标准文本统计tf/idf】</p>
+<p>在基于方面的文本分割后，我们可以得到对于每个评论 d 的 k 元分割子集，表示为 k × n 特性矩阵 Wd ，其中<strong>Wdij</strong> 是关键词 wj 在文本标记为方面Ai 上的频度（以对应方面的词语总数作为分母来标准化这个频度）。</p>
+<h2 id="4-2-潜在观点评级回归模型（LRR）"><a href="#4-2-潜在观点评级回归模型（LRR）" class="headerlink" title="4.2 潜在观点评级回归模型（LRR）"></a>4.2 潜在观点评级回归模型（LRR）</h2><p>第二个环节是基于为文本按方面的分割后的延续，我们采用一种新颖的潜在观点评级回归（LRR）模型来同时分析方面评级 sd 与 方面评级权重 αd 。</p>
+<h3 id="4-2-1-泛化假设（The-Generation-Assumption）"><a href="#4-2-1-泛化假设（The-Generation-Assumption）" class="headerlink" title="4.2.1 泛化假设（The Generation Assumption）"></a>4.2.1 泛化假设（The Generation Assumption）</h3><p>我们假设评价者的评级行为如下：</p>
+<ul>
+<li>为了形成一篇观点性的评论，评价者首先需要决定哪些方面她需要做出评论；</li>
+<li>然后对于每个选定方面，评价者仔细的选择词语来表达她的观点。</li>
+<li>评价者是基于她为所评论到的每一个方面所采用的情感词语进行评级。</li>
+<li>最后评价者为实体进行总体评级，基于她所评论的方面按权重的加权聚合结果，这些权重反应了她在各自方面的强调重视程度。</li>
+</ul>
+<h3 id="4-2-2-LRR-模型"><a href="#4-2-2-LRR-模型" class="headerlink" title="4.2.2 LRR 模型"></a>4.2.2 LRR 模型</h3><p>LRR 模型是一个回归模型包含如下通用步骤：</p>
+<p>对于基于方面分割后的评论文本，对于每个评论 d ，我们有一个频度矩阵 Wd 一个标准化的方面词频矩阵。 LRR 模型将 Wd 作为独立变量集（比如：评论 d 的特性），把对应总体评级 r 作为响应变量（比如：待预测变量）</p>
+<p>为了进行不同方面的评级与权重建模，LRR模型进一步假定总体评级不是直接由词频特性决定，而是基于一组在潜在方面上的评级所决定，而这些潜在方面上的评级又直接的由词频特性所决定。</p>
+<p>我们定义过，sd 和 αd 是一个 k 维方面对应的 权重向量  和方面评级向量。评价者对于文评价文本 d 会假定 先为每个方面 Ai 做出评级，基于线性组合 Wdi 和 βi ,比如下：公式(1)</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynzlehycsj304v01sdfm.jpg" alt="lara"></p>
+<p>其中 βi ∈ R 暗示词语在对应方面Ai 的情感极性。</p>
+<p>随后，这个评论者可以通过 sd 和 αd 的权重和来形成对实体的总体评价。</p>
+<p>也就是：<img src="https://asset.vanjor.com/images/006tNbRwly1fynzlswpftj305900x3ya.jpg" alt="lara"></p>
+<p>总体评级假定是一个采样服从高斯分布（<em>Gaussian distribution</em>），以αdTsd 和变量δ2 ,可以从这推断总体评级预测的不确定性。将这些汇合，我们得到如下公式(2)</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynzm52sfkj307j01sglf.jpg" alt="lara"></p>
+<p>直观的核心思想是通过潜在观点权重 αd  与情感词权重 β ，为可观察到的总体评级与具体的文本描述建立关联，使得我们可以建立基于具体方面评级与总体评级关联模型。</p>
+<p>进一步的观察评级行为，我们发现评价者在不同方面强调程度是一个复杂的行为：不同的评价者可能对不同方面就有不同的偏好程度，例如商业旅行者可能着重考虑互联网接入服务，相对正在度蜜月的夫妇可来说可能更加注重房屋环境。</p>
+<p>方面之间不是独立的，尤其当方面之间有重叠，例如一个强调清洁（cleanliness aspect）的也可能表示偏向于间（room apect）</p>
+<p>为了考虑评价者偏好的差异性，我们考虑每个评价文本 d 的方面权重 αd 作为从整个语料库的先验分布中产生一组随机变量。</p>
+<p>接下来，为了计算不同方面的独立性，我们采用多变量的高斯分布（<em>Multivariate<br>Gaussian Distribution</em>）作为先验方面权重, 也就是如下公式(3)</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynzmknfu7j3043014we9.jpg" alt="lara"></p>
+<p>其中 μ 与 ∑ 是平均值与方差参数。</p>
+<p>结合公式(2)(3)，我们的得到贝叶斯回归问题，在给定评论中应用LRR模型后，总体评级的可能性为：</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynzmpdh4qj30dg02ka9z.jpg" alt="lara"></p>
+<p>其中 rd 与 Wd 为评论文本 d 中可观察到的数据，θ =(μ，∑，σ2，β) 是一组基于语料库级别的模型参数。αd 是评论文本 d 潜在方面权重。注意到我们假定 σ2 与 β 不依赖于单个的评论者，同时它们也是语料库级别的模型参数。LRR 的一种图形化模型见下图(3)</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynzn7wm49j30b805qmx4.jpg" alt="lara"></p>
+<p>图3：LRR图形化表示，外盒代表评论集，内盒代表单个评论文本的潜在观点评级和词语描述的组成。</p>
+<p>假定我们已经有给定 LRR 模型参数 θ =(μ，∑，σ2，β) ，可以应用这个模型计算出每个评论文本的潜在观点评级与权重，步骤如下：</p>
+<p>(1) 在给定评论文本 d 中的潜在观点评级sd 可以按照 公式(1) 进行计算；</p>
+<p>(2) 我们采用最大后验证概率 (MAP：<em>Maximum a posteriori</em>）来计算评论文本中最可能的值 αd 。</p>
+<p>评论文本d 的目标估计MAP函数定义为：公式(5)</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynznjpnmej30bw01s745.jpg" alt="lara"></p>
+<p>我们希望扩展这个公式，并为每个评论文本（记作_L_( ad )）关联这个所有方面的特征词 (terms) 到 αd 中,如下公式（6）</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynznsxhn3j30dg028wed.jpg" alt="lara"></p>
+<p>其中做出代换：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">∑i=1k αdi = 1;  0&lt;=αdi &lt;=1 , i=1,2,....,k</span><br></pre></td></tr></table></figure>
+<p>为了以下约束非线性优优化问题，我们应用conjugate-gradient-interior-point 方法，采用如下公式，对 αd 求倒数。</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynzo3235zj30cl01q3yd.jpg" alt="lara"></p>
+<h4 id="4-2-3-讨论"><a href="#4-2-3-讨论" class="headerlink" title="4.2.3 讨论"></a>4.2.3 讨论</h4><p>LRR 既不是一个纯粹的监督模型也不是一个纯粹的无监督模型，但是它包含了一些已经已知的监督与无监督模型。</p>
+<p>一方面，对于它的目标函数，LRR与监督回归模型类似，都是用来适应可观察到的总体评级（见 公式（2））。尽管如此，不同于一个通常的监督模型，LRR 没有为一个评论的总体评级建立学习预测模型；反而，在LRR 中，我们更加感兴趣于从可观察到的总体评级中推断分析出潜在方面评级与权重（虽然 LRR 可以用来预测总体评级）。从另外一方面来说，通过公式（1），包含另外一个回归模型(一方面评级作为响应变量)，而方面评级又不是可以直接观测到的，这样，唯一的监督在于我们有总体评级这个已有指标，并且我们假定他是这些方面评级的权重总和。这是我们 LRR 模型与传统监督回归模型的最大区别。</p>
+<p>另外一方面，LRR模型也具有类似于无监督方法的特点，在于我们不需要训练集包含有方面评级数据，并且我们可以推断出这些潜在方面评级。具体来说，要分析一组评论集的潜在方面评级，我们首先需要为数据集找到最优模型参数集 θ =(μ，∑，σ2，β) ，然后运用这些参数预测潜在观点评级 αd , 另外，当加入新数据，我们需要对应更新这些参数集。然而，LRR 也不是一个传统的无监督方法，因为我们有从总体评级中的间接监督。</p>
+<p>将我们的LRR模型与标准的话题模型做比较同样十分有趣，例如LDA[2]，在LDA模型中，我们对于那些能够刻画话题的潜在词语分布感兴趣，在 LRR 中，我们尝试发现能够的能刻画语言模型的关联方面评级的词语权重。这两个模型的一个有意义的区别在于 LDA 是完全无监督的，而 LRR 是半监督：虽然我们没有对每个方面的评级做出直接监督，而总体评级对于方面评级做出限制使得我们可以间接监督。</p>
+<h3 id="4-3-LRR-模型估计"><a href="#4-3-LRR-模型估计" class="headerlink" title="4.3 LRR 模型估计"></a>4.3 LRR 模型估计</h3><p>在之前的章节里，我们讨论了如何通过 θ =(μ，∑，σ2，β) 应用LRR模型来为每个评论推断计算方面权重 αd 。在本章节中，我们讨论怎样去运用最大似然（ML :<em>Maximum<br>Likelihood</em>）估计量估计这些模型参数，也就是，如何找到最优的 θ’ =(μ，∑，σ2，β)来最大化所有观测总体评级的可能性。</p>
+<p>在整个评论集中的对数似然（log-likelihood）函数是如下公式(7)</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynzohwcp2j30ax01s745.jpg" alt="lara"></p>
+<p>这样，ML估计参量：</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynzop0ebyj30d101s3ye.jpg" alt="lara"></p>
+<p>为了计算ML估计参量，我们首先随机初始化所有参数值来获取一个初始θ(0) ,然后用如下EM-style算法来迭代的更新于改进这些参量，通过在每轮迭代中二选一的执行 E-Step 和M-Step：</p>
+<ul>
+<li><strong>E-Step</strong>：对于语料库中每个评论文本 d ，基于现阶段的参量θ(t)（下标t指迭代轮次）通过运用公式（1）（6）计算方面评级 sd 和方面权重αd 。</li>
+<li><strong>M-Step</strong>：运用基于现阶段的参量 θ(t) 推断的方面评级 sd 和方面权重 αd 来更新模型参量，通过最大化“complete likelihood”来获取 θ(t+1) ，也就是为所有评论文本推断出所有如下变量，包括 总体评级 rd 、推测出的方面评级 sd 与方面权重 αd 。</li>
+</ul>
+<p>首先，我们看方面权重 αd 的高斯先验分布（Gaussian prior distribution）参数更新。目的是在 M-Step 中最大化计算出的所有计算值 αd 的可能性 ：对于所有的评论，我们又如下基于高斯分布的ML估计更新公式。如下公式（8）</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynzp01riqj30cr036mx1.jpg" alt="lara"></p>
+<p>∑ (t+1) 记为:</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynzp8hl34j30cr01na9w.jpg" alt="lara"></p>
+<p>也就有公式（9）</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynzpjgfpvj30cr01na9w.jpg" alt="lara"></p>
+<p>然后，我们在看怎么来更新 σ2 和 β 。又这步已经假定 αd 是可知的，我们可以更新σ2 和 β 来 最大化 P( rd | ad ，σ2，β，Wd )（参见公式（2））。</p>
+<p>我们通过如下更新公式来解决这个求最优问题：公式（10）（11）</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynzpvb0avj30do03cwee.jpg" alt="lara"></p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynzq3fbgij30do01xt8l.jpg" alt="lara"></p>
+<p>这个对于 β 的逼近解决方法对 一个 |V| ×|V| 据矩阵进行转置，要直接计算的话代价开销很大。为了避免这个问题，我们采用基于梯度算法（gradient-based method）来寻找 β 的最优解，梯度偏导算子如下：</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynzqf8yw3j30ad01swec.jpg" alt="lara"></p>
+<p>这样，E-Step 与M-Step交替进行，直到方程（7）的似然值收敛。</p>
+<h1 id="五、实验结果"><a href="#五、实验结果" class="headerlink" title="五、实验结果"></a>五、实验结果</h1><p>在本章节中，我们首先描述我们在评估 LRR 模型中所使用的评论数据集，然后讨论实验结果。</p>
+<h2 id="5-1-数据集与预处理"><a href="#5-1-数据集与预处理" class="headerlink" title="5.1 数据集与预处理"></a>5.1 数据集与预处理</h2><p>我们从<a href="http://www.tripadvisor.com" target="_blank" rel="noopener">TripAdvisor</a>站点爬取到一个月内的（从2009年2月14到2009年3月15号）235793条酒店评论数据。选择这套数据集目的在于，它们不仅包含有总体评级，而且还包含有评论者各自的针对 7 个方面的细节评级，它们是value，room，location，cleanliness, checkin/front desk, service, business service，这些方面评级范围从 1 星到 5 星，我们可以利用这些作为 LARA的可靠的定量评估。这些数据集从以下网址获得：<a href="http://times.cs.uiuc.edu/~wang296/Data." target="_blank" rel="noopener">http://times.cs.uiuc.edu/~wang296/Data.</a></p>
+<p>首先，我们对这些评论数据进行简单的预处理：</p>
+<p>（1）统一大写转换为小写；</p>
+<p>（2）移除标点符号，停用词（在文献[1]中所提供）；</p>
+<p>（3）运用Porter Stemmer[22]还原每个单词词形【by vanjor：英文单词的词性、词形变化，去掉前缀、后缀等】</p>
+<p>既然我们已经有 7 个预定义方面的评级数据，我们也把这 7 个方面应用到我们的预测实验中。因此，我们人工为每个预定义的方面选定一组种子关键词，并把他们作为 4.1 章节中所描述的算法的输入，我们设定选择门槛值 p = 5 、迭代步数上限 I = 10 。我们所用到的这个初始化方面词集，如下表，表（1）</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynzrdodfkj30dg0520t1.jpg" alt="lara"></p>
+<p>在基于方面分割评论集后，我们丢弃掉那些不与任何方面关联的句子。如果我们需要每条评论中都包含这 7 个方面的描述信息，那么数据集中只有 关于184个酒店 的 780个评论符合。为了避免评论中的数据过于贫乏，以及方面描述信息丢失，我们将关于每个对应的酒店的所有评论汇集起来合并成一个新的“评论”（称之为“h-review”），并按 总体评级/方面评级 的平均值作为可信评级。经过这些处理后，我们得到一个1850酒店的语料库，以及108891条评论，具体见下表：表（2）</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynzrjaqdoj30ao03i3yk.jpg" alt="lara"></p>
+<h2 id="5-2-定性评估-Qualitative-evaluation"><a href="#5-2-定性评估-Qualitative-evaluation" class="headerlink" title="5.2 定性评估 (Qualitative evaluation)"></a>5.2 定性评估 (Qualitative evaluation)</h2><p>首先，我们展示 LRR 模型关于定性评估生成的 3 个样列数据。</p>
+<h2 id="方面层次酒店分析-Aspect-level-Hotel-Analysis"><a href="#方面层次酒店分析-Aspect-level-Hotel-Analysis" class="headerlink" title="方面层次酒店分析(Aspect-level Hotel Analysis)"></a>方面层次酒店分析(Aspect-level Hotel Analysis)</h2><p>通过检查总体评级来判断给定酒店的质量是一个简单的方法。而这样粗糙的分析可能会丢失不同方面的质量的细节评估：没能指出具有相同方面评级的酒店的差异。为了检验 LRR 模型的这种甄别能力，我们随机选择 就有相同总体评级不同方面评级的的 3 个酒店，并运用 LRR 模型来预测他们的潜在方面评级。预测结果见表 3 ，其中预测值在括弧内(由于空间有限，我们只展示前四个方面数据结果)，见下表（3）</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynzsstueaj30dg04e3yo.jpg" alt="LARA"></p>
+<p>可以从中发现，3 个酒店具有相同的总体评级，不同的方面细节区别：Grand Mirage 与 Resort and Gold Coast Hotel 都有更高的 price 评级，而 Eurostars Grand Marina Hotel 拥有更高的 location 与 room 评级。这个信息对于那些有着不同方面需求的的人具有很好价值。</p>
+<h3 id="评论者层次酒店分析-Reviewer-level-Hotel-Analysis"><a href="#评论者层次酒店分析-Reviewer-level-Hotel-Analysis" class="headerlink" title="评论者层次酒店分析(Reviewer-level Hotel Analysis)"></a>评论者层次酒店分析(Reviewer-level Hotel Analysis)</h3><p>即使对于同一个酒店，不同的评论者对于同一个方面会有不同的观点意见。 LRR模型可以更进一步的通过独立评论者层次的预测方面评级来支持这种细节的分析。为了证实这一点，我们选取总数据集中的一个子集 - 那些同时具有7个方面描述评论（覆盖184个酒店的780个评论），在表4 中，两个评论者同时对 Hotel Riu Palace Punta Cana 给出 4 星的总体评级，但是他们对于具体的方面评级不同：评论者1 对于酒店的 cleanliness  评级高于其他方面，而 评论者2 认为其 value 与  location 应该是最好的两个方面。为了证实这种不同，提供如下证据（方面评级）会让用户更好的基于拥有评论进行决策。表（4）</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynzt1t5ahj30dg03k3yn.jpg" alt="lara"></p>
+<h3 id="语料特定词语情感倾向-Corpus-Specifc-Word-Sentimental-Orientation"><a href="#语料特定词语情感倾向-Corpus-Specifc-Word-Sentimental-Orientation" class="headerlink" title="语料特定词语情感倾向(Corpus Specifc Word Sentimental Orientation)"></a>语料特定词语情感倾向(Corpus Specifc Word Sentimental Orientation)</h3><p>为了对真个评论文本进行预测潜在观点评级，LRR 同样可以风分析词语的情感倾向。与传统的无监督情感分类算法不同，它们依赖预先定义的词典，LRR 可以直接从给定数据中挖掘这些情感化的信息。在 表5 中展示一些 LRR 有趣的结果，我们按每个方面 展示前5个具有积极权重的单词与前5个具有消极权重的单词。将它们与观点标注词典SentiWordNet [8]进行比较（由于空间有限，我们只展示前四个方面数据结果）。如下表，表（5）</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynztzp2h4j30dg05saah.jpg" alt="lara"></p>
+<p>我们可以发现一些有趣的结果，单词“ok”在 SentiWordNet 定义为积极的，但在我们的语料库中，评论者使用这个单词表示 仅仅可以接受的；单词 “linen”,“walk”以及”beach” 在SentiWordNet中并没有标注具有观点，而他们也是名词，而 LRR 系统赋予它们积极的情感倾向，可能因为”lean”可能暗示”cleanliness”的状况是好的，”walk”与”beach”可能暗示酒店的位置是很便捷的。</p>
+<p>这样，LRR可以为我们提供指定领域的词语倾向信息，这对于指定领域中的已有的情感字典的丰富扩大是很有帮助的。</p>
+<h2 id="5-3-定量分析（Quantitative-Evaluation）"><a href="#5-3-定量分析（Quantitative-Evaluation）" class="headerlink" title="5.3 定量分析（Quantitative Evaluation）"></a>5.3 定量分析（Quantitative Evaluation）</h2><h3 id="基本算法"><a href="#基本算法" class="headerlink" title="基本算法"></a>基本算法</h3><p>在我们所调研范围内，尚没有人做过解决类似问题的尝试，最接近我们的工作[17]，其中，作者提出两种方法，那就是Local prediction与Global prediction。因此，我们也把这两个方法作为我们基本算法予以比较。也采用其他的一些算法，比如，把评论的总体评级作为方面评级来训练监督模型。我们通过支持向量回归（SVR：<em>Support Vector Regression</em> ）模型[3]，并命名为 SVR-O 。另外，作为一个上限，我们同样也测试了一个完全监督算法 SVR-A，那就是喂有已知方面评级的训练数据的SVR模型做比较，以此找出什么样的 LRR 模型能够不需要监督而达到这一效果。我们使用libsvm包[4]中带有默认参数时间的RBF核心算法，进行SVR-O与SVR-A处理。所有的模型包括 LRR 以及这两个方法[17]都基于同一组数据集。我们采用四折交叉验证（<em><a href="/2010/10/cross-validation/">4-fold cross validation</a></em>），并给出处理性能的平均值。</p>
+<h3 id="测量方法"><a href="#测量方法" class="headerlink" title="测量方法"></a>测量方法</h3><p>我们使用四个不同的测度来定量评估这些不同的方法，包括</p>
+<ol>
+<li>方面评级预测的均方误差（mean square error） <strong>△aspect 2</strong> ；</li>
+<li>评论中的方面相关系数（ρaspect）;</li>
+<li>评论间的方面相关系数（ρreview）;</li>
+<li>平均准确率（MAP：<em>Mean Average Precision</em>）[11]，一个经常用来衡量信息检索中平局准确性的指标。</li>
+</ol>
+<p>正式的，假定s di<em> 是真实的方面评级Ai 。<strong>△aspect 2</strong> 直接测量预测方面评级sdi 与真实方面评级s di</em> 的差异，定义如下：</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynzv53yutj30ak01xmwz.jpg" alt="LARA">)</p>
+<p>ρaspect 目的在于测量方面评级预测的性能，用于保存对应评论的按照真实评级的相关方面排序。例如，在一个评论中，评论者可能偏好 location大于cleanliness，ρaspect 会评估这个预测的评级与对应真实的偏好排序是否一致，ρaspect 定义如下：</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynzvbop3wj306701yjr6.jpg" alt="LARA"></p>
+<p>其中 ρsd,sd 是两个向量 sd 与 sd 的皮尔森相关系数（Pearson correlation）。</p>
+<p>类似的 ρreview 定义了如下皮尔森相关系数：</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynzvm2h7vj306j01wmwy.jpg" alt="LARA"></p>
+<p>其中 si 与 si* 两向量为整个评论集中的关于方面 Ai 的预测值与真实值。它可以指出在整个评论集中，有关方面Ai 的方面预测值与真实值是否是一致的，这种排序可以回答如下问题：”那个酒店拥有最好的service？”</p>
+<p>尽管如此，ρreview 对于所有的条目平等权重，并且不反应排名前几个的特性，直观来说从用户的视角来看更为重要。因此，我们也采用MAP来评估模型关于评论的的排序准确信。更准确的说，我们对真实评论站前十的评论子集作为一个相关评论集，以此来看如果我们通过预测方面评级，是否也能把这10个评论预测前十。我们对所有酒店按照7个方面排序，并计算 MAP 前10个评论作为临界值。</p>
+<p>结果分析：</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynzwom1gqj30cw042weo.jpg" alt="LARA"></p>
+<p>如上表，表（6）展示了所有5个算法在四个度量上的测量结果。因为SVR-A是完全监督算法，而其它均不是，我们把它单独列在最下一行。同时出SVR-A外的四个模型，粗体着重标注在四个度量上各自最高性能值。</p>
+<p>总体观察来看在 LRR 的性能在<strong>△aspect 2</strong> 与 ρreview 这两个度量比其他的非 SVR-A 模型性能要好的多，但是它也不是在这两个方面表现性能最好的。较高的 ρreview 表明LRR可以更好的区分一个评论中的不同方面的评价。注意到这个在不同方面上的相对偏好信息不能仅从总体评级中获取。另外，高的 MAP@10 表明 LRR 相比其他方法也能更好的检测到 在各个方面排名前十的酒店，这些对于用户的直接排名也十分有用，因为高排名的结果将可能会最影响用户满意度。</p>
+<p>注意到 <strong>△aspect 2</strong> 是独立的衡量每个预测方面评级与真实方面评级，也就无法反应方面关联排序性能如何。比如，有一个只有三个方面的实体，一个评论的整体评级为 4 而事实的方面评级为（3,4,5）。那么一个生涩的预测（4,4,4）没能辨别出方面的不同，将会有<strong>△aspect 2</strong> =0.67，而另外一个预测（2,3,4），能够辨别出方面上的不同，却有相对更高（效果更差）<strong>△aspect 2</strong> =1。却是，可以观察到Local prediction模型达到最好的<strong>△aspect 2</strong> =0.588，但是是在以最低的 ρaspect 指标性能为代价，而事实上 ρaspect 具有更重要的用途。</p>
+<p>通过对基于方面评级预测的准确度排名深入研究，我们可以看到两个测度 <strong>△aspect 2</strong> 与 ρreview 产生不同结论。这个是在预期的，因为ρreview 测度这 1850 个 h-reviews 的相关性，而<a href="mailto:MAP@10" target="_blank" rel="noopener">MAP@10</a>只关心前十的，Local prediction 没有在 ρreview 指标上得分最高，却在<a href="mailto:MAP@10" target="_blank" rel="noopener">MAP@10</a>指标上表现糟糕。这说明了它比LRR的更出色与低排名而不是高排名的那些，而这些又是用户最为关心的。</p>
+<p>注意到给 SVR 喂养总体评级并没有达到预期的性能，这也在一定程度上证实了我们的假设：总体评级与方面评级是有区别的。因此，光只看总体评级是不够充分的。最终，并不奇怪的是，LRR 没有基于事实方面评级数据训练模型 SVR-A 那样高的表现性能。尽管如此 LRR 不需要训练集包含有任何方面评级的标记，比 SVR-A 具有更显示的应用前景。</p>
+<h3 id="计算复杂度"><a href="#计算复杂度" class="headerlink" title="计算复杂度"></a>计算复杂度</h3><p>在实际的应用中高效的挖掘算法是十分重要的。LRR 的主要计算工作在于解决非线性优化器问题，见公式（6）（11）。LRR的训练步骤中的收敛度取决于模型参量 Θ ,评论集 |D| 的数量 以及 迭代步骤上限 I，这个算法复杂度初步估计为O(k(n + k + 1)|D| I )，与评论集数目线性相关，对于我们的数据集，这个算法在奔腾4系列2.8CPU/2GB 内存的台式电脑上用时不到3分钟完成。</p>
+<h2 id="5-4-应用"><a href="#5-4-应用" class="headerlink" title="5.4 应用"></a>5.4 应用</h2><p>运用 LRR 模型进行 具体的观点理解与获取对于许多应用都具有潜在的价值，我们列举如下三个样列应用.</p>
+<h3 id="基于方面的概括"><a href="#基于方面的概括" class="headerlink" title="基于方面的概括"></a>基于方面的概括</h3><p>因为LRR可以为评论 sd 推断方面评级，我们就可以更为容易的对于酒店的各个方面上 聚合评论集的方面评级（例如：（1/|D| )∑d∈D sd）。这样酒店的方面评级可以被看做为基于方面观点的概括。基于这些，我们也可以对指定酒店通过公式（1）计算选择那些句子，这些在每个方面具有最高的和最低的评分，帮助用户更加理解每个方面的观点。</p>
+<p>我们在 表7 中展示了一个基于方面的概括。我们可以看到评价者当考虑到酒店在西雅图这么好的位置时对于价格的容忍值就很高。尽管如此，还是有很多地方可以改进，不好的供暖系统，以及互联网接入需收费。这些细节信息将会对用户从海量评价信息中挖掘基本观点十分有用。如下表（7）</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynzza221uj30dg04i74p.jpg" alt="LARA"></p>
+<h3 id="用户评价行为表现分析"><a href="#用户评价行为表现分析" class="headerlink" title="用户评价行为表现分析"></a>用户评价行为表现分析</h3><p>通过为每个独立的评论推断潜在方面权重ad，我们可以知道对应的评论者在不同方面的强调程度，可以视作为用户评级行为表现的理解。一个潜在的应用是挖掘用户在作出最终评价时，那些因素对于用户的判断具有最大影响。为了深入研究，我们选择了两组不同价格区间的酒店数据：一组的价格超过$800（称之为昂贵的酒店），另一组为价格低于$100（称之为廉价的酒店），对于每一组，我们选取平均整体评级排名前十与末十的酒店，最终形成四个酒店子集。我们展示这四个酒店子集的平均方面权重ad，结果见表（8）</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynzzgsjwwj30cw05g74k.jpg" alt="LARA"></p>
+<p>我们发现一个有趣的现象是，评价者们为昂贵的酒店给出高评价主要是因为他们良好的service与locations，而对应给出低评价这是因为糟糕的房屋环境与过高价格。</p>
+<p>作为对比，评价者为廉价的酒店给出高评价主要是因为好的price/value 以及良好的location，而相对给出低评是因为糟糕的cleanliness.</p>
+<p>另外，这些量化的评级可能包含不同评价间的平均反应：低收入客户为便宜的酒店给出“value”方面的 5 星评价，而一些其他追求更好服务的客户可能给予昂贵的酒店在“value”方面的 5 星评价。仅仅为每个方面预测评级仍然不够以挖掘到用户间的微妙差异，但是这种方面权重的推断更好的便于我们理解为什么低收入客户相比“service”更倾向于“value”。为了深入了解这些，我们从四个城市：Amsterdam、Barcelona、Florence 以及 San Francisco中（这些地方的酒店在我们的语料库中大有所在），挑选出在“value”方面评级都具有5星评价的酒店，我们按照他们的方面权重比率 value/location、value/room、value/service 进行排序，相对应的，对于每个比率，计算出平均前十和末十的酒店。数据展现在表（9）</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynzzpcmp9j30dg05s0t0.jpg" alt="LARA"></p>
+<p>我们发现那些相对具有“value”上更高权重的酒店具有更低的价格，同时对“location”、“room”与“service”这些方面具有较高权重的酒店倾向于就有更高的价格，表明了即时这些酒店在“value”方面具有同样方面评价，偏好于“value”方面的客户可能更倾向于价格低廉的酒店，而那些对偏好于“location”或“service”（除了”price”）方面的则可能会接受更高的价格。这样推断出的方面权重αd 对于挖掘用户评级行为十分有用。</p>
+<h3 id="个性化排序"><a href="#个性化排序" class="headerlink" title="个性化排序"></a>个性化排序</h3><p>对酒店按照各个方面推断出的评级对于用户十分有用。我们展示为每个独立的评论学习不同方面的评级权重，使得我们可以为一个当前用户挑选具有相同评价行为偏好的评论进行个性化排序。具体来说，给定一个用户的偏好权重作为查询条件，我们可以通过选择那些具有类似偏好权重的评论者，并且只基于这些评论者们的评论集做出酒店排名。</p>
+<p>为了有效的展示 LRR 模型支持这种个性化牌型，考虑一个样例查询：Query= { value weight：0.9, others：0.016 }，暗示用户最看重偏好“value”，并不太关心其他方面。我们运用两用不同排名方法：</p>
+<ul>
+<li><strong>方法 1</strong>: 不考虑输入查询，通过按预测方面评级对酒店进行排序。</li>
+<li><strong>方法 2</strong>: 挑选出与所给定查询具有最接近的方面权重（也就是 αd）的评论者前10%，并仅只根据他们的评论做出酒店排名。</li>
+</ul>
+<p>通过两种方法，我们基于查询中定义的方面权重对酒店进行排序，得到的前 5 的结果如下表：表（10）</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fyo02siw85j30dg06jaai.jpg" alt="lara"></p>
+<p>十分有趣的现象是尽管方法 1 中前5的结果都具有5星评价（并且大致也可推测道他们在“value”方面上也具有很高评级，因为排名主要是基于查询中的权重的），它们的价格倾向比方法2 中得到的前五酒店要高；的确，方法 1 中的前 5 酒店平均价格是$412.6 而方法2 中前5 酒店平均价格仅为$289.4，相对要低很多。（整个数据集中所有酒店的平均价格为$334.3）。直觉可以看到对于样列查询，方法 2 对于用户更有帮助。这也就意味着像方法2 这样，只从挑选类似偏好权重行为的用户的评论集进行排序，个性化排序对“value”方面偏好权重更大，确保排名前几的酒店真的具有相对较低的价格。</p>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>在本文中，我们定义了一种新颖文本挖掘算法问题-潜在方面观点评级分析（LARA：Latent Aspect Rating Analysis）来分析在线评论在话题方面级别的观点。LARA 通过分析一套带有整体评级的评论文本 以及 一组指定的方面作为输入，来挖掘每个独立的评论者在给定的这些方面的潜在评级，以及不同方面的相对权重大小。为了解决这个问题，我们提出一个新颖的潜在评级回归模型（LRR）。</p>
+<p>我们对于一组酒店评论数据集的以经验为主的实验表明 LRR 模型能有效的解决 LARA 问题，挖掘那些方面评级的差异背后的有趣行为，即使总体评级相同。这个结果页表明基于话题方面的层级上的观点分析可以支持多种应用，包括方面观点概括，基于方面评级的实体排序 以及 用户评级行为分析。</p>
+<p>我们的工作开启了一个文本挖掘的新颖方向，聚焦在分析带有观点性文本的潜在评级分析。再为来它将会有更多有趣的研究方向值得挖掘。列于，虽然我们是基于评论定义了LARA问题，LARA 也很明显可以应用于任何带有观点性的文本（比如网络日志），并带有总体评级以达到具体的理解文本观点。她可能在其他应用场景中就有有趣研究价值。另外,我们的LRR模型并没有严格的显示为词语特性，其他的类型特性也可以很容易的应用到此模型中。同样，在我们的LARA定义中，我们假定方面描述为一组关键词形式。这有利于用户灵活的把握控制他所想要研究的方面。</p>
+<p>LARA问题 在未来关于潜在方面挖掘与方面评级及方面权重将是十分有趣的研究话题方向。</p>
+<h1 id="鸣谢"><a href="#鸣谢" class="headerlink" title="鸣谢"></a>鸣谢</h1><p>感谢匿名评论者的十分有价值的评论。本文基于IBM Faculty Award -an Alfred P. Sloan Research Fellow-ship, and by the National Science Foundation under grants IIS-0347933, IIS-0713581, IIS-0713571, and CNS-0834709所支持下的工作。</p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ul>
+<li>[1] Onix text retrieval toolkit stopword list. <a href="http://www.lextek.com/manuals/onix/stopwords1.html" target="_blank" rel="noopener">http://www.lextek.com/manuals/onix/stopwords1.html</a>.</li>
+<li>[2] D. Blei, A. Ng, and M. Jordan. Latent dirichlet allocation. The Journal of Machine Learning Research, 3:993 - 1022, 2003.</li>
+<li>[3] C. Burges. A tutorial on support vector machines for pattern recognition. Data mining and knowledge discovery, 2(2):121 - 167, 1998.</li>
+<li>[4] C.C. Chang and C.J. Lin. LIBSVM: a library for support vector machines, 2001. Software available at <a href="http://www.csie.ntu.edu.tw/~cjlin/libsvm" target="_blank" rel="noopener">http://www.csie.ntu.edu.tw/~cjlin/libsvm</a>.</li>
+<li>[5] H. Cui, V. Mittal, and M. Datar. Comparative experiments on sentiment classifcation for online product reviews. In Twenty-First National Conference on Artificial Intelligence, volume 21, page 1265, 2006.</li>
+<li>[6] K. Dave, S. Lawrence, and D. M. Pennock. Mining the peanut gallery: opinion xtraction and semantic classifcation of product reviews. In WWW ‘03, pages 519{528, 2003.</li>
+<li>[7] A. Devitt and K. Ahmad. Sentiment polarity identifcation in fanancial news: A cohesion-based approach. In Proceedings of ACL’07, pages 984 - 991, 2007.</li>
+<li>[8] A. Esuli and F. Sebastiani. SentiWordNet: A publicly available lexical resource for opinion mining. In Proceedings of LREC, volume 6, 2006.</li>
+<li>[9] A. Goldberg and X. Zhu. Seeing stars when there aren , a¶rt many stars: Graph-based semi-supervised learning for sentiment categorization. In HLT-NAACL 2006 Workshop<br>  on Textgraphs: Graph-based Algorithms for Natural Language Processing, 2006.</li>
+<li>[10] M. Hu and B. Liu. Mining and summarizing customer reviews. In W. Kim, R. Kohavi, J. Gehrke, and W. DuMouchel, editors, KDD, pages 168 - 177. ACM, 2004.</li>
+<li>[11] K. Jarvelin and J. Kekalainen. IR evaluation methods for retrieving highly relevant documents. In Proceedings of SIGIR’00, pages 41 - 48. ACM, 2000.</li>
+<li>[12] N. Jindal and B. Liu. Identifying comparative sentences in text documents. In Proceedings of SIGIR ‘06, pages 244 - 251, New York, NY, USA, 2006. ACM.</li>
+<li>[13] H. Kim and C. Zhai. Generating Comparative Summaries of Contradictory Opinions in Text. In Proceedings of CIKM’09, pages 385 - 394, 2009.</li>
+<li>[14] S. Kim and E. Hovy. Determining the sentiment of opinions. In Proceedings of COLING, volume 4, pages 1367 - 1373, 2004.</li>
+<li>[15] K. Lerman, S. Blair-Goldensohn, and R. T. McDonald. Sentiment summarization: Evaluating and learning user preferences. In EACL, pages 514 - 522, 2009.</li>
+<li>[16] B. Liu, M. Hu, and J. Cheng. Opinion observer: Analyzing and comparing opinions on the web. In WWW ‘05, pages 342 - 351, 2005.</li>
+<li>[17] Y. Lu, C. Zhai, and N. Sundaresan. Rated aspect summarization of short comments. In Proceedings of WWW’09, pages 131 - 140, 2009.</li>
+<li>[18] S. Morinaga, K. Yamanishi, K. Tateishi, and T. Fukushima. Mining product reputations on the web. In KDD ‘02, pages 341{349, 2002.</li>
+<li>[19] B. Pang and L. Lee. Seeing stars: Exploiting class relationships for sentiment categorization with respect to rating scales. In Proceedings of the ACL, pages 115 - 124, 2005.</li>
+<li>[20] B. Pang, L. Lee, and S. Vaithyanathan. Thumbs up? Sentiment classi¯cation using machine learning techniques. In EMNLP 2002, pages 79 - 86, 2002.</li>
+<li>[21] A.-M. Popescu and O. Etzioni. Extracting product features and opinions from reviews. In Proceedings of HLT ‘05, pages 339 - 346, Morristown, NJ, USA, 2005. Association for Computational Linguistics.</li>
+<li>[22] M. Porter. An algorithm for su±x stripping. Program, 14(3):130 - 137, 1980.</li>
+<li>[23] B. Snyder and R. Barzilay. Multiple aspect ranking using the good grief algorithm. In Proceedings of NAACL HLT, pages 300 - 307, 2007.</li>
+<li>[24] I. Titov and R. McDonald. A joint model of text and aspect ratings for sentiment summarization. In ACL ‘08, pages 308 - 316.</li>
+<li>[25] Y. Yang and J. O.Pedersen. A comparative study on feature selection in text categorization. In Proceedings of ICML’97, pages 412 - 420, 1997.</li>
+<li>[26] L. Zhuang, F. Jing, and X. Zhu. Movie review mining and summarization. In Proceedings of CIKM 2006, page 50. ACM, 2006.</li>
+</ul>
+
+      
+    </div>
+
+    
+      
+
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="/2010/11/lingpipe/" rel="bookmark">Java开源自然语言处理-LingPipe</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="/2010/12/sentiment-analysis-brief/" rel="bookmark">文本情感分析概述</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="/2010/10/cross-validation/" rel="bookmark">交叉验证</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="/2010/11/linear-regression/" rel="bookmark">线性回归</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="/2010/11/recall-precision/" rel="bookmark">信息检索基本评价指标-P·R·F</a></div>
+      
+    </li>
+  
+  </ul>
+
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Vanjor</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="https://blog.vanjor.com/2010/12/latent-aspect-rating-analysis/" title="评论潜在方面观点计算">https://blog.vanjor.com/2010/12/latent-aspect-rating-analysis/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/machine-learning/" rel="tag"># Machine Learning</a>
+          
+            <a href="/tags/nlu/" rel="tag"># NLU</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2010/12/sentiment-analysis-brief/" rel="next" title="文本情感分析概述">
+                <i class="fa fa-chevron-left"></i> 文本情感分析概述
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2010/12/some-abbrs-for-english/" rel="prev" title="英文论文缩写">
+                英文论文缩写 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Vanjor">
+            
+              <p class="site-author-name" itemprop="name">Vanjor</p>
+              <div class="site-description motion-element" itemprop="description">personal tech blog</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">56</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">43</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/vanjor" title="GitHub &rarr; https://github.com/vanjor" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="mailto:vanjor2008@gmail.com" title="Mail &rarr; mailto:vanjor2008@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/vanjor" title="Weibo &rarr; https://weibo.com/vanjor" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://twitter.com/vanjor2008" title="Twitter &rarr; https://twitter.com/vanjor2008" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://www.facebook.com/vanjor" title="Facebook &rarr; https://www.facebook.com/vanjor" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://stackoverflow.com/users/2273014/vanjor" title="StackOverflow &rarr; https://stackoverflow.com/users/2273014/vanjor" rel="noopener" target="_blank"><i class="fa fa-fw fa-stack-overflow"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#摘要"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一、简介"><span class="nav-number">2.</span> <span class="nav-text">一、简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、相关工作"><span class="nav-number">3.</span> <span class="nav-text">二、相关工作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、问题定义"><span class="nav-number">4.</span> <span class="nav-text">三、问题定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、方法"><span class="nav-number">5.</span> <span class="nav-text">四、方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-基于方面的文本分割"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 基于方面的文本分割</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-潜在观点评级回归模型（LRR）"><span class="nav-number">5.2.</span> <span class="nav-text">4.2 潜在观点评级回归模型（LRR）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-1-泛化假设（The-Generation-Assumption）"><span class="nav-number">5.2.1.</span> <span class="nav-text">4.2.1 泛化假设（The Generation Assumption）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-2-LRR-模型"><span class="nav-number">5.2.2.</span> <span class="nav-text">4.2.2 LRR 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-3-讨论"><span class="nav-number">5.2.2.1.</span> <span class="nav-text">4.2.3 讨论</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-LRR-模型估计"><span class="nav-number">5.2.3.</span> <span class="nav-text">4.3 LRR 模型估计</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、实验结果"><span class="nav-number">6.</span> <span class="nav-text">五、实验结果</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-数据集与预处理"><span class="nav-number">6.1.</span> <span class="nav-text">5.1 数据集与预处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-定性评估-Qualitative-evaluation"><span class="nav-number">6.2.</span> <span class="nav-text">5.2 定性评估 (Qualitative evaluation)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方面层次酒店分析-Aspect-level-Hotel-Analysis"><span class="nav-number">6.3.</span> <span class="nav-text">方面层次酒店分析(Aspect-level Hotel Analysis)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#评论者层次酒店分析-Reviewer-level-Hotel-Analysis"><span class="nav-number">6.3.1.</span> <span class="nav-text">评论者层次酒店分析(Reviewer-level Hotel Analysis)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语料特定词语情感倾向-Corpus-Specifc-Word-Sentimental-Orientation"><span class="nav-number">6.3.2.</span> <span class="nav-text">语料特定词语情感倾向(Corpus Specifc Word Sentimental Orientation)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-定量分析（Quantitative-Evaluation）"><span class="nav-number">6.4.</span> <span class="nav-text">5.3 定量分析（Quantitative Evaluation）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本算法"><span class="nav-number">6.4.1.</span> <span class="nav-text">基本算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测量方法"><span class="nav-number">6.4.2.</span> <span class="nav-text">测量方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算复杂度"><span class="nav-number">6.4.3.</span> <span class="nav-text">计算复杂度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-4-应用"><span class="nav-number">6.5.</span> <span class="nav-text">5.4 应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于方面的概括"><span class="nav-number">6.5.1.</span> <span class="nav-text">基于方面的概括</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户评价行为表现分析"><span class="nav-number">6.5.2.</span> <span class="nav-text">用户评价行为表现分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#个性化排序"><span class="nav-number">6.5.3.</span> <span class="nav-text">个性化排序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结论"><span class="nav-number">7.</span> <span class="nav-text">结论</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#鸣谢"><span class="nav-number">8.</span> <span class="nav-text">鸣谢</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">9.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">  <a href="http://www.beian.miit.gov.cn" rel="noopener" target="_blank">京ICP备19002595号 </a>&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Vanjor</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">144k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">3:01</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.2"></script>
+
+  <script src="/js/motion.js?v=7.1.2"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.2"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.2"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.2"></script>
+<script src="/js/post-details.js?v=7.1.2"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.2"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: false,
+    appId: 'P9UDHn4P9cSCIXOdL1UGwCNf-gzGzoHsz',
+    appKey: 'YbI4jqWtf92Mj3ttovhYd2Rs',
+    placeholder: 'Write for your comments here',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+        // ref: https://github.com/ForbesLindesay/unescape-html
+        var unescapeHtml = function(html) {
+          return String(html)
+            .replace(/&quot;/g, '"')
+            .replace(/&#39;/g, '\'')
+            .replace(/&#x3A;/g, ':')
+            // replace all the other &#x; chars
+            .replace(/&#(\d+);/g, function (m, p) { return String.fromCharCode(p); })
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>')
+            .replace(/&amp;/g, '&');
+        };
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                content = unescapeHtml(content);
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1 }))
+                .done(function() {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function() {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + 'P9UDHn4P9cSCIXOdL1UGwCNf-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': 'P9UDHn4P9cSCIXOdL1UGwCNf-gzGzoHsz',
+                'X-LC-Key': 'YbI4jqWtf92Mj3ttovhYd2Rs',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            const localhost = /http:\/\/(localhost|127.0.0.1|0.0.0.0)/;
+            if (localhost.test(document.URL)) return;
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <script src="/lib/pangu/dist/pangu.min.js?v=3.3"></script>
+  <script>pangu.spacingPage();</script>
+
+
+  
+
+  
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      const selection = document.getSelection();
+      const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : false;
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+      if (selected) {
+        selection.removeAllRanges();
+        selection.addRange(selected);
+      }
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>

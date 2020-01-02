@@ -1,0 +1,1785 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-flash.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=7.1.2">
+
+
+  <link rel="mask-icon" href="/images/avatar.png?v=7.1.2" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="支持向量机 Support Vector Machine, 简称SVM（或SV机），是一种监督是学习的方法，广泛应用于统计分类及回归分析中。  其中, 机（machine,机器）实际上是一个算法。在机器学习(ML)领域里，常把一些算法看做是一个机器。">
+<meta name="keywords" content="Machine Learning,Classifier,SVM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="支持向量机SVM">
+<meta property="og:url" content="https://blog.vanjor.com/2010/11/support-vector-machine/index.html">
+<meta property="og:site_name" content="Vanjor&#39;s Blog">
+<meta property="og:description" content="支持向量机 Support Vector Machine, 简称SVM（或SV机），是一种监督是学习的方法，广泛应用于统计分类及回归分析中。  其中, 机（machine,机器）实际上是一个算法。在机器学习(ML)领域里，常把一些算法看做是一个机器。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynxkke2xtj306s04hjrg.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynxll809ej307i05kmx0.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynxnrltecj309u0163ya.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynxoerb4gj303s012gld.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynxp8wykcj303n00zdfl.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynxpfvqh9j304600zdfl.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynxq27ufqj303j00h741.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynxqoac9pj303x00h741.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynxr5ih9wj309k00pwe9.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynxrj1i0uj308w08mt8n.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynxs8u77yj3013010741.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynxsi4kdbj309g00lq2p.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynxt27qdaj30a3023gle.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fynxzw4kqgj305000lgld.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fyny2cdc72j30ai01jmwz.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fyny3a4sq3j304z00ldfl.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fyny0q17c3j303f01jjr5.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fyny5134vfj304z00ldfl.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fyny5so8bpj30a000l3ya.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fyny77l52ej305w01na9u.jpg">
+<meta property="og:image" content="https://asset.vanjor.com/images/006tNbRwly1fyny815832j308k00pt8h.jpg">
+<meta property="og:updated_time" content="2010-11-11T14:45:51.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="支持向量机SVM">
+<meta name="twitter:description" content="支持向量机 Support Vector Machine, 简称SVM（或SV机），是一种监督是学习的方法，广泛应用于统计分类及回归分析中。  其中, 机（machine,机器）实际上是一个算法。在机器学习(ML)领域里，常把一些算法看做是一个机器。">
+<meta name="twitter:image" content="https://asset.vanjor.com/images/006tNbRwly1fynxkke2xtj306s04hjrg.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Vanjor's Blog" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="https://blog.vanjor.com/2010/11/support-vector-machine/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>支持向量机SVM | Vanjor's Blog</title>
+  
+
+
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-43841261-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-43841261-1');
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Vanjor's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">notes</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">48</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">5</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">56</span></a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.vanjor.com/2010/11/support-vector-machine/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Vanjor">
+      <meta itemprop="description" content="personal tech blog">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Vanjor's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">支持向量机SVM<a href="https://github.com/vanjor/VanjorBlogWebsite/blob/source/source/_posts/2010/11/support-vector-machine.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pencil"></i></a>
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2010-11-11 22:45:51" itemprop="dateCreated datePublished" datetime="2010-11-11T22:45:51+08:00">2010-11-11</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/learning/" itemprop="url" rel="index"><span itemprop="name">知识积累</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2010/11/support-vector-machine/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2010/11/support-vector-machine/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2010/11/support-vector-machine/" class="leancloud_visitors" data-flag-title="支持向量机SVM">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">3k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">4 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>支持向量机 Support Vector Machine, 简称<strong>SVM</strong>（或SV机），是一种监督是学习的方法，广泛应用于统计分类及回归分析中。</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynxkke2xtj306s04hjrg.jpg" alt="SVM"></p>
+<p>其中, <strong>机</strong>（machine,机器）实际上是一个算法。在<a href="http://zh.wikipedia.org/zh/机器学习" target="_blank" rel="noopener">机器学习</a>(ML)领域里，常把一些算法看做是一个机器。</p>
+<a id="more"></a>
+<h1 id="SVM定义"><a href="#SVM定义" class="headerlink" title="SVM定义"></a>SVM定义</h1><p>参考WIKI定义：</p>
+<blockquote>
+<p><strong>支持向量机</strong> 将向量映射到一个更高维的空间裡，在这个空间里建立有一个最大间隔超平面。在分开数据的超平面的两边建有两个互相平行的超平面。分隔超平面使两个平行超平面的距离最大化。假定平行超平面间的距离或差距越大，分类器的总误差越小。</p>
+</blockquote>
+<h1 id="SVM目的"><a href="#SVM目的" class="headerlink" title="SVM目的"></a>SVM目的</h1><p>分类是机器学习的一个常用手法，假设给定数据点（这些点不一定是R2 纬度集合中，可以是任意Rn 纬度中的店），每个都归属于某一个或几个类别，我们希望能够把这些点通过一个n-1维的<a href="http://zh.wikipedia.org/wiki/%E8%B6%85%E5%B9%B3%E9%9D%A2" target="_blank" rel="noopener">超平面</a>分开，通常这个被称为<a href="http://zh.wikipedia.org/wiki/%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8" target="_blank" rel="noopener">线性分类器</a>。</p>
+<p>有很多分类器都符合这个要求，但是我们还希望找到分类最佳的平面，即使得属于两个不同类的数据点间隔最大的那个面，该面亦称为<strong>最大间隔超平面</strong>。如果我们能够找到这个面，那么这个分类器，就称为最大间隔分类器。<strong>支持向量机目的也就是一种最大间隔分类器。</strong></p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynxll809ej307i05kmx0.jpg" alt="Svm_separating_hyperplanes"></p>
+<p>（有很多个分类器(超平面)可以把数据分开，但是只有一个能够达到最大分割。H3不能准确分割，H1能分割但不能做到最大分割，H2则是最大分割）</p>
+<h1 id="SVM推理引入"><a href="#SVM推理引入" class="headerlink" title="SVM推理引入"></a>SVM推理引入</h1><p>我们考虑以下形式的样本点<strong>D</strong>（n个数量的如下形式点集）：</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynxnrltecj309u0163ya.jpg" alt="svm"></p>
+<p>其中:</p>
+<ul>
+<li><strong>_ci_</strong> 为1或−1 ,用以表示数据点属于哪个类.</li>
+<li><strong>xi</strong> 是一个 <strong>_p_ 维向量</strong> ，其每个元素都被缩放到 [0, 1] 或 [-1, 1]. 缩放的目的是防止方差大的随机变量主导分类过程。</li>
+</ul>
+<p>我们可以把这些数据称为“训练数据”，希望我们的支持向量机能够通过一个超平面正确的把他们分开。超平面的数学形式可以写作:</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynxoerb4gj303s012gld.jpg" alt="svm"></p>
+<p>根据几何知识，我们知道<strong>w</strong>向量垂直于分类超平面。<strong>w</strong>与<strong>x</strong>为<strong>内积</strong>，加入位移<strong>b</strong>的目的是增加间隔。如果没有<strong>b</strong>的话，那超平面将不得不通过原点，限制了这个方法的灵活性</p>
+<p><strong>由于我们要求最大间隔</strong>，因此我们需要知道支持向量以及（与最佳超平面）平行的并且离支持向量最近的超平面。我们可以看到这些平行超平面可以由方程族：</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynxp8wykcj303n00zdfl.jpg" alt="svm"> and <img src="https://asset.vanjor.com/images/006tNbRwly1fynxpfvqh9j304600zdfl.jpg" alt="svm"></p>
+<p>如果这些训练数据是线性可分的，那就可以找到这样两个超平面，在它们之间没有任何样本点并且这两个超平面之间的距离也最大。通过几何不难得到这两个超平面之间的距离是2/|<em><strong>w</strong></em>|，因此我们需要最小化 |<em><strong>w</strong></em>|。同时为了使得样本数据点都在超平面的间隔区以外，我们需要保证对于所有的<em><strong>i</strong></em> 满足其中的一个条件：</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynxq27ufqj303j00h741.jpg" alt="svm">对于第一类 <strong>xi</strong></p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynxqoac9pj303x00h741.jpg" alt="svm"> 对于第二类 <strong>xi</strong></p>
+<p>通过类别二元量 <strong>Ci</strong> 可以合并为：</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynxr5ih9wj309k00pwe9.jpg" alt="svm"></p>
+<p>现在寻找最佳超平面这个问题就变成了在上式这个约束条件下最小化|<em><strong>w</strong></em>|. 这是一个<a href="http://zh.wikipedia.org/wiki/%E4%BA%8C%E6%AC%A1%E8%A7%84%E5%88%92" target="_blank" rel="noopener">二次规划</a>(QP：Quadratic Programming)最优化中的问题。</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynxrj1i0uj308w08mt8n.jpg" alt="Svm_max_sep_hyperplane_with_margin(最大间隔超平面，两类分割数据集)"></p>
+<p>更清楚的表示</p>
+<p>求最小化<img src="https://asset.vanjor.com/images/006tNbRwly1fynxs8u77yj3013010741.jpg" alt="svm">，并且满足限定条件<img src="https://asset.vanjor.com/images/006tNbRwly1fynxsi4kdbj309g00lq2p.jpg" alt="svm"><br><em>(1/2这个因子是为了数学上表达的方便加上的)</em></p>
+<p><strong>解如上问题通常的想法可能是使用非负</strong><a href="http://zh.wikipedia.org/wiki/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%95%B0" target="_blank" rel="noopener"><strong>拉格朗日乘数</strong></a> <strong>α_i_ 于下式</strong></p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fynxt27qdaj30a3023gle.jpg" alt="svm"></p>
+<p>不过这样可能出错. 原因是：假如我们能找到一族超平面将这些点分割开来；那么所有的 <img src="https://asset.vanjor.com/images/006tNbRwly1fynxzw4kqgj305000lgld.jpg" alt="svm">. 因此我们可能通过将所有α_i_趋向正无穷大得到最小值, 此最小值对这一族内所有成员都有效，而不是解决原问题的最优解。</p>
+<p><strong>但是可以将约束问题表示为：</strong>（注：这一部分没弄得十分明白..）</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fyny2cdc72j30ai01jmwz.jpg" alt="svm"></p>
+<p><strong>从而化解问题为寻找一个鞍点（saddle point）</strong>.</p>
+<p>这样所有可以被<img src="https://asset.vanjor.com/images/006tNbRwly1fyny3a4sq3j304z00ldfl.jpg" alt="svm">分离的点就无关紧要了，因为我们必须设置相应的 αi 为零。</p>
+<p><strong>这个问题现在可以用标准二次规划技术标准和程序解决</strong>。结论可以表示为如下<strong>训练向量的线性组合</strong></p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fyny0q17c3j303f01jjr5.jpg" alt="svm"></p>
+<p>只有很少的 <strong>αi</strong> 会大于0. 相应的 <strong>xi</strong> 就是<strong>支持向量</strong>, 这些支持向量在边缘上并且满足 <img src="https://asset.vanjor.com/images/006tNbRwly1fyny5134vfj304z00ldfl.jpg" alt="svm">. 由此可以推导出支持向量也满足: <img src="https://asset.vanjor.com/images/006tNbRwly1fyny5so8bpj30a000l3ya.jpg" alt="svm">因此允许定义偏移量_b_. 实际上此支持向量比一般<em>N__S__V</em>的支持向量鲁棒性更强:</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fyny77l52ej305w01na9u.jpg" alt="svm"></p>
+<h2 id="SVM改进模型-软间隔（Soft-margin）"><a href="#SVM改进模型-软间隔（Soft-margin）" class="headerlink" title="SVM改进模型-软间隔（Soft margin）"></a>SVM改进模型-软间隔（Soft margin）</h2><p>1995年, <a href="http://zh.wikipedia.org/w/index.php?title=Corinna_Cortes&amp;action=edit&amp;redlink=1" target="_blank" rel="noopener">Corinna Cortes</a>与Vapnik提出了一种改进的最大间隔区方法，这种方法可以处理标记错误的样本。如果可区分正负例的超平面不存在，则“软边界”将选择一个超平面尽可能清晰地区分样本，同时使其与分界最清晰的样本的距离最大化。这一成果使术语“支持向量机”（或“SVM”）得到推广。这种方法引入了松驰参数 <strong>ξ</strong><em><strong>i</strong></em> 以衡量对数据 <strong>x</strong> <strong>_i_</strong> 的误分类度。</p>
+<p><img src="https://asset.vanjor.com/images/006tNbRwly1fyny815832j308k00pt8h.jpg" alt="svm"></p>
+<h1 id="SVM特性"><a href="#SVM特性" class="headerlink" title="SVM特性"></a>SVM特性</h1><p>SVM的特点可以总结为：</p>
+<ol>
+<li>SVM学习问题可以表示为凸优化问题，因此可以利用已知的有效算法发现目标函数的全局最小值。而其他分类方法（如基于规则的分类器和人工神经网络）都采用一种基于贪心学习的策略来搜索假设空间，这种方法一般只能获得局部最优解。</li>
+<li>SVM通过最大化决策边界的边缘来控制模型的能力。尽管如此，用户必须提供其他参数，如使用核函数类型和引入松弛变量等。</li>
+<li>通过对数据中每个分类属性引入一个哑变量，SVM可以应用与分类数据。</li>
+<li>SVM不仅可以用在二类问题，还可以很好的处理多类问题，比如通过引入决策树模型。</li>
+</ol>
+<h1 id="SVM实现"><a href="#SVM实现" class="headerlink" title="SVM实现"></a>SVM实现</h1><h2 id="SVM实现难点与核心"><a href="#SVM实现难点与核心" class="headerlink" title="SVM实现难点与核心"></a>SVM实现难点与核心</h2><p>SVM的关键在于核函数。低维空间向量集通常难于划分，解决的方法是将它们映射到高维空间。但这个办法带来的困难就是计算复杂度的增加，而核函数正好巧妙地解决了这个问题。</p>
+<p>也就是说，只要选用适当的核函数，就可以得到高维空间的分类函数。在SVM理论中，采用不同的核函数将导致不同的SVM算法。</p>
+<h2 id="SVM开源实现工具LIBSVM"><a href="#SVM开源实现工具LIBSVM" class="headerlink" title="SVM开源实现工具LIBSVM"></a>SVM开源实现工具LIBSVM</h2><p><strong>LIBSVM</strong>工具主页：<a href="http://www.csie.ntu.edu.tw/~cjlin/libsvm/" title="http://www.csie.ntu.edu.tw/~cjlin/libsvm/" target="_blank" rel="noopener">http://www.csie.ntu.edu.tw/~cjlin/libsvm/</a></p>
+<p>是由台湾大学林智仁(Lin Chih-Jen)副教授等开发设计的一个简单、易于使用和快速有效的SVM模式识别与回归的软件包.</p>
+<p>项目不但提供了编译好的可在Windows系列系统的执行文件，还提供了源代码，方便改进、修改以及在其它操作系统上应用；该软件对SVM所涉及的参数调节相对比较少，提供了很多的默认参数，利用这些默认参数可以解决很多问题；并提供了交互检验(Cross Validation)的功能。该软件可以解决C-SVM、ν-SVM、ε-SVR和ν-SVR等问题，包括基于一对一算法的多类模式识别问题</p>
+<p>LIBSVM拥有Java、Matlab、C#、Ruby、Python、R、Perl、Common LISP、Labview等数十种语言版本。最常使用的是Matlab、Java和命令行的版本。</p>
+<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ol>
+<li>WIKI-SVM: <a href="http://en.wikipedia.org/wiki/Support_vector_machine" title="http://en.wikipedia.org/wiki/Support_vector_machine" target="_blank" rel="noopener">http://en.wikipedia.org/wiki/Support_vector_machine</a></li>
+<li>WIKI-支持向量机：<a href="http://zh.wikipedia.org/zh/支持向量机" title="http://zh.wikipedia.org/zh/支持向量机" target="_blank" rel="noopener">http://zh.wikipedia.org/zh/支持向量机</a></li>
+<li>CSIE：<a href="http://www.csie.ntu.edu.tw/~cjlin/libsvm/" title="http://www.csie.ntu.edu.tw/~cjlin/libsvm/" target="_blank" rel="noopener">http://www.csie.ntu.edu.tw/~cjlin/libsvm/</a></li>
+<li>百科-SVM：<a href="http://baike.baidu.com/view/960509.html" title="http://baike.baidu.com/view/960509.html" target="_blank" rel="noopener">http://baike.baidu.com/view/960509.html</a></li>
+<li>百科-支持向量机：<a href="http://baike.baidu.com/view/541845.htm" title="http://baike.baidu.com/view/541845.htm" target="_blank" rel="noopener">http://baike.baidu.com/view/541845.htm</a></li>
+<li>百科-LIBSVM: <a href="http://baike.baidu.com/view/598089.htm" title="http://baike.baidu.com/view/598089.htm" target="_blank" rel="noopener">http://baike.baidu.com/view/598089.htm</a></li>
+</ol>
+
+      
+    </div>
+
+    
+      
+
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="/2010/11/linear-regression/" rel="bookmark">线性回归</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="/2010/12/rule-based-classification/" rel="bookmark">情感计算-基于规则分类</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="/2010/12/sentiment-analysis-brief/" rel="bookmark">文本情感分析概述</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="/2010/10/cross-validation/" rel="bookmark">交叉验证</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="/2010/11/lingpipe/" rel="bookmark">Java开源自然语言处理-LingPipe</a></div>
+      
+    </li>
+  
+  </ul>
+
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Vanjor</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="https://blog.vanjor.com/2010/11/support-vector-machine/" title="支持向量机SVM">https://blog.vanjor.com/2010/11/support-vector-machine/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/machine-learning/" rel="tag"># Machine Learning</a>
+          
+            <a href="/tags/classifier/" rel="tag"># Classifier</a>
+          
+            <a href="/tags/svm/" rel="tag"># SVM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2010/11/linear-regression/" rel="next" title="线性回归">
+                <i class="fa fa-chevron-left"></i> 线性回归
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2010/11/november-peace-unrest/" rel="prev" title="十一探乂">
+                十一探乂 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Vanjor">
+            
+              <p class="site-author-name" itemprop="name">Vanjor</p>
+              <div class="site-description motion-element" itemprop="description">personal tech blog</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">56</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">43</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/vanjor" title="GitHub &rarr; https://github.com/vanjor" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="mailto:vanjor2008@gmail.com" title="Mail &rarr; mailto:vanjor2008@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/vanjor" title="Weibo &rarr; https://weibo.com/vanjor" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://twitter.com/vanjor2008" title="Twitter &rarr; https://twitter.com/vanjor2008" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://www.facebook.com/vanjor" title="Facebook &rarr; https://www.facebook.com/vanjor" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://stackoverflow.com/users/2273014/vanjor" title="StackOverflow &rarr; https://stackoverflow.com/users/2273014/vanjor" rel="noopener" target="_blank"><i class="fa fa-fw fa-stack-overflow"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SVM定义"><span class="nav-number">1.</span> <span class="nav-text">SVM定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SVM目的"><span class="nav-number">2.</span> <span class="nav-text">SVM目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SVM推理引入"><span class="nav-number">3.</span> <span class="nav-text">SVM推理引入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SVM改进模型-软间隔（Soft-margin）"><span class="nav-number">3.1.</span> <span class="nav-text">SVM改进模型-软间隔（Soft margin）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SVM特性"><span class="nav-number">4.</span> <span class="nav-text">SVM特性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SVM实现"><span class="nav-number">5.</span> <span class="nav-text">SVM实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SVM实现难点与核心"><span class="nav-number">5.1.</span> <span class="nav-text">SVM实现难点与核心</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SVM开源实现工具LIBSVM"><span class="nav-number">5.2.</span> <span class="nav-text">SVM开源实现工具LIBSVM</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考："><span class="nav-number">6.</span> <span class="nav-text">参考：</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">  <a href="http://www.beian.miit.gov.cn" rel="noopener" target="_blank">京ICP备19002595号 </a>&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Vanjor</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">144k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">3:01</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.2"></script>
+
+  <script src="/js/motion.js?v=7.1.2"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.2"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.2"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.2"></script>
+<script src="/js/post-details.js?v=7.1.2"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.2"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: false,
+    appId: 'P9UDHn4P9cSCIXOdL1UGwCNf-gzGzoHsz',
+    appKey: 'YbI4jqWtf92Mj3ttovhYd2Rs',
+    placeholder: 'Write for your comments here',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+        // ref: https://github.com/ForbesLindesay/unescape-html
+        var unescapeHtml = function(html) {
+          return String(html)
+            .replace(/&quot;/g, '"')
+            .replace(/&#39;/g, '\'')
+            .replace(/&#x3A;/g, ':')
+            // replace all the other &#x; chars
+            .replace(/&#(\d+);/g, function (m, p) { return String.fromCharCode(p); })
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>')
+            .replace(/&amp;/g, '&');
+        };
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                content = unescapeHtml(content);
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1 }))
+                .done(function() {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function() {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + 'P9UDHn4P9cSCIXOdL1UGwCNf-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': 'P9UDHn4P9cSCIXOdL1UGwCNf-gzGzoHsz',
+                'X-LC-Key': 'YbI4jqWtf92Mj3ttovhYd2Rs',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            const localhost = /http:\/\/(localhost|127.0.0.1|0.0.0.0)/;
+            if (localhost.test(document.URL)) return;
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <script src="/lib/pangu/dist/pangu.min.js?v=3.3"></script>
+  <script>pangu.spacingPage();</script>
+
+
+  
+
+  
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      const selection = document.getSelection();
+      const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : false;
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+      if (selected) {
+        selection.removeAllRanges();
+        selection.addRange(selected);
+      }
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>

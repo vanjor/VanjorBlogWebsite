@@ -1,0 +1,2042 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-flash.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=7.1.2">
+
+
+  <link rel="mask-icon" href="/images/avatar.png?v=7.1.2" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="乘着微风徐来总结思考最近做的题目中关于java的的一些细节,也是笔试中java基础考核点">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Some basic details in Java">
+<meta property="og:url" content="https://blog.vanjor.com/2010/06/some-basic-details-in-java/index.html">
+<meta property="og:site_name" content="Vanjor&#39;s Blog">
+<meta property="og:description" content="乘着微风徐来总结思考最近做的题目中关于java的的一些细节,也是笔试中java基础考核点">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2010-06-06T11:27:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Some basic details in Java">
+<meta name="twitter:description" content="乘着微风徐来总结思考最近做的题目中关于java的的一些细节,也是笔试中java基础考核点">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Vanjor's Blog" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="https://blog.vanjor.com/2010/06/some-basic-details-in-java/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Some basic details in Java | Vanjor's Blog</title>
+  
+
+
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-43841261-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-43841261-1');
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Vanjor's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">notes</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">48</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">5</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">56</span></a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.vanjor.com/2010/06/some-basic-details-in-java/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Vanjor">
+      <meta itemprop="description" content="personal tech blog">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Vanjor's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Some basic details in Java<a href="https://github.com/vanjor/VanjorBlogWebsite/blob/source/source/_posts/2010/06/some-basic-details-in-java.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pencil"></i></a>
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2010-06-06 19:27:11" itemprop="dateCreated datePublished" datetime="2010-06-06T19:27:11+08:00">2010-06-06</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/learning/" itemprop="url" rel="index"><span itemprop="name">知识积累</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2010/06/some-basic-details-in-java/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2010/06/some-basic-details-in-java/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2010/06/some-basic-details-in-java/" class="leancloud_visitors" data-flag-title="Some basic details in Java">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">9.8k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">12 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>乘着微风徐来总结思考最近做的题目中关于java的的一些细节,也是笔试中java基础考核点</p>
+<a id="more"></a>
+<h1 id="java访问权限"><a href="#java访问权限" class="headerlink" title="java访问权限"></a>java访问权限</h1><p>Java 类访问权限修饰符表</p>
+<table>
+<thead>
+<tr>
+<th>修饰符</th>
+<th>同一个类(Self)</th>
+<th>同一个包(packages)</th>
+<th>不同包的子类(subclass)</th>
+<th>不同包的非子类(project or world)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>private</td>
+<td>yes</td>
+<td>no</td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>default</td>
+<td>yes</td>
+<td>yes</td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>protected</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+<td>no</td>
+</tr>
+<tr>
+<td>public</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>default又称无修饰符访问权限 或 friendly</li>
+<li>访问权限修饰符权限从高到低排列是public ,protected ,friendly, private。</li>
+</ul>
+<p>类所具有访问修饰符表</p>
+<table>
+<thead>
+<tr>
+<th>类</th>
+<th>访问修饰符</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>外部类</td>
+<td>单独类</td>
+<td>public,default,abstract,final (final,abstract 不能并存)</td>
+<td></td>
+</tr>
+<tr>
+<td>内部类</td>
+<td>普通内部类</td>
+<td>四种权限修饰符，final,abstract,static(即成为嵌套类)</td>
+<td></td>
+</tr>
+<tr>
+<td>内部类</td>
+<td>匿名内部类</td>
+<td>无修饰符</td>
+<td></td>
+</tr>
+<tr>
+<td>内部类</td>
+<td>嵌套类</td>
+<td>必含有static修饰符，可另有四种权限修饰符,final,abstract</td>
+<td></td>
+</tr>
+<tr>
+<td>内部类</td>
+<td>局部内部类</td>
+<td>final,abstract</td>
+</tr>
+</tbody>
+</table>
+<p>内部类说明</p>
+<ul>
+<li><strong>普通内部类</strong>: 对象内隐式保存了一个指向外围类对象的引用</li>
+<li><strong>匿名内部类</strong>: 在方法或作用域内的内部类，申明时刻同时创建类实例，用在只需要一个临时的实例，常见线程创建，监听器创建。</li>
+<li><strong>嵌套类</strong>: 直接申明普通内部类为static ，不需要内部类对象与外围类对象之间有关联。内部类不能访问外部类非static字段和方法。</li>
+<li><strong>局部内部类</strong>: 在方法或作用域内的内部类，在块内声明，在块内可以通过其构造函数创建多个类实例。</li>
+</ul>
+<p>参考</p>
+<ul>
+<li>详细说明：<a href="http://malipei.javaeye.com/blog/151135" target="_blank" rel="noopener">http://malipei.javaeye.com/blog/151135</a></li>
+<li>表格：<a href="http://www.cnitblog.com/dickznew/archive/2007/03/09/23779.html" target="_blank" rel="noopener">http://www.cnitblog.com/dickznew/archive/2007/03/09/23779.html</a></li>
+</ul>
+<h1 id="java基本类型"><a href="#java基本类型" class="headerlink" title="java基本类型"></a>java基本类型</h1><p>Java八大基本类型表：另特殊void，参考java编程思想中）</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>基本型别</th>
+<th>封装装类</th>
+<th>大小</th>
+<th>最小值</th>
+<th>最大值</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>整形</td>
+<td>char</td>
+<td>Character</td>
+<td>16-bit (2B)</td>
+<td>Unicode 0</td>
+<td>Unicode 2^16-1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>整形</td>
+<td>byte</td>
+<td>Byte</td>
+<td>8-bit (1B)</td>
+<td>-128</td>
+<td>+127</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>整形</td>
+<td>short</td>
+<td>Short</td>
+<td>16-bit (2B)</td>
+<td>-2^15</td>
+<td>+2^15-1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>整形</td>
+<td>int</td>
+<td>Integer</td>
+<td>32-bit (4B)</td>
+<td>-2^31</td>
+<td>+2^31-1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>整形</td>
+<td>long</td>
+<td>Long</td>
+<td>64-bit (8B)</td>
+<td>-2^63</td>
+<td>+2^63-1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>浮点型</td>
+<td>float</td>
+<td>Float</td>
+<td>32-bit (4B)</td>
+<td>IEEE754</td>
+<td>IEEE754</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>浮点型</td>
+<td>double</td>
+<td>Double</td>
+<td>64-bit (8B)</td>
+<td>IEEE754</td>
+<td>IEEE754</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>布尔类型</td>
+<td>boolean</td>
+<td>Boolean</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>特殊</td>
+<td>void</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>补充</p>
+<ul>
+<li>另两个高精度计算类：BigInteger与BigDecimal，支持任意精度的整数和定点数</li>
+<li>java基本数据类型是存储在堆栈中，而大多数对象的实例中内容是分配存储在堆中。</li>
+<li>java中没有sizeof()方法，基本类型长度都一定，并封装在封装类中，如java.lang.Integer.SIZE，java.lang.Integer.MAX_VALUE</li>
+</ul>
+<h1 id="万类超类-Object"><a href="#万类超类-Object" class="headerlink" title="万类超类-Object"></a>万类超类-Object</h1><p>概述</p>
+<ul>
+<li>Object类是所有类的基类。在不明确给出超类的情况下，java会自动把object作为要定义类的超类。</li>
+<li>可以使用类型为object的变量指向任意类型的对象。Object obj=new String(“abc”);当然，Object类型的变量只能用作各种值得通用持有者，要对他们进行任何专门的操作，都需要知道他们的原始类型并进行类型转换。String e=(String)obj;</li>
+</ul>
+<p>Object的常用方法</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>定义作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>boolean equals()</td>
+<td>比较对象是否相等，Object内部通过==判断实现，如果两个对象指向同一内存区域，则返回真，否则返回false。经常会被子类覆盖，自定义成判断两对象内容是否对应相等。</td>
+</tr>
+<tr>
+<td>String toString()</td>
+<td>返回表示当前对象值的字符串</td>
+</tr>
+<tr>
+<td>Class  getClass()</td>
+<td>返回类定义的类对象。该对象含有关于当前对象的信息</td>
+</tr>
+<tr>
+<td>Object clone()</td>
+<td>创建对象的副本，java为新实例分配内存，并且将当前类所占内存中的内容拷贝到新实例的内存中</td>
+</tr>
+<tr>
+<td>int hashCode()</td>
+<td>返回对象的hash码，Object中是native实现，方便 java.util.Hashtable中使用</td>
+</tr>
+</tbody>
+</table>
+<p>equals()和 hashCode()用法</p>
+<p>Java API中定义equal()覆盖规则</p>
+<ul>
+<li>对称性：如果x.equals(y)返回是“true”，那么y.equals(x)也应该返回是“true”。</li>
+<li>反射性：x.equals(x)必须返回是“true”。</li>
+<li>类推性：如果x.equals(y)返回是“true”，而且y.equals(z)返回是“true”，那么z.equals(x)也应该返回是“true”。</li>
+<li>一致性：如果x.equals(y)返回是“true”，只要x和y内容一直不变，不重复x.equals(y)多少次，返回都是“true”。</li>
+<li>其他：x.equals(null)，永远返回是“false”；x.equals(和x不同类型的对象)永远返回是“false”。</li>
+</ul>
+<p>Java API中定义hashCode()覆盖规范</p>
+<ul>
+<li>如果两个对象相同(<strong>运用equals方法比较</strong>)，那么它们的hashCode值一定要相同(如：new String(“abc”).hashCode()==new String(“abc”).hashCode()为真)；</li>
+<li>如果两个对象的hashCode相同，它们并不一定相同 。</li>
+</ul>
+<p><strong>组队使用场景</strong><br>在自定义类，并运用容器处理时，需要子重写hashCode与equals,在HashMap内部实现中，如 public V put(K key, V value) ;判断是否已存在键是通过 ( e.hash == hash  &amp;&amp;  ( (k = e.key) == key || key.equals(k) ) ) 判断的，也就可以看出是要同时判断hashCode与equals，此处有疑问，个人认为可以这样写 ((k = e.key) == key)||e.hash == hash &amp;&amp; key.equals(k)),如果引用都一样，那么就直接可以判等了。</p>
+<p>样例：适HashMap装填自定义类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">MyData</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> a;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> b;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyData</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.a = a;</span><br><span class="line">        <span class="keyword">this</span>.b = b;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (obj == <span class="keyword">this</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!(obj <span class="keyword">instanceof</span> MyData)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> ((<span class="keyword">this</span>.a == ((MyData) obj).a) &amp;&amp; (<span class="keyword">this</span>.b == ((MyData) obj).b)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a+b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参考</p>
+<ul>
+<li>Java面试基本类型：<a href="http://hi.baidu.com/setcc/blog/item/f1346cfacbd481106d22ebf5.html" target="_blank" rel="noopener">http://hi.baidu.com/setcc/blog/item/f1346cfacbd481106d22ebf5.html</a></li>
+<li>Java基本类型：<a href="http://tech.e800.com.cn/articles/2009/916/1253068489832_1.html" target="_blank" rel="noopener">http://tech.e800.com.cn/articles/2009/916/1253068489832_1.html</a></li>
+<li>equals和hashCode的API分析：<a href="http://lionheart.javaeye.com/blog/135077" target="_blank" rel="noopener">http://lionheart.javaeye.com/blog/135077</a></li>
+<li>equals和hashCode使用说明：<a href="http://blog.csdn.net/RichardSundusky/archive/2007/02/12/1508028.aspx" target="_blank" rel="noopener">http://blog.csdn.net/RichardSundusky/archive/2007/02/12/1508028.aspx</a></li>
+</ul>
+<h1 id="java-lang-String类"><a href="#java-lang-String类" class="headerlink" title="java.lang.String类"></a>java.lang.String类</h1><p><strong>API解析</strong><br>String类是final类型，不可被继承, String类是的本质是字符数组char[], 并且其值不可改变。String内部字段private final char value[];</p>
+<p><strong>String池</strong><br>Java运行时会维护一个String Pool（String池），JavaDoc翻译很模糊“字符串缓冲区”。String池用来存放运行时中产生的各种字符串，并且池中的字符串的内容不重复。而一般对象不存在这个缓冲池，并且创建的对象仅仅存在于方法的堆栈区，当使用任何方式来创建一个字符串对象s时，Java运行时（运行中JVM）会拿着这个X在String池中找是否存在内容相同的字符串对象，如果不存在，则在池中创建一个字符串s，否则，不在池中添加。</p>
+<p><strong>String两种创建方式</strong>:</p>
+<ul>
+<li>使用new关键字创建字符串，比如String s1 = new String(“abc”);只要使用new关键字来创建对象，则一定会（在堆区或栈区）创建一个新的对象。</li>
+<li>直接指定。比如String s2 = “abc”;使用直接指定或者使用纯字符串串联来创建String对象，则仅仅会检查维护String池中的字符串，池中没有就在池中创建一个，有则指向池内对应的地址。</li>
+</ul>
+<p><strong>intern()方法</strong><br>String的intern()方法就是扩充常量池的一个方法（字符串常量，可以通过String.intern()方法来实现共享一个单独的String实例的目的）；当一个String实例str调用intern()方法时，Java查找常量池中是否有相同Unicode的字符串常量，如果有，则返回其的引用，如果没有，则在常量池中增加一个Unicode等于str的字符串并返回它的引用。</p>
+<p><strong>判断String相等</strong>:</p>
+<ul>
+<li>==判断，是判断两String引用是否指向同一存储地址</li>
+<li>equals();先判断是否同为String对象，然后判断对应值是否相等</li>
+</ul>
+<p><strong>String运算效率</strong><br>String值操作 a+b; a.concat();new StringBuffer().append();在大量连续操作中，效率由低到高。</p>
+<p><strong>考察题目</strong> String s = new String(“xyz”);创建了两个String Object，一个在String池中，一个在堆中。</p>
+<p>代码样例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">String a = <span class="string">"abc"</span>;</span><br><span class="line">String b = <span class="keyword">new</span> String(<span class="string">"abc"</span>);</span><br><span class="line">String c = b.intern();</span><br><span class="line">System.out.println(a == b); <span class="comment">//false,地址比较</span></span><br><span class="line">System.out.println(a.equals(b)); <span class="comment">//true，值比较</span></span><br><span class="line">System.out.println(a==<span class="string">"abcc"</span>.substring(<span class="number">0</span>, <span class="number">3</span>)); <span class="comment">//substring返回内部是用new String()实现！</span></span><br><span class="line">System.out.println(a==<span class="string">"abc"</span>+<span class="string">""</span>);<span class="comment">//+运算，并且两端都为直接量，都是在String池中存储</span></span><br><span class="line">System.out.println(a==c); <span class="comment">//intern();返回String池常驻引用</span></span><br><span class="line">b=b+<span class="string">"c"</span>;</span><br><span class="line">a=a+<span class="string">"c"</span>;</span><br><span class="line">System.out.println(b==<span class="string">"abcc"</span>);  <span class="comment">//false,当+两段有引用量，则内部new String()并栈独立存储</span></span><br><span class="line">System.out.println(a==<span class="string">"abcc"</span>);  <span class="comment">//false,同上</span></span><br></pre></td></tr></table></figure>
+<p>参考</p>
+<ul>
+<li>Sun邮件String讨论：<a href="http://dlstone.bokee.com/185678.html" target="_blank" rel="noopener">http://dlstone.bokee.com/185678.html</a></li>
+<li>Java String分析：<a href="http://laiseeme.javaeye.com/blog/102442" target="_blank" rel="noopener">http://laiseeme.javaeye.com/blog/102442</a></li>
+<li>java Native方法：<a href="http://www.javaeye.com/topic/72543" target="_blank" rel="noopener">http://www.javaeye.com/topic/72543</a></li>
+</ul>
+<p>** Java操作符instanceof</p>
+<p><strong>概述：</strong> instanceof运算符是用来在运行时指出对象是否是特定类的一个实例。instanceof 通过返回一个布尔值来指出，这个对象是否是这个特定类或者是它的子类的一个实例。 原理：利用<strong>RTTI</strong>:运行时类型识别（run-time type identification,RTTI）,可以实现多态，向上转型，类型检查。 不同于<strong>反射</strong>，在反射里：.class在编译时不可获得，是在运行时，打开检查.class文件，并构建类对象。</p>
+<p><strong>用法：</strong> boolean result = object instanceof class 参数：result：object 任意对象；class：任意已定义的对象类,即类名 说明：如果 object 是 class 的一个实例，则 instanceof 运算符返回 true。如果 object 不是指定类的一个实例，或者 object 是 null，则返回 false。</p>
+<p>样列</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> System.out.println(<span class="keyword">new</span> Thread() <span class="keyword">instanceof</span> Runnable); <span class="comment">//true 接口适用，</span></span><br><span class="line"> System.out.println(<span class="string">"abc"</span> <span class="keyword">instanceof</span> String); <span class="comment">//true本类适用，特许类枚举类也适用</span></span><br><span class="line"> System.out.println(<span class="string">"abc"</span> <span class="keyword">instanceof</span> Object); <span class="comment">//true超类适用</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*以下为其他几种方式判断</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">System.out.println(<span class="string">""</span>.getClass()==String<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">System.out.println(<span class="string">""</span>.getClass().equals(String<span class="class">.<span class="keyword">class</span>))</span>;</span><br><span class="line">System.out.println(String.class.isInstance(""));</span><br></pre></td></tr></table></figure>
+<h1 id="Java超类子类关系"><a href="#Java超类子类关系" class="headerlink" title="Java超类子类关系"></a>Java超类子类关系</h1><p>总结</p>
+<ul>
+<li>main入口类首先编译，如果所在类继承其他类，其他类先于main当前类编译。</li>
+<li>超类先于子类编译，构造初始化，初始化子类是先初始化超类</li>
+</ul>
+<p><strong>样列</strong>:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//基类Base</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Base</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> local=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">staticPrint</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"base static print"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span>  <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"base non-static print"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Base</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"base  initial"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pLocal</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(local);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">"base static"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//子类Sub</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Sub</span> <span class="keyword">extends</span> <span class="title">Base</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> local = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Sub</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"sub initial"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">staticPrint</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"sub static print"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"sub non-static print"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pLocal</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(local);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">"sub static"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//测试类Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">"test static"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String\[\] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"0***********"</span>);</span><br><span class="line">        Base s;</span><br><span class="line">        System.out.println(<span class="string">"1***********"</span>);</span><br><span class="line">        s = <span class="keyword">new</span> Sub();</span><br><span class="line">        System.out.println(<span class="string">"2***********"</span>);</span><br><span class="line">        s.staticPrint(); <span class="comment">// 直接调用Base的静态输出</span></span><br><span class="line">        System.out.println(<span class="string">"3***********"</span>);</span><br><span class="line">        s.print(); <span class="comment">// 最终对象sub中覆盖了此方法，执行子类中方法</span></span><br><span class="line">        System.out.println(<span class="string">"4***********"</span>);</span><br><span class="line">        s.pLocal(); <span class="comment">// 同3,执行sub类中的方法</span></span><br><span class="line">        System.out.println(<span class="string">"5***********"</span>);</span><br><span class="line">        System.out.println(s.local); <span class="comment">// 找字段，直接找当前应用类型字段，此处为Base基类对应字段，</span></span><br><span class="line">        System.out.println(<span class="string">"6***********"</span>);</span><br><span class="line">        System.out.println(((Sub) s).local);<span class="comment">// 强制恢复转型为Sub后，获取的是Sub的字段值</span></span><br><span class="line">        System.out.println(<span class="string">"7***********"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">test static</span><br><span class="line">0***********</span><br><span class="line">1***********</span><br><span class="line">base static</span><br><span class="line">sub static</span><br><span class="line">base  initial</span><br><span class="line">sub initial</span><br><span class="line">2***********</span><br><span class="line">base static print</span><br><span class="line">3***********</span><br><span class="line">sub non-static print</span><br><span class="line">4***********</span><br><span class="line">1</span><br><span class="line">5***********</span><br><span class="line">0</span><br><span class="line">6***********</span><br><span class="line">1</span><br><span class="line">7***********</span><br></pre></td></tr></table></figure>
+<h1 id="Java修饰符final，static"><a href="#Java修饰符final，static" class="headerlink" title="Java修饰符final，static"></a>Java修饰符final，static</h1><h2 id="final"><a href="#final" class="headerlink" title="final"></a>final</h2><p><strong>final 数据</strong>:</p>
+<ul>
+<li>场景：1永不改变的编译时常量，2对象不可改变应用（对象内部可以改变）</li>
+<li>final数据：final是数据值不变，即是final又是static的字段只占据一段不能改变的存储空间</li>
+</ul>
+<p><strong>final 参数</strong><br>Java允许在参数列表中以声明的方式将参数值为final，使得在方法的内部无法更改参数引用所指向的对象的引用，但可改变对象内部属性。</p>
+<p><strong>final 方法</strong>:</p>
+<ul>
+<li>把方法锁定，在继承中不能被覆盖，保证方法行为不变；</li>
+<li>方法指定为final，就是同意编译器将针对该方法的所有调用转为内嵌调用（类似编译时宏迭代而非运行时方法调用），可以消除方法调用压栈出栈等开销。（适用于方法体较小的方法）</li>
+</ul>
+<p><strong>final类</strong><br>被声明为final的类不允许被继承，并且所有类方法都对应隐式声明为final</p>
+<p>附注</p>
+<ul>
+<li>类中的所有private方法都隐式指定为final，由于类中的private方法不能被覆盖，因此子类中同名方法即使创建新方法，不存在覆盖概念。</li>
+<li>接口字段隐式自动声明为static和final，所有的方法自动是public，（显示声明public与否都不影响）</li>
+</ul>
+<h2 id="static"><a href="#static" class="headerlink" title="static"></a>static</h2><p>用static修饰的代码块表示静态代码块，当Java虚拟机（JVM）加载类时，就会执行该代码块（用处非常大）。 <strong>static:</strong> static在Java语言中的使用有四种：(变量、方法、代码块、内部类)</p>
+<p><strong>static变量</strong> 按照是否静态的对类成员变量进行分类可分两种：</p>
+<ul>
+<li>一种是被static修饰的变量，叫静态变量或类变量</li>
+<li>另一种是没有被static修饰的变量，叫实例变量。</li>
+</ul>
+<p>两者的区别是：</p>
+<ul>
+<li>对于静态变量在内存中只有一个拷贝（节省内存），JVM只为静态分配一次内存，在加载类的过程中完成静态变量的内存分配，可用类名直接访问（方便），当然也可以通过对象来访问（但是这是不推荐的）。</li>
+<li>对于实例变量，没创建一个实例，就会为实例变量分配一次内存，实例变量可以在内存中有多个拷贝，互不影响（灵活）。</li>
+</ul>
+<p><strong>静态方法</strong> 静态方法可以直接通过类名调用，任何的实例也都可以调用，因此静态方法中不能用this和super关键字，不能直接访问所属类的实例变量和实例方法(就是不带static的成员变量和成员成员方法)，只能访问所属类的静态成员变量和成员方法。 因为static方法独立于任何实例，因此static方法必须被实现，而不能是抽象的abstract。</p>
+<p><strong>static代码块</strong> static代码块也叫静态代码块，是在类中独立于类成员的static语句块，可以有多个，位置可以随便放，它不在任何的方法体内，JVM加载类时会执行这些静态的代码块，如果static代码块有多个，JVM将按照它们在类中出现的先后顺序依次执行它们，每个代码块只会被执行一次。</p>
+<p><strong>静态内部类-即为嵌套类</strong>:</p>
+<ul>
+<li>为创建一个static内部类的对象，我们不需要一个外部类对象。  </li>
+<li>不能从static内部类的一个对象中访问一个外部类对象。</li>
+</ul>
+<p>参考：</p>
+<ul>
+<li>Java中static详解：<a href="http://jeelee.javaeye.com/blog/528508" target="_blank" rel="noopener">http://jeelee.javaeye.com/blog/528508</a></li>
+</ul>
+
+      
+    </div>
+
+    
+      
+
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="/2010/05/singleton/" rel="bookmark">设计模式-单例模式</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="/2010/08/java-resources-locate/" rel="bookmark">最佳实践-Java资源路径定位</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="/2010/11/template-method/" rel="bookmark">设计模式-模板方法</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="/2010/12/java-windowbuilder/" rel="bookmark">Java界面开发工具WindowBuilder</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="/2016/10/maven-version-control/" rel="bookmark">基于Maven的Java包版本管理</a></div>
+      
+    </li>
+  
+  </ul>
+
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Vanjor</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="https://blog.vanjor.com/2010/06/some-basic-details-in-java/" title="Some basic details in Java">https://blog.vanjor.com/2010/06/some-basic-details-in-java/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2010/05/singleton/" rel="next" title="设计模式-单例模式">
+                <i class="fa fa-chevron-left"></i> 设计模式-单例模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2010/06/daily-life-using-googles/" rel="prev" title="Daily life using Google's">
+                Daily life using Google's <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Vanjor">
+            
+              <p class="site-author-name" itemprop="name">Vanjor</p>
+              <div class="site-description motion-element" itemprop="description">personal tech blog</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">56</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">43</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/vanjor" title="GitHub &rarr; https://github.com/vanjor" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="mailto:vanjor2008@gmail.com" title="Mail &rarr; mailto:vanjor2008@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/vanjor" title="Weibo &rarr; https://weibo.com/vanjor" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://twitter.com/vanjor2008" title="Twitter &rarr; https://twitter.com/vanjor2008" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://www.facebook.com/vanjor" title="Facebook &rarr; https://www.facebook.com/vanjor" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://stackoverflow.com/users/2273014/vanjor" title="StackOverflow &rarr; https://stackoverflow.com/users/2273014/vanjor" rel="noopener" target="_blank"><i class="fa fa-fw fa-stack-overflow"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#java访问权限"><span class="nav-number">1.</span> <span class="nav-text">java访问权限</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#java基本类型"><span class="nav-number">2.</span> <span class="nav-text">java基本类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#万类超类-Object"><span class="nav-number">3.</span> <span class="nav-text">万类超类-Object</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#java-lang-String类"><span class="nav-number">4.</span> <span class="nav-text">java.lang.String类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java超类子类关系"><span class="nav-number">5.</span> <span class="nav-text">Java超类子类关系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java修饰符final，static"><span class="nav-number">6.</span> <span class="nav-text">Java修饰符final，static</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#final"><span class="nav-number">6.1.</span> <span class="nav-text">final</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#static"><span class="nav-number">6.2.</span> <span class="nav-text">static</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">  <a href="http://www.beian.miit.gov.cn" rel="noopener" target="_blank">京ICP备19002595号 </a>&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Vanjor</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">144k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">3:01</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.2"></script>
+
+  <script src="/js/motion.js?v=7.1.2"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.2"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.2"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.2"></script>
+<script src="/js/post-details.js?v=7.1.2"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.2"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: false,
+    appId: 'P9UDHn4P9cSCIXOdL1UGwCNf-gzGzoHsz',
+    appKey: 'YbI4jqWtf92Mj3ttovhYd2Rs',
+    placeholder: 'Write for your comments here',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+        // ref: https://github.com/ForbesLindesay/unescape-html
+        var unescapeHtml = function(html) {
+          return String(html)
+            .replace(/&quot;/g, '"')
+            .replace(/&#39;/g, '\'')
+            .replace(/&#x3A;/g, ':')
+            // replace all the other &#x; chars
+            .replace(/&#(\d+);/g, function (m, p) { return String.fromCharCode(p); })
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>')
+            .replace(/&amp;/g, '&');
+        };
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                content = unescapeHtml(content);
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1 }))
+                .done(function() {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function() {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + 'P9UDHn4P9cSCIXOdL1UGwCNf-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': 'P9UDHn4P9cSCIXOdL1UGwCNf-gzGzoHsz',
+                'X-LC-Key': 'YbI4jqWtf92Mj3ttovhYd2Rs',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            const localhost = /http:\/\/(localhost|127.0.0.1|0.0.0.0)/;
+            if (localhost.test(document.URL)) return;
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <script src="/lib/pangu/dist/pangu.min.js?v=3.3"></script>
+  <script>pangu.spacingPage();</script>
+
+
+  
+
+  
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      const selection = document.getSelection();
+      const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : false;
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+      if (selected) {
+        selection.removeAllRanges();
+        selection.addRange(selected);
+      }
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>
